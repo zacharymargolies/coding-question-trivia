@@ -1,32 +1,60 @@
 "use strict";
 
 const db = require("../server/db");
-const { Fact } = require("../server/db/models");
+const { Fact, Topic } = require("../server/db/models");
 
 const newFacts = [
   {
-    topic: "HTML",
+    // topicId: 1,
     content: "content-1"
   },
   {
-    topic: "HTML",
+    // topicId: 1,
     content: "content-2"
   },
   {
-    topic: "HTML",
+    // topicId: 1,
     content: "content-3"
   },
   {
-    topic: "HTML",
+    // topicId: 1,
     content: "content-4"
   },
   {
-    topic: "HTML",
+    // topicId: 1,
     content: "content-5"
   }
 ];
 
-const seed = () => Promise.all(newFacts.map(fact => Fact.create(fact)));
+const newTopics = [
+  {
+    main: "HTML"
+  },
+  {
+    main: "CSS"
+  },
+  {
+    main: "Javascript"
+  },
+  {
+    main: "NodeJS"
+  },
+  {
+    main: "ExpressJS"
+  },
+  {
+    main: "React"
+  },
+  {
+    main: "Redux"
+  }
+];
+
+const seed = () =>
+  Promise.all(
+    newFacts.map(fact => Fact.create(fact)),
+    newTopics.map(topic => Topic.create(topic))
+  );
 
 const main = () => {
   console.log("Syncing db...");

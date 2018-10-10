@@ -24,14 +24,15 @@ export default class HomeScreen extends React.Component {
     super(props);
 
     this.state = {
-      facts: []
+      facts: [],
+      showContent: false
     };
   }
 
   async componentDidMount() {
-    console.log("COMPONENT MOUNTED");
     try {
-      const facts = await axios.get("http://localhost:8080/api/facts");
+      // const facts = await axios.get("http://localhost:8080/api/facts");
+      const facts = await axios.get("http://192.168.1.4:8080/api/facts");
       this.setState({ facts: facts.data });
     } catch (err) {
       console.log(err);
@@ -39,6 +40,7 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    console.log("RENDER");
     if (this.state.facts.length) {
       return (
         <View style={styles.container}>
@@ -53,22 +55,23 @@ export default class HomeScreen extends React.Component {
             }}
             onSwiped={cardIndex => {
               console.log(cardIndex);
+              this.setState({ showContent: false });
             }}
             onSwipedAll={() => {
-              console.log("onSwipedAll");
+              console.log("You've finished all the cards!");
             }}
             cardIndex={0}
             backgroundColor={"#4FD0E9"}
             stackSize={3}
           >
-            <Button
+            {/* <Button
               onPress={() => {
                 console.log("oulala");
               }}
               title="Press me"
             >
               You can press me
-            </Button>
+            </Button> */}
           </Swiper>
         </View>
       );

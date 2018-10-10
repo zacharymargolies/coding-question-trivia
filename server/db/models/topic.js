@@ -1,11 +1,14 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Fact = db.define("fact", {
-  content: {
+const Topic = db.define("topics", {
+  main: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  sub: {
+    type: Sequelize.ARRAY(Sequelize.STRING)
   }
 });
 
-module.exports = Fact;
+module.exports = Topic;
