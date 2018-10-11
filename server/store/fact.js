@@ -1,18 +1,37 @@
 import axios from 'axios';
 
 // ACTION TYPES
-const GET_ALL_FACTS = 'GET_ALL_FACTS';
+const SET_CURRENT_FACTS = 'SET_CURRENT_FACTS';
+const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
 
 // ACTION CREATORS
-const getAllFacts = allFacts => ({ type: GET_ALL_FACTS, allFacts });
+export const setCurrentFacts = allFacts => ({
+  type: SET_CURRENT_FACTS,
+  allFacts
+});
+export const setCurrentTopic = topicId => ({
+  type: SET_CURRENT_TOPIC,
+  topicId
+});
 
 // THUNK CREATORS
 export const fetchAllFacts = () => async dispatch => {
   try {
-    console.log('FETCH ALL FACTS CALLED');
     const request = await axios.get('http://localhost:8080/api/facts');
     const allFacts = request.data;
-    dispatch(getAllFacts(allFacts));
+    dispatch(setCurrentFacts(allFacts));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const fetchFactsByTopic = topicId => async dispatch => {
+  try {
+    const request = await axios.get(
+      `http://localhost:8080/api/facts/${topicId}`
+    );
+    const facts = request.data;
+    dispatch(setCurrentFacts(facts));
   } catch (err) {
     console.log(err);
   }
@@ -20,16 +39,22 @@ export const fetchAllFacts = () => async dispatch => {
 
 // INITIAL STATE
 const initialState = {
-  facts: []
+  facts: [],
+  topicId: null
 };
 
 // REDUCER
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_ALL_FACTS:
+    case SET_CURRENT_FACTS:
       return {
         ...state,
         facts: action.allFacts
+      };
+    case SET_CURRENT_TOPIC:
+      return {
+        ...state,
+        facts: action.topicId
       };
     default:
       return state;

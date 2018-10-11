@@ -1,22 +1,12 @@
-import axios from "axios";
-import React, { Component } from "react";
-import { Text } from "react-native";
-import { List, ListItem } from "react-native-elements";
+import axios from 'axios';
+import React, { Component } from 'react';
+import { List, ListItem } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { setCurrentTopic } from '../server/store/fact';
 
-const icon = "av-timer";
+const icon = 'av-timer';
 
-// const list = [
-//   {
-//     title: "Appointments",
-//     icon: "av-timer"
-//   },
-//   {
-//     title: "Trips",
-//     icon: "flight-takeoff"
-//   }
-// ];
-
-export default class MenuScreen extends Component {
+class MenuScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -26,20 +16,20 @@ export default class MenuScreen extends Component {
   }
 
   async componentDidMount() {
-    const request = await axios.get("http://192.168.1.4:8080/api/topics/");
+    const request = await axios.get('http://localhost:8080/api/topics/');
     this.setState({ topics: request.data });
   }
 
   render() {
     const { navigate } = this.props.navigation;
-    console.log("NAVIGATE: ", navigate);
     return (
       <List>
         {this.state.topics.map(topic => (
           <ListItem
             onPress={() => {
-              console.log("LIST ITEM PRESSED: ", topic.main);
-              navigate("Home");
+              console.log('LIST ITEM PRESSED: ', topic.id);
+              this.props.setCurrentTopic(topic.id);
+              navigate('Home');
             }}
             key={topic.main}
             title={topic.main}
@@ -50,3 +40,14 @@ export default class MenuScreen extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentTopic: topicId => {
+    dispatch(setCurrentTopic(topicId));
+  }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(MenuScreen);
