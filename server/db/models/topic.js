@@ -6,6 +6,11 @@ const Topic = db.define("topics", {
     type: Sequelize.STRING,
     allowNull: false
   },
+  image: {
+    type: Sequelize.STRING,
+    defaultValue:
+      "https://deal5star.com/wp-content/uploads/2018/07/Practical-Front-end-Web-Development-Learn-With-Projects.jpg"
+  },
   sub: {
     type: Sequelize.ARRAY(Sequelize.STRING)
   }

@@ -1,10 +1,10 @@
-import axios from 'axios';
-import React, { Component } from 'react';
-import { List, ListItem } from 'react-native-elements';
-import { connect } from 'react-redux';
-import { setCurrentTopic } from '../server/store/fact';
+import axios from "axios";
+import React, { Component } from "react";
+import { List, ListItem } from "react-native-elements";
+import { connect } from "react-redux";
+import { setCurrentTopic, fetchFactsByTopic } from "../server/store/fact";
 
-const icon = 'av-timer';
+const icon = "av-timer";
 
 class MenuScreen extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class MenuScreen extends Component {
   }
 
   async componentDidMount() {
-    const request = await axios.get('http://localhost:8080/api/topics/');
+    const request = await axios.get("http://localhost:8080/api/topics/");
     this.setState({ topics: request.data });
   }
 
@@ -26,14 +26,17 @@ class MenuScreen extends Component {
       <List>
         {this.state.topics.map(topic => (
           <ListItem
-            onPress={() => {
-              console.log('LIST ITEM PRESSED: ', topic.id);
+            onPress={async () => {
               this.props.setCurrentTopic(topic.id);
-              navigate('Home');
+              await this.props.getFactsByTopic(topic.id);
+              navigate("Home");
+            }}
+            roundAvatar
+            avatar={{
+              uri: topic.image
             }}
             key={topic.main}
             title={topic.main}
-            leftIcon={{ name: icon }}
           />
         ))}
       </List>
@@ -44,6 +47,9 @@ class MenuScreen extends Component {
 const mapDispatchToProps = dispatch => ({
   setCurrentTopic: topicId => {
     dispatch(setCurrentTopic(topicId));
+  },
+  getFactsByTopic: topicId => {
+    dispatch(fetchFactsByTopic(topicId));
   }
 });
 

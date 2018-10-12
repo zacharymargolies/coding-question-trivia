@@ -46,6 +46,6 @@ MenuStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  MenuStack
+  MenuStack,
+  HomeStack
 });
