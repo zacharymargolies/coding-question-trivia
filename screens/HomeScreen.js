@@ -2,6 +2,7 @@ import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import { connect } from "react-redux";
+import { Card, Button, Icon } from "react-native-elements";
 
 import { fetchAllFacts, fetchFactsByTopic } from "../server/store/fact";
 
@@ -11,6 +12,7 @@ class HomeScreen extends React.Component {
   };
 
   render() {
+    const { navigate } = this.props.navigation;
     if (this.props.facts.length) {
       return (
         <View style={styles.container}>
@@ -19,7 +21,23 @@ class HomeScreen extends React.Component {
             renderCard={fact => {
               return (
                 <View style={styles.card}>
-                  <Text style={styles.text}>{fact.content}</Text>
+                  <Card
+                    title={fact.topic.main}
+                    image={require("../assets/images/developer.jpg")}
+                  >
+                    <Text style={{ marginBottom: 10 }}>{fact.content}</Text>
+                    {/* <Button
+                      icon={<Icon name="code" color="#ffffff" />}
+                      backgroundColor="#03A9F4"
+                      buttonStyle={{
+                        borderRadius: 0,
+                        marginLeft: 0,
+                        marginRight: 0,
+                        marginBottom: 0
+                      }}
+                      title="VIEW NOW"
+                    /> */}
+                  </Card>
                 </View>
               );
             }}
@@ -29,6 +47,7 @@ class HomeScreen extends React.Component {
             }}
             onSwipedAll={() => {
               console.log("You've finished all the cards!");
+              navigate("Menu");
             }}
             cardIndex={0}
             backgroundColor="#4FD0E9"
@@ -50,49 +69,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: "rgba(0,0,0,0.4)",
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: "center"
-  },
-  contentContainer: {
-    paddingTop: 30
-  },
-  welcomeContainer: {
-    alignItems: "center",
-    marginTop: 10,
-    marginBottom: 20
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: "contain",
-    marginTop: 3,
-    marginLeft: -10
-  },
-  getStartedContainer: {
-    alignItems: "center",
-    marginHorizontal: 50
-  },
-  homeScreenFilename: {
-    marginVertical: 7
-  },
-  codeHighlightText: {
-    color: "rgba(96,100,109, 0.8)"
-  },
-  codeHighlightContainer: {
-    backgroundColor: "rgba(0,0,0,0.05)",
-    borderRadius: 3,
-    paddingHorizontal: 4
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    lineHeight: 24,
-    textAlign: "center"
   },
   tabBarInfoContainer: {
     position: "absolute",

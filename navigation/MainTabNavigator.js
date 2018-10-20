@@ -45,7 +45,22 @@ MenuStack.navigationOptions = {
   )
 };
 
-export default createBottomTabNavigator({
-  MenuStack,
-  HomeStack
-});
+export default createBottomTabNavigator(
+  {
+    MenuStack,
+    HomeStack
+  },
+  {
+    tabBarOptions: {
+      tabStyle: {
+        // height: 10,
+        // backgroundColor: "blue"
+      },
+      style: {
+        marginBottom: -15
+        // height: 100,
+        // backgroundColor: "yellow"
+      }
+    }
+  }
+);
