@@ -1,8 +1,7 @@
 import React from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View, Image } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import { connect } from "react-redux";
-import { Card, Button, Icon } from "react-native-elements";
 
 import { fetchAllFacts, fetchFactsByTopic } from "../server/store/fact";
 
@@ -15,45 +14,42 @@ class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
     if (this.props.facts.length) {
       return (
-        <View style={styles.container}>
-          <Swiper
-            cards={this.props.facts}
-            renderCard={fact => {
-              return (
-                <View style={styles.card}>
-                  <Card
-                    title={fact.topic.main}
-                    image={require("../assets/images/developer.jpg")}
-                  >
-                    <Text style={{ marginBottom: 10 }}>{fact.content}</Text>
-                    {/* <Button
-                      icon={<Icon name="code" color="#ffffff" />}
-                      backgroundColor="#03A9F4"
-                      buttonStyle={{
-                        borderRadius: 0,
-                        marginLeft: 0,
-                        marginRight: 0,
-                        marginBottom: 0
-                      }}
-                      title="VIEW NOW"
-                    /> */}
-                  </Card>
+        <Swiper
+          cards={this.props.facts}
+          renderCard={fact => {
+            return (
+              <View style={styles.card}>
+                // TOPIC
+                <View style={styles.topicContainer}>
+                  <Text style={styles.topicText}> {fact.topic.main} </Text>
                 </View>
-              );
-            }}
-            onSwiped={cardIndex => {
-              console.log(cardIndex);
-              this.setState({ showContent: false });
-            }}
-            onSwipedAll={() => {
-              console.log("You've finished all the cards!");
-              navigate("Menu");
-            }}
-            cardIndex={0}
-            backgroundColor="#4FD0E9"
-            stackSize={3}
-          />
-        </View>
+                // IMAGE
+                <View style={styles.imageContainer}>
+                  <Image
+                    source={require("../assets/images/developer.jpg")}
+                    style={styles.image}
+                  />
+                </View>
+                // FACT CONTENT
+                <View style={styles.factContainer}>
+                  <Text style={styles.factText}>{fact.content}</Text>
+                </View>
+              </View>
+            );
+          }}
+          onSwiped={cardIndex => {
+            console.log(cardIndex);
+            this.setState({ showContent: false });
+          }}
+          onSwipedAll={() => {
+            console.log("You've finished all the cards!");
+            navigate("Menu");
+          }}
+          cardIndex={0}
+          backgroundColor="#227093"
+          stackSize={3}
+          cardVerticalMargin={80}
+        />
       );
     } else {
       return (
@@ -70,56 +66,39 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff"
   },
-  tabBarInfoContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      }
-    }),
-    alignItems: "center",
-    backgroundColor: "#fbfbfb",
-    paddingVertical: 20
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: "rgba(96,100,109, 1)",
-    textAlign: "center"
-  },
-  navigationFilename: {
-    marginTop: 5
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: "center"
-  },
-  helpLink: {
-    paddingVertical: 15
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: "#2e78b7"
-  },
   card: {
     flex: 1,
-    borderRadius: 4,
+    flexDirection: "column",
+    borderRadius: 25,
     borderWidth: 2,
-    borderColor: "#E8E8E8",
+    borderColor: "#ffb142",
     justifyContent: "center",
-    backgroundColor: "white"
+    backgroundColor: "#ffb142"
   },
-  text: {
+  topicContainer: {
+    flex: 1
+  },
+  topicText: {
+    fontSize: 28,
+    textAlign: "center"
+  },
+  imageContainer: {
+    flex: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 50
+  },
+  image: {
+    resizeMode: "contain",
+    height: 300,
+    width: 300
+  },
+  factContainer: {
+    flex: 10
+  },
+  factText: {
     textAlign: "center",
-    fontSize: 50,
+    fontSize: 18,
     backgroundColor: "transparent"
   }
 });
