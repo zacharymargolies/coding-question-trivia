@@ -14,13 +14,13 @@ const HomeStack = createStackNavigator({
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: "Home",
+  tabBarLabel: "Cards",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
+          ? `ios-browsers${focused ? "" : "-outline"}`
           : "md-information-circle"
       }
     />
@@ -32,13 +32,13 @@ const MenuStack = createStackNavigator({
 });
 
 MenuStack.navigationOptions = {
-  tabBarLabel: "Menu",
+  tabBarLabel: "Topics",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === "ios"
-          ? `ios-information-circle${focused ? "" : "-outline"}`
+          ? `ios-list${focused ? "" : "-outline"}`
           : "md-information-circle"
       }
     />
@@ -52,14 +52,11 @@ export default createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      tabStyle: {
-        // height: 10,
-        // backgroundColor: "blue"
+      labelStyle: {
+        fontSize: 12
       },
       style: {
         marginBottom: -15
-        // height: 100,
-        // backgroundColor: "yellow"
       }
     }
   }

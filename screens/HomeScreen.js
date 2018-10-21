@@ -1,7 +1,11 @@
 import React from "react";
-import { Platform, StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import { connect } from "react-redux";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 
 import { fetchAllFacts, fetchFactsByTopic } from "../server/store/fact";
 
@@ -23,6 +27,8 @@ class HomeScreen extends React.Component {
                 <View style={styles.topicContainer}>
                   <Text style={styles.topicText}> {fact.topic.main} </Text>
                 </View>
+                // LINE
+                <View style={styles.line} />
                 // IMAGE
                 <View style={styles.imageContainer}>
                   <Image
@@ -76,11 +82,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffb142"
   },
   topicContainer: {
-    flex: 1
+    flex: 1,
+    marginTop: hp("2.0%")
   },
   topicText: {
-    fontSize: 28,
+    fontFamily: "Arial Rounded MT Bold",
+    fontWeight: "bold",
+    fontSize: 42,
+    color: "white",
     textAlign: "center"
+  },
+  line: {
+    marginTop: hp(".5%"),
+    marginBottom: hp("1%"),
+    alignSelf: "center",
+    width: wp("80%"),
+    borderBottomColor: "white",
+    borderBottomWidth: hp(".25%"),
+    borderRadius: wp(".25%")
   },
   imageContainer: {
     flex: 3,

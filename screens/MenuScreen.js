@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { List, ListItem } from "react-native-elements";
-import { connect } from "react-redux";
-import { setCurrentTopic, fetchFactsByTopic } from "../server/store/fact";
+import { StyleSheet, View } from "react-native";
+import TopicCard from "../components/TopicCard";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 
 const icon = "av-timer";
 
-class MenuScreen extends Component {
+export default class MenuScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -23,37 +26,21 @@ class MenuScreen extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <List>
+      <View style={styles.container}>
         {this.state.topics.map(topic => (
-          <ListItem
-            onPress={async () => {
-              this.props.setCurrentTopic(topic.id);
-              await this.props.getFactsByTopic(topic.id);
-              navigate("Home");
-            }}
-            roundAvatar
-            avatar={{
-              uri: topic.image
-            }}
-            key={topic.main}
-            title={topic.main}
-          />
+          <TopicCard topic={topic} key={topic.id} navigate={navigate} />
         ))}
-      </List>
+      </View>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  setCurrentTopic: topicId => {
-    dispatch(setCurrentTopic(topicId));
-  },
-  getFactsByTopic: topicId => {
-    dispatch(fetchFactsByTopic(topicId));
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    backgroundColor: "#ffb142"
   }
 });
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(MenuScreen);
