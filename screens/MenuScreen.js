@@ -10,6 +10,14 @@ import {
 const icon = "av-timer";
 
 export default class MenuScreen extends Component {
+  static navigationOptions = {
+    title: "Topics",
+    headerStyle: {
+      backgroundColor: "#f7f1e3"
+    },
+    tabBarVisible: false
+  };
+
   constructor(props) {
     super(props);
 
@@ -41,6 +49,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-around",
-    backgroundColor: "#ffb142"
+    backgroundColor: "#f7f1e3"
   }
 });

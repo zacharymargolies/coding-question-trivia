@@ -24,7 +24,8 @@ HomeStack.navigationOptions = {
           : "md-information-circle"
       }
     />
-  )
+  ),
+  tabBarVisible: false
 };
 
 const MenuStack = createStackNavigator({
@@ -56,7 +57,8 @@ export default createBottomTabNavigator(
         fontSize: 12
       },
       style: {
-        marginBottom: -15
+        marginBottom: -15,
+        backgroundColor: "#f7f1e3"
       }
     }
   }

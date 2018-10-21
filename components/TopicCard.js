@@ -35,13 +35,13 @@ class TopicCard extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "green",
+    backgroundColor: "#ffb142",
     height: hp("20%"),
     width: wp("30%"),
     alignItems: "center",
     margin: wp("1.0%"),
     borderRadius: wp("5%"),
-    shadowColor: "#000",
+    shadowColor: "#cc8e35",
     shadowOffset: {
       width: 0,
       height: 7
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.43,
     shadowRadius: 9.51,
 
-    elevation: 15
+    elevation: 10
   },
   topicText: {
     marginTop: hp("5%"),

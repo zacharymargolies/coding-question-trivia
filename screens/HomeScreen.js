@@ -47,6 +47,9 @@ class HomeScreen extends React.Component {
             console.log(cardIndex);
             this.setState({ showContent: false });
           }}
+          onSwipedBottom={() => {
+            navigate("Menu");
+          }}
           onSwipedAll={() => {
             console.log("You've finished all the cards!");
             navigate("Menu");
