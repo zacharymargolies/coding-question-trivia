@@ -8,9 +8,9 @@ import {
 const CardNumber = props => {
   return (
     <View style={styles.cardNumberContainer}>
-      {/* <Text style={styles.cardNumber}>{props.cur}</Text> */}
+      <Text style={styles.cardNumber}>{props.cur}</Text>
       <View style={styles.line} />
-      <Text style={styles.cardNumber}>{`1`}</Text>
+      <Text style={styles.cardNumber}>{props.len}</Text>
     </View>
   );
 };

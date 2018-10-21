@@ -43,8 +43,9 @@ class CardsScreen extends React.Component {
                 </View>
                 // CARD NUMBER
                 <CardNumber
-                // cur={this.props.facts.findIndex(fact)}
-                // len={this.props.facts.length}
+                  // cur={this.props.facts.findIndex(fact => true)}
+                  cur={this.props.facts.indexOf(fact) + 1}
+                  len={this.props.facts.length}
                 />
               </View>
             );
