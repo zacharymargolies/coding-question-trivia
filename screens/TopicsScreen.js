@@ -2,20 +2,13 @@ import axios from "axios";
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import TopicCard from "../components/TopicCard";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from "react-native-responsive-screen";
 
-const icon = "av-timer";
-
-export default class MenuScreen extends Component {
+export default class TopicsScreen extends Component {
   static navigationOptions = {
     title: "Topics",
     headerStyle: {
       backgroundColor: "#f7f1e3"
-    },
-    tabBarVisible: false
+    }
   };
 
   constructor(props) {

@@ -6,10 +6,11 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
+import CardNumber from "../components/CardNumber";
 
 import { fetchAllFacts, fetchFactsByTopic } from "../server/store/fact";
 
-class HomeScreen extends React.Component {
+class CardsScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
@@ -40,6 +41,11 @@ class HomeScreen extends React.Component {
                 <View style={styles.factContainer}>
                   <Text style={styles.factText}>{fact.content}</Text>
                 </View>
+                // CARD NUMBER
+                <CardNumber
+                // cur={this.props.facts.findIndex(fact)}
+                // len={this.props.facts.length}
+                />
               </View>
             );
           }}
@@ -48,11 +54,11 @@ class HomeScreen extends React.Component {
             this.setState({ showContent: false });
           }}
           onSwipedBottom={() => {
-            navigate("Menu");
+            navigate("Topics");
           }}
           onSwipedAll={() => {
             console.log("You've finished all the cards!");
-            navigate("Menu");
+            navigate("Topics");
           }}
           cardIndex={0}
           backgroundColor="#227093"
@@ -142,4 +148,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeScreen);
+)(CardsScreen);

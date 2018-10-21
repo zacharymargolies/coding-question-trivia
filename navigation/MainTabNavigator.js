@@ -6,14 +6,14 @@ import {
 } from "react-navigation";
 
 import TabBarIcon from "../components/TabBarIcon";
-import HomeScreen from "../screens/HomeScreen";
-import MenuScreen from "../screens/MenuScreen";
+import CardsScreen from "../screens/CardsScreen";
+import TopicsScreen from "../screens/TopicsScreen";
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen
+const CardsStack = createStackNavigator({
+  Cards: CardsScreen
 });
 
-HomeStack.navigationOptions = {
+CardsStack.navigationOptions = {
   tabBarLabel: "Cards",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -28,11 +28,11 @@ HomeStack.navigationOptions = {
   tabBarVisible: false
 };
 
-const MenuStack = createStackNavigator({
-  Menu: MenuScreen
+const TopicsStack = createStackNavigator({
+  Topics: TopicsScreen
 });
 
-MenuStack.navigationOptions = {
+TopicsStack.navigationOptions = {
   tabBarLabel: "Topics",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -48,8 +48,8 @@ MenuStack.navigationOptions = {
 
 export default createBottomTabNavigator(
   {
-    MenuStack,
-    HomeStack
+    TopicsStack,
+    CardsStack
   },
   {
     tabBarOptions: {
