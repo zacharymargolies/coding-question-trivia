@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 50,
+    fontFamily: "Arial Rounded MT Bold",
     color: "#ffb142",
     textShadowColor: "#cc8e35",
     textShadowOffset: { width: 2, height: 2 },

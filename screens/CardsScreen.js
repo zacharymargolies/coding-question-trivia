@@ -52,12 +52,6 @@ class CardsScreen extends React.Component {
                 </View>
               );
             }}
-            onSwiped={cardIndex => {
-              this.setState({ showContent: false });
-            }}
-            onSwipedBottom={() => {
-              navigate("Topics");
-            }}
             onSwipedAll={() => {
               console.log("You've finished all the cards!");
               navigate("Topics");
