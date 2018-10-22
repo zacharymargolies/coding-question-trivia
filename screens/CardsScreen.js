@@ -6,7 +6,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
-import CardNumber from "../components/CardNumber";
+import { CardNumber, CloseScreen } from "../components";
 
 import { fetchAllFacts, fetchFactsByTopic } from "../server/store/fact";
 
@@ -19,53 +19,54 @@ class CardsScreen extends React.Component {
     const { navigate } = this.props.navigation;
     if (this.props.facts.length) {
       return (
-        <Swiper
-          cards={this.props.facts}
-          renderCard={fact => {
-            return (
-              <View style={styles.card}>
-                // TOPIC
-                <View style={styles.topicContainer}>
-                  <Text style={styles.topicText}> {fact.topic.main} </Text>
-                </View>
-                // LINE
-                <View style={styles.line} />
-                // IMAGE
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={require("../assets/images/developer.jpg")}
-                    style={styles.image}
+        <React.Fragment>
+          // CLOSE SCREEN
+          <CloseScreen navigation={this.props.navigation} />
+          <Swiper
+            cards={this.props.facts}
+            renderCard={fact => {
+              return (
+                <View style={styles.card}>
+                  // TOPIC
+                  <View style={styles.topicContainer}>
+                    <Text style={styles.topicText}> {fact.topic.main} </Text>
+                  </View>
+                  // LINE
+                  <View style={styles.line} />
+                  // IMAGE
+                  <View style={styles.imageContainer}>
+                    <Image
+                      source={require("../assets/images/developer.jpg")}
+                      style={styles.image}
+                    />
+                  </View>
+                  // FACT CONTENT
+                  <View style={styles.factContainer}>
+                    <Text style={styles.factText}>{fact.content}</Text>
+                  </View>
+                  // CARD NUMBER
+                  <CardNumber
+                    cur={this.props.facts.indexOf(fact) + 1}
+                    len={this.props.facts.length}
                   />
                 </View>
-                // FACT CONTENT
-                <View style={styles.factContainer}>
-                  <Text style={styles.factText}>{fact.content}</Text>
-                </View>
-                // CARD NUMBER
-                <CardNumber
-                  // cur={this.props.facts.findIndex(fact => true)}
-                  cur={this.props.facts.indexOf(fact) + 1}
-                  len={this.props.facts.length}
-                />
-              </View>
-            );
-          }}
-          onSwiped={cardIndex => {
-            console.log(cardIndex);
-            this.setState({ showContent: false });
-          }}
-          onSwipedBottom={() => {
-            navigate("Topics");
-          }}
-          onSwipedAll={() => {
-            console.log("You've finished all the cards!");
-            navigate("Topics");
-          }}
-          cardIndex={0}
-          backgroundColor="#227093"
-          stackSize={3}
-          cardVerticalMargin={80}
-        />
+              );
+            }}
+            onSwiped={cardIndex => {
+              this.setState({ showContent: false });
+            }}
+            onSwipedBottom={() => {
+              navigate("Topics");
+            }}
+            onSwipedAll={() => {
+              console.log("You've finished all the cards!");
+              navigate("Topics");
+            }}
+            cardIndex={0}
+            backgroundColor="#227093"
+            stackSize={3}
+          />
+        </React.Fragment>
       );
     } else {
       return (
@@ -83,10 +84,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   card: {
+    marginTop: hp("5%"),
+    marginBottom: hp("-2.5%"),
     flex: 1,
     flexDirection: "column",
     borderRadius: 25,
-    borderWidth: 2,
     borderColor: "#ffb142",
     justifyContent: "center",
     backgroundColor: "#ffb142"
@@ -103,8 +105,8 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   line: {
-    marginTop: hp(".5%"),
-    marginBottom: hp("1%"),
+    marginTop: hp("1.0%"),
+    marginBottom: hp("3%"),
     alignSelf: "center",
     width: wp("80%"),
     borderBottomColor: "white",
@@ -115,12 +117,12 @@ const styles = StyleSheet.create({
     flex: 3,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 50
+    marginBottom: hp("5.0%")
   },
   image: {
     resizeMode: "contain",
-    height: 300,
-    width: 300
+    height: hp("37.0%"),
+    width: hp("37.0%")
   },
   factContainer: {
     flex: 10

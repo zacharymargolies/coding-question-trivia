@@ -24,7 +24,13 @@ class TopicCard extends React.Component {
         style={styles.container}
       >
         // TOPIC TEXT
-        <Text style={styles.topicText}>{topic.main}</Text>
+        <Text
+          adjustsFontSizeToFit={true}
+          numberOfLines={1}
+          style={styles.topicText}
+        >
+          {topic.main}
+        </Text>
         // TOPIC IMAGE
         <Image style={styles.topicImage} source={{ uri: topic.image }} />
       </TouchableOpacity>
@@ -51,10 +57,12 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   topicText: {
-    marginTop: hp("5%"),
-    fontSize: 26
+    marginTop: hp("4%"),
+    fontSize: 26,
+    color: "white"
   },
   topicImage: {
+    marginTop: hp("0.5%"),
     height: hp("8%"),
     width: hp("8%"),
     borderRadius: hp("4%")
