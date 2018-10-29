@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
 // ACTION TYPES
-const SET_CURRENT_FACTS = "SET_CURRENT_FACTS";
-const SET_CURRENT_TOPIC = "SET_CURRENT_TOPIC";
+const SET_CURRENT_FACTS = 'SET_CURRENT_FACTS';
+const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
 
 // ACTION CREATORS
 export const setCurrentFacts = allFacts => ({
@@ -17,7 +17,8 @@ export const setCurrentTopic = topicId => ({
 // THUNK CREATORS
 export const fetchAllFacts = () => async dispatch => {
   try {
-    const request = await axios.get("http://localhost:8080/api/facts");
+    const request = await axios.get('http://localhost:8080/api/facts');
+    // const request = await axios.get("http://192.168.1.5:8080/api/facts");
     const allFacts = request.data;
     dispatch(setCurrentFacts(allFacts));
   } catch (err) {
@@ -29,6 +30,7 @@ export const fetchFactsByTopic = topicId => async dispatch => {
   try {
     const request = await axios.get(
       `http://localhost:8080/api/facts/${topicId}`
+      // `http://192.168.1.5:8080/api/facts/${topicId}`
     );
     const facts = request.data;
     dispatch(setCurrentFacts(facts));

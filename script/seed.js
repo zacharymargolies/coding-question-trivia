@@ -1,20 +1,52 @@
 "use strict";
 
 const db = require("../server/db");
-const { Fact, Topic } = require("../server/db/models");
+const { Fact, Topic, Question } = require("../server/db/models");
 
 const newFacts = [
   {
     topicId: 1,
-    content: "content-1"
+    content: "HTML is short for Hypertext Markup Language."
+  },
+  {
+    topicId: 1,
+    content: "HTML can be considered the content of our website."
+  },
+  {
+    topicId: 1,
+    content: "HTML elements are the building blocks of HTML pages."
+  },
+  {
+    topicId: 1,
+    content: "HTML elements are represented by tags."
+  },
+  {
+    topicId: 1,
+    content:
+      'HTML tags label pieces of content such as "heading", "paragraph", "table", and so on.'
+  },
+  {
+    topicId: 1,
+    content:
+      "Browsers do not display HTML tags, but use them to render the content of the page."
   },
   {
     topicId: 2,
-    content: "content-2"
+    content: "HTML can be considered the content of our website."
   },
   {
     topicId: 3,
-    content: "content-3"
+    content: "CSS stands for Cascading Style Sheets."
+  },
+  {
+    topicId: 3,
+    content:
+      "CSS provides the styling for our websites. It describes how the HTML elements in our websites should be displayed."
+  },
+  {
+    topicId: 3,
+    content:
+      "CSS is a declarative language. This means that CSS explicitly describes its desired results. This means the language provides what is done, rather than how to do it."
   },
   {
     topicId: 5,
@@ -60,10 +92,38 @@ const newTopics = [
   }
 ];
 
+const newQuestions = [
+  {
+    factId: 1,
+    topicId: 1,
+    content: "What does HTML stand for?",
+    correctAnswer: "Hypertext Markup Language"
+  },
+  {
+    factId: 2,
+    topicId: 1,
+    content: "What creates the structure for the content of our website?",
+    correctAnswer: "HTML"
+  },
+  {
+    factId: 7,
+    topicId: 2,
+    content: "What does CSS stand for?",
+    correctAnswer: "Cascading Style Sheets"
+  },
+  {
+    factId: 8,
+    topicId: 2,
+    content: "What provides the styling for a website?",
+    correctAnswer: "CSS"
+  }
+];
+
 const seed = () =>
   Promise.all(
     newTopics.map(topic => Topic.create(topic)),
-    newFacts.map(fact => Fact.create(fact))
+    newFacts.map(fact => Fact.create(fact)),
+    newQuestions.map(question => Question.create(question))
   );
 
 const main = () => {

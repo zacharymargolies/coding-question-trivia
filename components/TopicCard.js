@@ -15,26 +15,32 @@ class TopicCard extends React.Component {
   render() {
     const { topic, navigate } = this.props;
     return (
-      <View style={styles.container}>
-        <TouchableOpacity
-          onPress={async () => {
-            this.props.setCurrentTopic(topic.id);
-            await this.props.getFactsByTopic(topic.id);
-            navigate("Home");
-          }}
+      <TouchableOpacity
+        onPress={async () => {
+          this.props.setCurrentTopic(topic.id);
+          await this.props.getFactsByTopic(topic.id);
+          navigate("Cards");
+        }}
+        style={styles.container}
+      >
+        // TOPIC TEXT
+        <Text
+          adjustsFontSizeToFit={true}
+          numberOfLines={1}
+          style={styles.topicText}
         >
-          // TOPIC TEXT
-          <Text style={styles.topicText}>{topic.main}</Text>
-          // TOPIC IMAGE
-          <Image style={styles.topicImage} source={{ uri: topic.image }} />
-        </TouchableOpacity>
-      </View>
+          {topic.main}
+        </Text>
+        // TOPIC IMAGE
+        <Image style={styles.topicImage} source={{ uri: topic.image }} />
+      </TouchableOpacity>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
     backgroundColor: "#ffb142",
     height: hp("20%"),
     width: wp("30%"),
@@ -48,14 +54,15 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.43,
     shadowRadius: 9.51,
-
     elevation: 10
   },
   topicText: {
-    marginTop: hp("5%"),
-    fontSize: 26
+    marginTop: hp("4%"),
+    fontSize: 26,
+    color: "white"
   },
   topicImage: {
+    marginTop: hp("0.5%"),
     height: hp("8%"),
     width: hp("8%"),
     borderRadius: hp("4%")
