@@ -1,13 +1,13 @@
-import axios from "axios";
-import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
-import TopicCard from "../components/TopicCard";
+import axios from 'axios';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
+import TopicCard from '../components/TopicCard';
 
 export default class TopicsScreen extends Component {
   static navigationOptions = {
-    title: "Topics",
+    title: 'Topics',
     headerStyle: {
-      backgroundColor: "#f7f1e3"
+      backgroundColor: '#f7f1e3'
     }
   };
 
@@ -20,8 +20,8 @@ export default class TopicsScreen extends Component {
   }
 
   async componentDidMount() {
-    // const request = await axios.get("http://localhost:8080/api/topics/");
-    const request = await axios.get("http://192.168.1.5:8080/api/topics/");
+    const request = await axios.get('http://localhost:8080/api/topics/');
+    // const request = await axios.get("http://192.168.1.5:8080/api/topics/");
     this.setState({ topics: request.data });
   }
 
@@ -40,9 +40,9 @@ export default class TopicsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    backgroundColor: "#f7f1e3"
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    backgroundColor: '#f7f1e3'
   }
 });
