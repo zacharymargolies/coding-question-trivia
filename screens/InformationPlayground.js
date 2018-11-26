@@ -6,7 +6,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import Axios from 'axios';
 
 class InformationPlayground extends React.Component {
   static navigationOptions = {
@@ -25,7 +24,7 @@ class InformationPlayground extends React.Component {
   render() {
     const allSelectors = [
       {
-        main: 'Topic',
+        main: 'Topics',
         image: 'https://i.ytimg.com/vi/xOGxyw9DSa8/maxresdefault.jpg'
       },
       {
@@ -39,7 +38,7 @@ class InformationPlayground extends React.Component {
           'https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Random-512.png'
       }
     ];
-    const { navigate } = this.props;
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         {allSelectors.map(selector => (

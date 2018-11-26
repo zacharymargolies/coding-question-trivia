@@ -16,10 +16,8 @@ class TopicCard extends React.Component {
     const { selector, navigate } = this.props;
     return (
       <TouchableOpacity
-        onPress={async () => {
-          // this.props.setCurrentTopic(topic.id);
-          // await this.props.getFactsByTopic(topic.id);
-          // navigate("Cards");
+        onPress={() => {
+          navigate(`${selector.main}`);
         }}
         style={styles.container}
       >
