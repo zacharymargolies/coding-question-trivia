@@ -28,6 +28,14 @@ const Fact = db.define('fact', {
   },
   dateLastReviewed: {
     type: Sequelize.DATE
+  },
+  quizzable: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  discard: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 });
 
