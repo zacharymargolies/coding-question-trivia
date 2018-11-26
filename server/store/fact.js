@@ -29,7 +29,7 @@ export const fetchAllFacts = () => async dispatch => {
 export const fetchFactsByTopic = topicId => async dispatch => {
   try {
     const request = await axios.get(
-      `http://localhost:8080/api/facts/${topicId}`
+      `http://localhost:8080/api/facts/topic/${topicId}`
       // `http://192.168.1.5:8080/api/facts/${topicId}`
     );
     const facts = request.data;

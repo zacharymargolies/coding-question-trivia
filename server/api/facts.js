@@ -31,7 +31,7 @@ router.get(
   asyncHandler(async (req, res, next) => {
     const id = req.params.id;
     const fact = await Fact.findById(id);
-    await fact.getValues();
+    // await fact.getValues();
     res.json(fact);
   })
 );
