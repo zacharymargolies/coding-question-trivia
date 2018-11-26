@@ -29,22 +29,12 @@ CardsStack.navigationOptions = {
   tabBarVisible: false
 };
 
-const TopicsStack = createStackNavigator({
+export const TopicsStack = createStackNavigator({
   Topics: TopicsScreen
 });
 
 TopicsStack.navigationOptions = {
-  tabBarLabel: 'Topics',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-list${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  )
+  tabBarLabel: 'Topics'
 };
 
 const PlaygroundStack = createStackNavigator({
@@ -68,8 +58,7 @@ PlaygroundStack.navigationOptions = {
 export default createBottomTabNavigator(
   {
     PlaygroundStack,
-    CardsStack,
-    TopicsStack
+    CardsStack
   },
   {
     tabBarOptions: {
