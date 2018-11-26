@@ -43,7 +43,7 @@ router.put(
     const id = req.params.id;
     const { correct, performanceRating } = req.body;
     const fact = await Fact.findById(id);
-    await fact.updateSRD(correct, performanceRating);
+    await fact.updateSRD(performanceRating);
     res.send(fact);
   })
 );

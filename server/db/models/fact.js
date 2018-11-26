@@ -3,13 +3,16 @@ const db = require('../db');
 
 const Fact = db.define('fact', {
   content: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false
   },
   imageURL: {
     type: Sequelize.STRING,
     defaultValue:
       'https://s3.eu-west-2.amazonaws.com/fifteen-uploads/uploads/2016/10/DeveloperChallenges.jpg'
+  },
+  docsLink: {
+    type: Sequelize.STRING
   },
   difficulty: {
     type: Sequelize.FLOAT,
@@ -26,23 +29,10 @@ const Fact = db.define('fact', {
   dateLastReviewed: {
     type: Sequelize.DATE
   }
-  // percentOverdue: {
-  //   type: Sequelize.FLOAT,
-  //   validate: {
-  //     min: 0.0,
-  //     max: 1.0
-  //   }
-  // },
-  // difficultyWeight: {
-  //   type: Sequelize.FLOAT,
-  //   validate: {
-  //     min: 0.0
-  //   }
-  // }
 });
 
-Fact.prototype.updateSRD = function(correct, performanceRating) {
-  console.log('UPDATE SRD RAN: ', correct, performanceRating);
+Fact.prototype.updateSRD = function(performanceRating) {
+  const correct = performanceRating >= 0.6;
   let percentOverdue;
   if (this.dateLastReviewed === null) {
     this.dateLastReviewed = Date.now();
@@ -85,8 +75,6 @@ Fact.prototype.updateSRD = function(correct, performanceRating) {
     daysBetweenReviews: this.daysBetweenReviews,
     dateLastReviewed: this.dateLastReviewed,
     difficulty: this.difficulty
-    // percentOverdue: percentOverdue,
-    // difficultyWeight: this.difficultyWeight
   });
 };
 
