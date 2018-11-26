@@ -1,46 +1,65 @@
-import React from "react";
-import { Platform } from "react-native";
+import React from 'react';
+import { Platform } from 'react-native';
 import {
   createStackNavigator,
   createBottomTabNavigator
-} from "react-navigation";
+} from 'react-navigation';
 
-import TabBarIcon from "../components/TabBarIcon";
-import CardsScreen from "../screens/CardsScreen";
-import TopicsScreen from "../screens/TopicsScreen";
+import TabBarIcon from '../components/TabBarIcon';
+import CardsScreen from '../screens/CardsScreen';
+// import TopicsScreen from '../screens/TopicsScreen';
+import InformationPlayground from '../screens/InformationPlayground';
 
 const CardsStack = createStackNavigator({
   Cards: CardsScreen
 });
 
 CardsStack.navigationOptions = {
-  tabBarLabel: "Cards",
+  tabBarLabel: 'Cards',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === "ios"
-          ? `ios-browsers${focused ? "" : "-outline"}`
-          : "md-information-circle"
+        Platform.OS === 'ios'
+          ? `ios-browsers${focused ? '' : '-outline'}`
+          : 'md-information-circle'
       }
     />
   ),
   tabBarVisible: false
 };
 
-const TopicsStack = createStackNavigator({
-  Topics: TopicsScreen
+// const TopicsStack = createStackNavigator({
+//   Topics: TopicsScreen
+// });
+
+// TopicsStack.navigationOptions = {
+//   tabBarLabel: "Topics",
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={
+//         Platform.OS === "ios"
+//           ? `ios-list${focused ? "" : "-outline"}`
+//           : "md-information-circle"
+//       }
+//     />
+//   )
+// };
+
+const PlaygroundStack = createStackNavigator({
+  Playground: InformationPlayground
 });
 
-TopicsStack.navigationOptions = {
-  tabBarLabel: "Topics",
+PlaygroundStack.navigationOptions = {
+  tabBarLabel: 'Playground',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
-        Platform.OS === "ios"
-          ? `ios-list${focused ? "" : "-outline"}`
-          : "md-information-circle"
+        Platform.OS === 'ios'
+          ? `ios-list${focused ? '' : '-outline'}`
+          : 'md-information-circle'
       }
     />
   )
@@ -48,7 +67,8 @@ TopicsStack.navigationOptions = {
 
 export default createBottomTabNavigator(
   {
-    TopicsStack,
+    // TopicsStack,
+    PlaygroundStack,
     CardsStack
   },
   {
@@ -58,7 +78,7 @@ export default createBottomTabNavigator(
       },
       style: {
         marginBottom: -15,
-        backgroundColor: "#f7f1e3"
+        backgroundColor: '#f7f1e3'
       }
     }
   }

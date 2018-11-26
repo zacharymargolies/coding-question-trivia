@@ -16,7 +16,6 @@ class CardsScreen extends React.Component {
   };
 
   render() {
-    console.log('---PROPS: ---', this.props.facts);
     const { navigate } = this.props.navigation;
     if (this.props.facts.length) {
       return (
