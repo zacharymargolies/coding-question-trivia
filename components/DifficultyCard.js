@@ -4,17 +4,28 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import { setCurrentTopic, fetchFactsByTopic } from '../server/store/fact';
+import {
+  setCurrentDifficulty,
+  fetchFactsByDifficulty
+} from '../server/store/fact';
 import { connect } from 'react-redux';
 import { images } from '../screens/DifficultyScreen';
 
-const PlaygroundCard = props => {
+const DifficultyCard = props => {
   const { difficultyLevel, navigate } = props;
   const imgPath = `level${difficultyLevel}`;
+  const difficulties = {
+    1: 0.3,
+    2: 0.5,
+    3: 0.6,
+    4: 0.9
+  };
   return (
     <TouchableOpacity
-      onPress={() => {
-        navigate(`${selector.main}`);
+      onPress={async () => {
+        props.setCurrentDifficulty(difficulties[difficultyLevel]);
+        await props.getFactsByDifficulty(difficulties[difficultyLevel]);
+        navigate('Cards');
       }}
       style={styles.container}
     >
@@ -64,15 +75,16 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentTopic: topicId => {
-    dispatch(setCurrentTopic(topicId));
+  setCurrentDifficulty: difficultyLevel => {
+    dispatch(setCurrentDifficulty(difficultyLevel));
   },
-  getFactsByTopic: topicId => {
-    dispatch(fetchFactsByTopic(topicId));
+  getFactsByDifficulty: difficultyLevel => {
+    console.log('GET FACTS BY DIFFICULTY RAN');
+    dispatch(fetchFactsByDifficulty(difficultyLevel));
   }
 });
 
 export default connect(
   null,
   mapDispatchToProps
-)(PlaygroundCard);
+)(DifficultyCard);

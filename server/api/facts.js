@@ -25,6 +25,20 @@ router.get(
   })
 );
 
+// GET FACTS BY DIFFICULTY
+router.get(
+  '/difficulty/:difficultyLevel',
+  asyncHandler(async (req, res, next) => {
+    const facts = await Fact.findAll({
+      where: {
+        difficulty: req.params.difficultyLevel
+      },
+      include: [{ model: Topic }]
+    });
+    res.json(facts);
+  })
+);
+
 // GET FACT BY ID
 router.get(
   '/:id',
