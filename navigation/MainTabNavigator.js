@@ -9,6 +9,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import CardsScreen from '../screens/CardsScreen';
 import TopicsScreen from '../screens/TopicsScreen';
 import InformationPlayground from '../screens/InformationPlayground';
+import DifficultyScreen from '../screens/DifficultyScreen';
 
 const CardsStack = createStackNavigator({
   Cards: CardsScreen
@@ -54,6 +55,10 @@ PlaygroundStack.navigationOptions = {
     />
   )
 };
+
+export const DifficultyStack = createStackNavigator({
+  Difficulty: DifficultyScreen
+});
 
 export default createBottomTabNavigator(
   {

@@ -7,7 +7,7 @@ import {
 import { setCurrentTopic, fetchFactsByTopic } from '../server/store/fact';
 import { connect } from 'react-redux';
 
-class TopicCard extends React.Component {
+class PlaygroundCard extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -79,4 +79,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(TopicCard);
+)(PlaygroundCard);
