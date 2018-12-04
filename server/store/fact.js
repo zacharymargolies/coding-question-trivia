@@ -32,7 +32,6 @@ export const fetchAllFacts = () => async dispatch => {
 };
 
 export const fetchFactsByTopic = topicId => async dispatch => {
-  console.log('RAN');
   try {
     const request = await axios.get(
       `http://localhost:8080/api/facts/topic/${topicId}`

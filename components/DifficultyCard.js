@@ -79,7 +79,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setCurrentDifficulty(difficultyLevel));
   },
   getFactsByDifficulty: difficultyLevel => {
-    console.log('GET FACTS BY DIFFICULTY RAN');
     dispatch(fetchFactsByDifficulty(difficultyLevel));
   }
 });
