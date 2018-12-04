@@ -7,19 +7,17 @@ import {
 import { setCurrentTopic, fetchFactsByTopic } from '../server/store/fact';
 import { connect } from 'react-redux';
 
-class TopicCard extends React.Component {
+class PlaygroundCard extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { topic, navigate } = this.props;
+    const { selector, navigate } = this.props;
     return (
       <TouchableOpacity
-        onPress={async () => {
-          this.props.setCurrentTopic(topic.id);
-          await this.props.getFactsByTopic(topic.id);
-          navigate('Cards');
+        onPress={() => {
+          navigate(`${selector.main}`);
         }}
         style={styles.container}
       >
@@ -29,10 +27,10 @@ class TopicCard extends React.Component {
           numberOfLines={1}
           style={styles.topicText}
         >
-          {topic.main}
+          {selector.main}
         </Text>
         // TOPIC IMAGE
-        <Image style={styles.topicImage} source={{ uri: topic.image }} />
+        <Image style={styles.topicImage} source={{ uri: selector.image }} />
       </TouchableOpacity>
     );
   }
@@ -81,4 +79,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(TopicCard);
+)(PlaygroundCard);
