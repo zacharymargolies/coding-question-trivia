@@ -14,9 +14,9 @@ export const setCurrentTopic = topic => ({
   type: SET_CURRENT_TOPIC,
   topic
 });
-export const setCurrentDifficulty = allFacts => ({
+export const setCurrentDifficulty = difficultyLevel => ({
   type: SET_CURRENT_DIFFICULTY,
-  allFacts
+  difficultyLevel
 });
 
 // THUNK CREATORS
@@ -60,7 +60,8 @@ export const fetchFactsByDifficulty = difficultyLevel => async dispatch => {
 // INITIAL STATE
 const initialState = {
   facts: [],
-  topicId: null
+  topicId: null,
+  difficultyLevel: null
 };
 
 // REDUCER
