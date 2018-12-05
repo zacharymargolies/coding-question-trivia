@@ -45,7 +45,29 @@ router.get(
   asyncHandler(async (req, res, next) => {
     const id = req.params.id;
     const fact = await Fact.findById(id);
-    // await fact.getValues();
+    res.json(fact);
+  })
+);
+
+// UPDATE QUIZZABLE VALUE
+router.put(
+  '/quizzable/:id',
+  asyncHandler(async (req, res, next) => {
+    const id = req.params.id;
+    const fact = await Fact.findById(id);
+    await fact.update({ quizzable: true });
+    // console.log('--- QUIZZABLE ROUTE: ---', fact);
+    res.json(fact);
+  })
+);
+
+// UPDATE DISCARD VALUE
+router.put(
+  '/discard/:id',
+  asyncHandler(async (req, res, next) => {
+    const id = req.params.id;
+    const fact = await Fact.findById(id);
+    await fact.update({ discard: true });
     res.json(fact);
   })
 );

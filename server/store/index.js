@@ -7,9 +7,10 @@ import fact from './fact';
 //TODO: IMPORT REDUCERS
 
 const reducer = combineReducers({ fact });
-const middleWare = composeWithDevTools(
-  applyMiddleware(thunkMiddleWare, createLogger({ collapsd: true }))
-);
+// const middleWare = composeWithDevTools(
+//   applyMiddleware(thunkMiddleWare, createLogger({ collapsd: true }))
+// );
+const middleWare = composeWithDevTools(applyMiddleware(thunkMiddleWare));
 const store = createStore(reducer, middleWare);
 
 export default store;

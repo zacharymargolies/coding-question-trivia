@@ -9,6 +9,7 @@ import {
 import { CardNumber, CloseScreen } from '../components';
 
 import { fetchAllFacts, fetchFactsByTopic } from '../server/store/fact';
+import axios from 'axios';
 
 class CardsScreen extends React.Component {
   static navigationOptions = {
@@ -20,31 +21,31 @@ class CardsScreen extends React.Component {
     if (this.props.facts.length) {
       return (
         <React.Fragment>
-          // CLOSE SCREEN
+          {/* CLOSE SCREEN */}
           <CloseScreen navigation={this.props.navigation} />
           <Swiper
             cards={this.props.facts}
             renderCard={fact => {
               return (
                 <View style={styles.card}>
-                  // TOPIC
+                  {/* TOPIC */}
                   <View style={styles.topicContainer}>
                     <Text style={styles.topicText}> {fact.topic.main} </Text>
                   </View>
-                  // LINE
+                  {/* LINE */}
                   <View style={styles.line} />
-                  // IMAGE
+                  {/* IMAGE */}
                   <View style={styles.imageContainer}>
                     <Image
                       source={require('../assets/images/developer.jpg')}
                       style={styles.image}
                     />
                   </View>
-                  // FACT CONTENT
+                  {/* FACT CONTENT */}
                   <View style={styles.factContainer}>
                     <Text style={styles.factText}>{fact.content}</Text>
                   </View>
-                  // CARD NUMBER
+                  {/* CARD NUMBER */}
                   <CardNumber
                     cur={this.props.facts.indexOf(fact) + 1}
                     len={this.props.facts.length}
@@ -55,6 +56,19 @@ class CardsScreen extends React.Component {
             onSwipedAll={() => {
               console.log("You've finished all the cards!");
               navigate('Topics');
+            }}
+            onSwipedTop={async idx => {
+              const { id } = this.props.facts[idx];
+              try {
+                await axios.put(
+                  `http://localhost:8080/api/facts/quizzable/${id}`
+                );
+              } catch (err) {
+                console.log(err);
+              }
+            }}
+            onSwipedBottom={() => {
+              console.log('Swiped bottom');
             }}
             cardIndex={0}
             backgroundColor="#227093"
