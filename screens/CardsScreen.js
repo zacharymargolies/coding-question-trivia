@@ -67,8 +67,15 @@ class CardsScreen extends React.Component {
                 console.log(err);
               }
             }}
-            onSwipedBottom={() => {
-              console.log('Swiped bottom');
+            onSwipedBottom={async idx => {
+              const { id } = this.props.facts[idx];
+              try {
+                await axios.put(
+                  `http://localhost:8080/api/facts/discard/${id}`
+                );
+              } catch (err) {
+                console.log(err);
+              }
             }}
             cardIndex={0}
             backgroundColor="#227093"

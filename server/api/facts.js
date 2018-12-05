@@ -56,7 +56,6 @@ router.put(
     const id = req.params.id;
     const fact = await Fact.findById(id);
     await fact.update({ quizzable: true });
-    // console.log('--- QUIZZABLE ROUTE: ---', fact);
     res.json(fact);
   })
 );
