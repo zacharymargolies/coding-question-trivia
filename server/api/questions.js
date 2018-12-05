@@ -15,13 +15,27 @@ router.get(
 router.get(
   '/topic/:topicId',
   asyncHandler(async (req, res, next) => {
-    const questions = await Question.findAll({
+    const questionsBytopic = await Question.findAll({
       where: {
         topicId: req.params.topicId
       },
       include: [{ model: Topic }]
     });
-    res.json(questions);
+    res.json(questionsBytopic);
+  })
+);
+
+// GET QUESTIONS BY TOPIC
+router.get(
+  '/fact/:factId',
+  asyncHandler(async (req, res, next) => {
+    const questionsByFact = await Question.findAll({
+      where: {
+        factId: req.params.factId
+      },
+      include: [{ model: Topic }]
+    });
+    res.json(questionsByFact);
   })
 );
 
@@ -29,13 +43,13 @@ router.get(
 router.get(
   '/difficulty/:difficultyLevel',
   asyncHandler(async (req, res, next) => {
-    const questions = await Question.findAll({
+    const questionsByDifficulty = await Question.findAll({
       where: {
         difficulty: req.params.difficultyLevel
       },
       include: [{ model: Topic }]
     });
-    res.json(questions);
+    res.json(questionsByDifficulty);
   })
 );
 
@@ -44,8 +58,8 @@ router.get(
   '/:id',
   asyncHandler(async (req, res, next) => {
     const id = req.params.id;
-    const question = await Question.findById(id);
-    res.json(question);
+    const questionById = await Question.findById(id);
+    res.json(questionById);
   })
 );
 
