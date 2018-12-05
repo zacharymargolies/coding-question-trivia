@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -7,37 +7,31 @@ import {
 import { setCurrentTopic, fetchFactsByTopic } from '../server/store/fact';
 import { connect } from 'react-redux';
 
-class TopicCard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { topic, navigation } = this.props;
-    return (
-      <TouchableOpacity
-        onPress={async () => {
-          this.props.setCurrentTopic(topic.id);
-          await this.props.getFactsByTopic(topic.id);
-          // navigate('Cards');
-          navigation.push('Cards');
-        }}
-        style={styles.container}
+const TopicCard = props => {
+  const { topic, navigation } = props;
+  return (
+    <TouchableOpacity
+      onPress={async () => {
+        props.setCurrentTopic(topic.id);
+        await props.getFactsByTopic(topic.id);
+        // navigate('Cards');
+        navigation.push('Cards');
+      }}
+      style={styles.container}
+    >
+      {/* TOPIC TEXT */}
+      <Text
+        adjustsFontSizeToFit={true}
+        numberOfLines={1}
+        style={styles.topicText}
       >
-        // TOPIC TEXT
-        <Text
-          adjustsFontSizeToFit={true}
-          numberOfLines={1}
-          style={styles.topicText}
-        >
-          {topic.main}
-        </Text>
-        // TOPIC IMAGE
-        <Image style={styles.topicImage} source={{ uri: topic.image }} />
-      </TouchableOpacity>
-    );
-  }
-}
+        {topic.main}
+      </Text>
+      {/* TOPIC IMAGE */}
+      <Image style={styles.topicImage} source={{ uri: topic.image }} />
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -63,10 +57,10 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   topicImage: {
-    marginTop: hp('0.5%'),
-    height: hp('8%'),
-    width: hp('8%'),
-    borderRadius: hp('4%')
+    marginTop: hp('1.0%'),
+    height: hp('9%'),
+    width: hp('9%'),
+    borderRadius: hp('4.5%')
   }
 });
 

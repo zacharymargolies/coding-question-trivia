@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import PlaygroundCard from '../components/PlaygroundCard';
 import { connect } from 'react-redux';
 
@@ -37,6 +37,7 @@ class InformationPlayground extends React.Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
+        <Text> Want to study? Choose a selector below to get started!</Text>
         {allSelectors.map(selector => (
           <PlaygroundCard
             selector={selector}

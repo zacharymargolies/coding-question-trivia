@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import PlaygroundCard from '../components/PlaygroundCard';
 import { connect } from 'react-redux';
 
 class QuizzableWorld extends React.Component {
   static navigationOptions = {
-    title: 'Information Playground',
+    title: 'Quizzable Land',
     headerStyle: {
       backgroundColor: '#f7f1e3'
     }
@@ -37,6 +37,9 @@ class QuizzableWorld extends React.Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
+        <Text>
+          Time to quiz yourself! Choose a selector below to get started!
+        </Text>
         {allSelectors.map(selector => (
           <PlaygroundCard
             selector={selector}
