@@ -2,7 +2,9 @@ import { createSwitchNavigator } from 'react-navigation';
 
 import MainTabNavigator, {
   TopicsStack,
-  DifficultyStack
+  DifficultyStack,
+  CardsStack,
+  QuizStack
 } from './MainTabNavigator';
 
 export default createSwitchNavigator({
@@ -10,5 +12,7 @@ export default createSwitchNavigator({
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   Main: MainTabNavigator,
   Topics: TopicsStack,
-  Difficulty: DifficultyStack
+  Difficulty: DifficultyStack,
+  Cards: CardsStack,
+  Quizzes: QuizStack
 });

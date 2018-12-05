@@ -26,11 +26,11 @@ export default class TopicsScreen extends Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         {this.state.topics.map(topic => (
-          <TopicCard topic={topic} key={topic.id} navigate={navigate} />
+          <TopicCard topic={topic} key={topic.id} navigation={navigation} />
         ))}
       </View>
     );

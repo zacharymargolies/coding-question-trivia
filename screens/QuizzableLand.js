@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import PlaygroundCard from '../components/PlaygroundCard';
 import { connect } from 'react-redux';
 
-class InformationPlayground extends React.Component {
+class QuizzableWorld extends React.Component {
   static navigationOptions = {
     title: 'Information Playground',
     headerStyle: {
@@ -66,4 +66,4 @@ const mapDispatchToProps = dispatch => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(InformationPlayground);
+)(QuizzableWorld);

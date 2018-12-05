@@ -9,14 +9,19 @@ import TabBarIcon from '../components/TabBarIcon';
 import CardsScreen from '../screens/CardsScreen';
 import TopicsScreen from '../screens/TopicsScreen';
 import InformationPlayground from '../screens/InformationPlayground';
+import QuizzableLand from '../screens/QuizzableLand';
 import DifficultyScreen from '../screens/DifficultyScreen';
 
-const CardsStack = createStackNavigator({
+export const CardsStack = createStackNavigator({
   Cards: CardsScreen
 });
 
-CardsStack.navigationOptions = {
-  tabBarLabel: 'Cards',
+export const QuizStack = createStackNavigator({
+  Quizzes: QuizzableLand
+});
+
+QuizStack.navigationOptions = {
+  tabBarLabel: 'Quizzes',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -26,8 +31,7 @@ CardsStack.navigationOptions = {
           : 'md-information-circle'
       }
     />
-  ),
-  tabBarVisible: false
+  )
 };
 
 export const TopicsStack = createStackNavigator({
@@ -63,7 +67,7 @@ export const DifficultyStack = createStackNavigator({
 export default createBottomTabNavigator(
   {
     PlaygroundStack,
-    CardsStack
+    QuizStack
   },
   {
     tabBarOptions: {

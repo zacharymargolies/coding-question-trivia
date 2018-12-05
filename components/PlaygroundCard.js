@@ -13,11 +13,12 @@ class PlaygroundCard extends React.Component {
   }
 
   render() {
-    const { selector, navigate } = this.props;
+    const { selector, navigation } = this.props;
     return (
       <TouchableOpacity
         onPress={() => {
-          navigate(`${selector.main}`);
+          // navigate(`${selector.main}`);
+          navigation.push(`${selector.main}`);
         }}
         style={styles.container}
       >
