@@ -9,14 +9,19 @@ import { connect } from 'react-redux';
 
 const TopicCard = props => {
   const { topic, navigation } = props;
+  const setTopicPlay = async () => {
+    props.setCurrentTopic(topic.id);
+    await props.getFactsByTopic(topic.id);
+    navigation.push('Cards');
+  };
+  const setTopicQuiz = async () => {
+    props.setCurrentTopic(topic.id);
+    await props.getQuestionsByTopic(topic.id);
+    navigation.push('Cards');
+  };
   return (
     <TouchableOpacity
-      onPress={async () => {
-        props.setCurrentTopic(topic.id);
-        await props.getFactsByTopic(topic.id);
-        // navigate('Cards');
-        navigation.push('Cards');
-      }}
+      onPress={console.log('ON PRESS RAN')}
       style={styles.container}
     >
       {/* TOPIC TEXT */}
@@ -64,16 +69,23 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = state => ({
+  currentMode: state.appState.currentMode
+});
+
 const mapDispatchToProps = dispatch => ({
   setCurrentTopic: topicId => {
     dispatch(setCurrentTopic(topicId));
   },
   getFactsByTopic: topicId => {
     dispatch(fetchFactsByTopic(topicId));
+  },
+  getQuestionsByTopic: topicId => {
+    dispatch(fetchQuestionsByTopic(topicId));
   }
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(TopicCard);

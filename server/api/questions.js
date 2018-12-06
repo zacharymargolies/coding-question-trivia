@@ -25,7 +25,7 @@ router.get(
   })
 );
 
-// GET QUESTIONS BY TOPIC
+// GET QUESTIONS BY FACT ID
 router.get(
   '/fact/:factId',
   asyncHandler(async (req, res, next) => {

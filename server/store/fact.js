@@ -22,8 +22,7 @@ export const setCurrentDifficulty = difficultyLevel => ({
 // THUNK CREATORS
 export const fetchAllFacts = () => async dispatch => {
   try {
-    const request = await axios.get('http://localhost:8080/api/facts');
-    // const request = await axios.get("http://192.168.1.5:8080/api/facts");
+    const request = await axios.get('/facts');
     const allFacts = request.data;
     dispatch(setCurrentFacts(allFacts));
   } catch (err) {
@@ -33,10 +32,7 @@ export const fetchAllFacts = () => async dispatch => {
 
 export const fetchFactsByTopic = topicId => async dispatch => {
   try {
-    const request = await axios.get(
-      `http://localhost:8080/api/facts/topic/${topicId}`
-      // `http://192.168.1.5:8080/api/facts/${topicId}`
-    );
+    const request = await axios.get(`/facts/topic/${topicId}`);
     const facts = request.data;
     dispatch(setCurrentFacts(facts));
   } catch (err) {
@@ -46,10 +42,7 @@ export const fetchFactsByTopic = topicId => async dispatch => {
 
 export const fetchFactsByDifficulty = difficultyLevel => async dispatch => {
   try {
-    const request = await axios.get(
-      `http://localhost:8080/api/facts/difficulty/${difficultyLevel}`
-      // `http://192.168.1.5:8080/api/facts/${topicId}`
-    );
+    const request = await axios.get(`/facts/difficulty/${difficultyLevel}`);
     const factsByDifficulty = request.data;
     dispatch(setCurrentFacts(factsByDifficulty));
   } catch (err) {
