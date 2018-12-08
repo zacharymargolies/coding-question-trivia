@@ -1,13 +1,17 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import PlaygroundCard from "../components/PlaygroundCard";
-import { connect } from "react-redux";
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import PlaygroundCard from '../components/PlaygroundCard';
+import { connect } from 'react-redux';
+import {
+  setCurrentMode,
+  INFORMATION_PLAYGROUND
+} from '../server/store/appState';
 
 class InformationPlayground extends React.Component {
   static navigationOptions = {
-    title: "Information Playground",
+    title: 'Information Playground',
     headerStyle: {
-      backgroundColor: "#f7f1e3"
+      backgroundColor: '#f7f1e3'
     }
   };
 
@@ -17,23 +21,25 @@ class InformationPlayground extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.setCurrentMode(INFORMATION_PLAYGROUND);
+  }
 
   render() {
     const allSelectors = [
       {
-        main: "Topics",
-        image: "https://i.ytimg.com/vi/xOGxyw9DSa8/maxresdefault.jpg"
+        main: 'Topics',
+        image: 'https://i.ytimg.com/vi/xOGxyw9DSa8/maxresdefault.jpg'
       },
       {
-        main: "Difficulty",
+        main: 'Difficulty',
         image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgF3kq4R9m6RqKS2W3weyEiBfVXaaTO8HmMAghHLH3yTXSe3tt"
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgF3kq4R9m6RqKS2W3weyEiBfVXaaTO8HmMAghHLH3yTXSe3tt'
       },
       {
-        main: "Random",
+        main: 'Random',
         image:
-          "https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Random-512.png"
+          'https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Random-512.png'
       }
     ];
     const { navigation } = this.props;
@@ -55,16 +61,20 @@ class InformationPlayground extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    backgroundColor: "#f7f1e3"
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    backgroundColor: '#f7f1e3'
   }
 });
 
 const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  setCurrentMode: currentMode => {
+    dispatch(setCurrentMode(currentMode));
+  }
+});
 
 export default connect(
   mapStateToProps,

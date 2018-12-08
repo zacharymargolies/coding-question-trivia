@@ -10,11 +10,11 @@ export const setCurrentQuestions = allQuestions => ({
   type: SET_CURRENT_QUESTIONS,
   allQuestions
 });
-export const setCurrentTopic = topic => ({
+export const setCurrentQuestionTopic = topic => ({
   type: SET_CURRENT_TOPIC,
   topic
 });
-export const setCurrentDifficulty = difficultyLevel => ({
+export const setCurrentQuestionDifficulty = difficultyLevel => ({
   type: SET_CURRENT_DIFFICULTY,
   difficultyLevel
 });

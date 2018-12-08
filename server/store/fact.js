@@ -10,11 +10,11 @@ export const setCurrentFacts = allFacts => ({
   type: SET_CURRENT_FACTS,
   allFacts
 });
-export const setCurrentTopic = topic => ({
+export const setCurrentFactTopic = topic => ({
   type: SET_CURRENT_TOPIC,
   topic
 });
-export const setCurrentDifficulty = difficultyLevel => ({
+export const setCurrentQuestionDifficulty = difficultyLevel => ({
   type: SET_CURRENT_DIFFICULTY,
   difficultyLevel
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import PlaygroundCard from '../components/PlaygroundCard';
 import { connect } from 'react-redux';
+import { setCurrentMode, QUIZZABLE_LAND } from '../server/store/appState';
 
 class QuizzableWorld extends React.Component {
   static navigationOptions = {
@@ -15,6 +16,10 @@ class QuizzableWorld extends React.Component {
     super(props);
 
     this.state = {};
+  }
+
+  componentDidMount() {
+    this.props.setCurrentMode(QUIZZABLE_LAND);
   }
 
   render() {
@@ -64,7 +69,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  setCurrentMode: currentMode => {
+    dispatch(setCurrentMode(currentMode));
+  }
+});
 
 export default connect(
   mapStateToProps,
