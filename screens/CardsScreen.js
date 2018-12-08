@@ -8,7 +8,7 @@ import {
 } from 'react-native-responsive-screen';
 import { CardNumber, CloseScreen } from '../components';
 
-import { fetchAllFacts, fetchFactsByTopic } from '../server/store/fact';
+import { fetchAllFacts, fetchFactsByTopic } from '../store/fact';
 import axios from 'axios';
 
 class CardsScreen extends React.Component {

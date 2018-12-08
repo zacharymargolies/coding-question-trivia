@@ -4,10 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import {
-  setCurrentDifficulty,
-  fetchFactsByDifficulty
-} from '../server/store/fact';
+import { setCurrentDifficulty, fetchFactsByDifficulty } from '../store/fact';
 import { connect } from 'react-redux';
 import { images } from '../screens/DifficultyScreen';
 

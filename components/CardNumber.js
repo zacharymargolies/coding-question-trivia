@@ -1,9 +1,9 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from "react-native-responsive-screen";
+} from 'react-native-responsive-screen';
 
 const CardNumber = props => {
   return (
@@ -17,24 +17,24 @@ const CardNumber = props => {
 
 const styles = StyleSheet.create({
   cardNumberContainer: {
-    display: "flex",
-    alignItems: "center",
-    width: wp("10.0%"),
-    height: hp("5.0%"),
-    borderWidth: wp("1.0%"),
-    borderRadius: wp("2.0%"),
-    borderColor: "#84817a",
-    position: "absolute",
-    bottom: hp("2.0%"),
-    right: wp("4.0%")
+    display: 'flex',
+    alignItems: 'center',
+    width: wp('10.0%'),
+    height: hp('5.0%'),
+    borderWidth: wp('1.0%'),
+    borderRadius: wp('2.0%'),
+    borderColor: '#84817a',
+    position: 'absolute',
+    bottom: hp('2.0%'),
+    right: wp('4.0%')
   },
   cardNumber: {
-    color: "#84817a"
+    color: '#84817a'
   },
   line: {
-    borderWidth: wp("0.25%"),
-    borderColor: "#84817a",
-    width: "80%"
+    borderWidth: wp('0.25%'),
+    borderColor: '#84817a',
+    width: '80%'
   }
 });
 

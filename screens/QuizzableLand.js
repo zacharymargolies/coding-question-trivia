@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import PlaygroundCard from '../components/PlaygroundCard';
 import { connect } from 'react-redux';
-import { setCurrentMode, QUIZZABLE_LAND } from '../server/store/appState';
+import { setCurrentMode, QUIZZABLE_LAND } from '../store/appState';
 
 class QuizzableWorld extends React.Component {
   static navigationOptions = {

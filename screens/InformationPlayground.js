@@ -2,10 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import PlaygroundCard from '../components/PlaygroundCard';
 import { connect } from 'react-redux';
-import {
-  setCurrentMode,
-  INFORMATION_PLAYGROUND
-} from '../server/store/appState';
+import { setCurrentMode, INFORMATION_PLAYGROUND } from '../store/appState';
 
 class InformationPlayground extends React.Component {
   static navigationOptions = {

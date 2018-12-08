@@ -1,30 +1,30 @@
-import React from "react";
-import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from "react-native-responsive-screen";
-import { setCurrentFactTopic, fetchFactsByTopic } from "../server/store/fact";
+} from 'react-native-responsive-screen';
+import { setCurrentFactTopic, fetchFactsByTopic } from '../store/fact';
 import {
   setCurrentQuestionTopic,
   fetchQuestionsByTopic
-} from "../server/store/question";
-import { connect } from "react-redux";
-import { QUIZZABLE_LAND } from "../server/store/appState";
+} from '../store/question';
+import { connect } from 'react-redux';
+import { QUIZZABLE_LAND } from '../store/appState';
 
 const TopicCard = props => {
   const { topic, navigation, currentMode } = props;
   const setTopicPlay = async () => {
-    console.log("SET FACT PLAY", topic.id);
+    console.log('SET FACT PLAY', topic.id);
     props.setCurrentFactTopic(topic.id);
     await props.getFactsByTopic(topic.id);
-    navigation.push("Cards");
+    navigation.push('Cards');
   };
   const setTopicQuiz = async () => {
-    console.log("SET QUESTION QUIZ", topic.id);
+    console.log('SET QUESTION QUIZ', topic.id);
     props.setCurrentQuestionTopic(topic.id);
     await props.getQuestionsByTopic(topic.id);
-    navigation.push("Cards");
+    navigation.push('Cards');
   };
   return (
     <TouchableOpacity
@@ -49,14 +49,14 @@ const TopicCard = props => {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    backgroundColor: "#ffb142",
-    height: hp("20%"),
-    width: wp("30%"),
-    alignItems: "center",
-    margin: wp("1.0%"),
-    borderRadius: wp("5%"),
-    shadowColor: "#cc8e35",
+    display: 'flex',
+    backgroundColor: '#ffb142',
+    height: hp('20%'),
+    width: wp('30%'),
+    alignItems: 'center',
+    margin: wp('1.0%'),
+    borderRadius: wp('5%'),
+    shadowColor: '#cc8e35',
     shadowOffset: {
       width: 0,
       height: 7
@@ -66,15 +66,15 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   topicText: {
-    marginTop: hp("4%"),
+    marginTop: hp('4%'),
     fontSize: 26,
-    color: "white"
+    color: 'white'
   },
   topicImage: {
-    marginTop: hp("1.0%"),
-    height: hp("9%"),
-    width: hp("9%"),
-    borderRadius: hp("4.5%")
+    marginTop: hp('1.0%'),
+    height: hp('9%'),
+    width: hp('9%'),
+    borderRadius: hp('4.5%')
   }
 });
 

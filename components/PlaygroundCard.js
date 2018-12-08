@@ -4,7 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import { setCurrentTopic, fetchFactsByTopic } from '../server/store/fact';
+import { setCurrentTopic, fetchFactsByTopic } from '../store/fact';
 import { connect } from 'react-redux';
 
 const PlaygroundCard = props => {
