@@ -106,7 +106,7 @@ class CardsScreen extends React.Component {
                       style={styles.image}
                     />
                   </View>
-                  {/* FACT CONTENT */}
+                  {/* QUESTION CONTENT */}
                   <View style={styles.factContainer}>
                     <Text style={styles.factText}>{question.content}</Text>
                   </View>
