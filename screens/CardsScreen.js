@@ -10,6 +10,7 @@ import { CardNumber, CloseScreen } from '../components';
 
 import { fetchAllFacts, fetchFactsByTopic } from '../store/fact';
 import axios from 'axios';
+import { URL } from '../store';
 
 class CardsScreen extends React.Component {
   static navigationOptions = {
@@ -60,9 +61,7 @@ class CardsScreen extends React.Component {
             onSwipedTop={async idx => {
               const { id } = this.props.facts[idx];
               try {
-                await axios.put(
-                  `http://localhost:8080/api/facts/quizzable/${id}`
-                );
+                await axios.put(`${URL}/api/facts/quizzable/${id}`);
               } catch (err) {
                 console.log(err);
               }
@@ -70,9 +69,7 @@ class CardsScreen extends React.Component {
             onSwipedBottom={async idx => {
               const { id } = this.props.facts[idx];
               try {
-                await axios.put(
-                  `http://localhost:8080/api/facts/discard/${id}`
-                );
+                await axios.put(`${URL}/api/facts/discard/${id}`);
               } catch (err) {
                 console.log(err);
               }

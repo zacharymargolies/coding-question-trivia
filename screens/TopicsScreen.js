@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import TopicCard from '../components/TopicCard';
+import { URL } from '../store';
 
 export default class TopicsScreen extends Component {
   static navigationOptions = {
@@ -20,8 +21,7 @@ export default class TopicsScreen extends Component {
   }
 
   async componentDidMount() {
-    const request = await axios.get('http://localhost:8080/api/topics/');
-    // const request = await axios.get("http://192.168.1.5:8080/api/topics/");
+    const request = await axios.get(`${URL}/api/topics/`);
     this.setState({ topics: request.data });
   }
 

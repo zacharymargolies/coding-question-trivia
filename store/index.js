@@ -6,13 +6,13 @@ import fact from './fact';
 import question from './question';
 import appState from './appState';
 
-//TODO: IMPORT REDUCERS
+export const URL = 'https://coding-trivia.herokuapp.com';
 
 const reducer = combineReducers({ fact, question, appState });
-// const middleWare = composeWithDevTools(
-//   applyMiddleware(thunkMiddleWare, createLogger({ collapsd: true }))
-// );
-const middleWare = composeWithDevTools(applyMiddleware(thunkMiddleWare));
+const middleWare = composeWithDevTools(
+  applyMiddleware(thunkMiddleWare, createLogger({ collapsd: true }))
+);
+// const middleWare = composeWithDevTools(applyMiddleware(thunkMiddleWare));
 const store = createStore(reducer, middleWare);
 
 export default store;
