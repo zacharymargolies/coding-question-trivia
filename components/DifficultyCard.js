@@ -4,7 +4,10 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import { setCurrentDifficulty, fetchFactsByDifficulty } from '../store/fact';
+import {
+  setCurrentFactDifficulty,
+  fetchFactsByDifficulty
+} from '../store/fact';
 import {
   setCurrentQuestionDifficulty,
   fetchQuestionsByDifficulty
@@ -23,6 +26,7 @@ const DifficultyCard = props => {
     4: 0.9
   };
   const setCurrentDifficultyPlay = async () => {
+    console.log('--- DIFFICULTY PLAY RAN: ---', difficultyLevel);
     props.setCurrentDifficultyPlay(difficulties[difficultyLevel]);
     await props.getFactsByDifficulty(difficulties[difficultyLevel]);
     navigate('Cards');
@@ -92,7 +96,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentDifficultyPlay: difficultyLevel => {
-    dispatch(setCurrentDifficulty(difficultyLevel));
+    dispatch(setCurrentFactDifficulty(difficultyLevel));
   },
   getFactsByDifficulty: difficultyLevel => {
     dispatch(fetchFactsByDifficulty(difficultyLevel));
