@@ -17,52 +17,60 @@ export const CardsStack = createStackNavigator({
 });
 
 export const QuizStack = createStackNavigator({
-  Quizzes: QuizzableLand
+  Quizzes: QuizzableLand,
+  Topics: TopicsScreen,
+  Difficulty: DifficultyScreen,
+  Cards: CardsScreen
 });
 
-QuizStack.navigationOptions = {
-  tabBarLabel: 'Quizzes',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-browsers${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  )
-};
-
-export const TopicsStack = createStackNavigator({
-  Topics: TopicsScreen
-});
-
-TopicsStack.navigationOptions = {
-  tabBarLabel: 'Topics'
+QuizStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 1) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarLabel: 'Quizzes',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={
+          Platform.OS === 'ios'
+            ? `ios-browsers${focused ? '' : '-outline'}`
+            : 'md-information-circle'
+        }
+      />
+    ),
+    tabBarVisible
+  };
 };
 
 const PlaygroundStack = createStackNavigator({
-  Playground: InformationPlayground
+  Playground: InformationPlayground,
+  Topics: TopicsScreen,
+  Difficulty: DifficultyScreen,
+  Cards: CardsScreen
 });
 
-PlaygroundStack.navigationOptions = {
-  tabBarLabel: 'Playground',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-list${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  )
+PlaygroundStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 1) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarLabel: 'Playground',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={
+          Platform.OS === 'ios'
+            ? `ios-list${focused ? '' : '-outline'}`
+            : 'md-information-circle'
+        }
+      />
+    ),
+    tabBarVisible
+  };
 };
-
-export const DifficultyStack = createStackNavigator({
-  Difficulty: DifficultyScreen
-});
 
 export default createBottomTabNavigator(
   {
