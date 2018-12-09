@@ -11,11 +11,12 @@ export default class CloseScreen extends Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
+    const { navigate, goBack, popToTop } = this.props.navigation;
     return (
       <TouchableOpacity
         style={styles.container}
-        onPress={() => navigate('Topics')}
+        // onPress={() => navigate('Topics')}
+        onPress={() => goBack()}
       >
         <Text style={styles.text}>X</Text>
       </TouchableOpacity>

@@ -17,11 +17,13 @@ const TopicCard = props => {
   const setTopicPlay = async () => {
     props.setCurrentFactTopic(topic.id);
     await props.getFactsByTopic(topic.id);
+    // navigation.navigate('Cards');
     navigation.push('Cards');
   };
   const setTopicQuiz = async () => {
     props.setCurrentQuestionTopic(topic.id);
     await props.getQuestionsByTopic(topic.id);
+    // navigation.navigate('Cards');
     navigation.push('Cards');
   };
   return (
