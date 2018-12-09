@@ -11,9 +11,9 @@ export const setCurrentQuestions = allQuestions => ({
   type: SET_CURRENT_QUESTIONS,
   allQuestions
 });
-export const setCurrentQuestionTopic = topic => ({
+export const setCurrentQuestionTopic = topicId => ({
   type: SET_CURRENT_TOPIC,
-  topic
+  topicId
 });
 export const setCurrentQuestionDifficulty = difficultyLevel => ({
   type: SET_CURRENT_DIFFICULTY,
@@ -33,7 +33,7 @@ export const fetchAllQuestions = () => async dispatch => {
 
 export const fetchQuestionsByTopic = topicId => async dispatch => {
   try {
-    const request = await axios.get(`${URL}/api/facts/questions/${topicId}`);
+    const request = await axios.get(`${URL}/api/questions/topic/${topicId}`);
     const questionsByTopic = request.data;
     dispatch(setCurrentQuestions(questionsByTopic));
   } catch (err) {
@@ -73,6 +73,21 @@ const initialState = {
 // REDUCER
 export default function(state = initialState, action) {
   switch (action.type) {
+    case SET_CURRENT_QUESTIONS:
+      return {
+        ...state,
+        questions: action.allQuestions
+      };
+    case SET_CURRENT_TOPIC:
+      return {
+        ...state,
+        topicId: action.topicId
+      };
+    case SET_CURRENT_DIFFICULTY:
+      return {
+        ...state,
+        difficultyLevel: action.difficultyLevel
+      };
     default:
       return state;
   }

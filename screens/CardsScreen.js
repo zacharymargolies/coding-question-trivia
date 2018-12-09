@@ -19,13 +19,16 @@ class CardsScreen extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    if (this.props.facts.length) {
+    const { facts, questions } = this.props;
+    console.log('--- FACTS: --- ', facts);
+    console.log('--- QUESTIONS: --- ', questions);
+    if (facts.length) {
       return (
         <React.Fragment>
           {/* CLOSE SCREEN */}
           <CloseScreen navigation={this.props.navigation} />
           <Swiper
-            cards={this.props.facts}
+            cards={facts}
             renderCard={fact => {
               return (
                 <View style={styles.card}>
@@ -48,8 +51,8 @@ class CardsScreen extends React.Component {
                   </View>
                   {/* CARD NUMBER */}
                   <CardNumber
-                    cur={this.props.facts.indexOf(fact) + 1}
-                    len={this.props.facts.length}
+                    cur={facts.indexOf(fact) + 1}
+                    len={facts.length}
                   />
                 </View>
               );
@@ -68,6 +71,67 @@ class CardsScreen extends React.Component {
             }}
             onSwipedBottom={async idx => {
               const { id } = this.props.facts[idx];
+              try {
+                await axios.put(`${URL}/api/facts/discard/${id}`);
+              } catch (err) {
+                console.log(err);
+              }
+            }}
+            cardIndex={0}
+            backgroundColor="#227093"
+            stackSize={3}
+          />
+        </React.Fragment>
+      );
+    } else if (questions.length) {
+      return (
+        <React.Fragment>
+          {/* CLOSE SCREEN */}
+          <CloseScreen navigation={this.props.navigation} />
+          <Swiper
+            cards={questions}
+            renderCard={question => {
+              return (
+                <View style={styles.card}>
+                  {/* TOPIC */}
+                  <View style={styles.topicContainer}>
+                    <Text style={styles.topicText}>{question.topic.main} </Text>
+                  </View>
+                  {/* LINE */}
+                  <View style={styles.line} />
+                  {/* IMAGE */}
+                  <View style={styles.imageContainer}>
+                    <Image
+                      source={require('../assets/images/developer.jpg')}
+                      style={styles.image}
+                    />
+                  </View>
+                  {/* QUESTION CONTENT */}
+                  <View style={styles.factContainer}>
+                    <Text style={styles.factText}>{question.content}</Text>
+                  </View>
+                  {/* CARD NUMBER */}
+                  <CardNumber
+                    cur={questions.indexOf(question) + 1}
+                    len={questions.length}
+                  />
+                </View>
+              );
+            }}
+            onSwipedAll={() => {
+              console.log("You've finished all the cards!");
+              navigate('Topics');
+            }}
+            onSwipedTop={async idx => {
+              const { id } = questions[idx];
+              try {
+                await axios.put(`${URL}/api/facts/quizzable/${id}`);
+              } catch (err) {
+                console.log(err);
+              }
+            }}
+            onSwipedBottom={async idx => {
+              const { id } = questions[idx];
               try {
                 await axios.put(`${URL}/api/facts/discard/${id}`);
               } catch (err) {
@@ -148,7 +212,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   facts: state.fact.facts,
-  topicId: state.fact.topicId
+  topicId: state.fact.topicId,
+  questions: state.question.questions
 });
 
 const mapDispatchToProps = dispatch => ({

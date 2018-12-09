@@ -15,13 +15,11 @@ import { QUIZZABLE_LAND } from '../store/appState';
 const TopicCard = props => {
   const { topic, navigation, currentMode } = props;
   const setTopicPlay = async () => {
-    console.log('SET FACT PLAY', topic.id);
     props.setCurrentFactTopic(topic.id);
     await props.getFactsByTopic(topic.id);
     navigation.push('Cards');
   };
   const setTopicQuiz = async () => {
-    console.log('SET QUESTION QUIZ', topic.id);
     props.setCurrentQuestionTopic(topic.id);
     await props.getQuestionsByTopic(topic.id);
     navigation.push('Cards');
