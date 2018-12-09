@@ -33,7 +33,6 @@ export const fetchAllQuestions = () => async dispatch => {
 
 export const fetchQuestionsByTopic = topicId => async dispatch => {
   try {
-    console.log('--- FETCH QUESTIONS BY TOPIC: ---', topicId);
     const request = await axios.get(`${URL}/api/questions/topic/${topicId}`);
     const questionsByTopic = request.data;
     dispatch(setCurrentQuestions(questionsByTopic));

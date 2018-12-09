@@ -5,11 +5,16 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import { setCurrentDifficulty, fetchFactsByDifficulty } from '../store/fact';
+import {
+  setCurrentQuestionDifficulty,
+  fetchQuestionsByDifficulty
+} from '../store/question';
 import { connect } from 'react-redux';
 import { images } from '../screens/DifficultyScreen';
+import { QUIZZABLE_LAND } from '../store/appState';
 
 const DifficultyCard = props => {
-  const { difficultyLevel, navigate } = props;
+  const { difficultyLevel, navigate, currentMode } = props;
   const imgPath = `level${difficultyLevel}`;
   const difficulties = {
     1: 0.3,
@@ -17,12 +22,22 @@ const DifficultyCard = props => {
     3: 0.6,
     4: 0.9
   };
+  const setCurrentDifficultyPlay = async () => {
+    props.setCurrentDifficultyPlay(difficulties[difficultyLevel]);
+    await props.getFactsByDifficulty(difficulties[difficultyLevel]);
+    navigate('Cards');
+  };
+  const setCurrentDifficultyQuiz = async () => {
+    props.setCurrentQuestionDifficulty(difficulties[difficultyLevel]);
+    await props.getQuestionsByDifficulty(difficulties[difficultyLevel]);
+    navigate('Cards');
+  };
   return (
     <TouchableOpacity
-      onPress={async () => {
-        props.setCurrentDifficulty(difficulties[difficultyLevel]);
-        await props.getFactsByDifficulty(difficulties[difficultyLevel]);
-        navigate('Cards');
+      onPress={() => {
+        currentMode === QUIZZABLE_LAND
+          ? setCurrentDifficultyQuiz()
+          : setCurrentDifficultyPlay();
       }}
       style={styles.container}
     >
@@ -71,16 +86,26 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = state => ({
+  currentMode: state.appState.currentMode
+});
+
 const mapDispatchToProps = dispatch => ({
-  setCurrentDifficulty: difficultyLevel => {
+  setCurrentDifficultyPlay: difficultyLevel => {
     dispatch(setCurrentDifficulty(difficultyLevel));
   },
   getFactsByDifficulty: difficultyLevel => {
     dispatch(fetchFactsByDifficulty(difficultyLevel));
+  },
+  setCurrentQuestionDifficulty: difficultyLevel => {
+    dispatch(setCurrentQuestionDifficulty(difficultyLevel));
+  },
+  getQuestionsByDifficulty: difficultyLevel => {
+    dispatch(fetchQuestionsByDifficulty(difficultyLevel));
   }
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(DifficultyCard);
