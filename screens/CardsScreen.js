@@ -110,6 +110,14 @@ class CardsScreen extends React.Component {
                   <View style={styles.factContainer}>
                     <Text style={styles.factText}>{question.content}</Text>
                   </View>
+                  {/* ANSWERS  */}
+                  <View style={styles.answersContainer}>
+                    <Text>Answers render here.</Text>
+                    <Text style={styles.answer}>Answer 1</Text>
+                    <Text style={styles.answer}>Answer 2</Text>
+                    <Text style={styles.answer}>Answer 3</Text>
+                    <Text style={styles.answer}>Answer 4</Text>
+                  </View>
                   {/* CARD NUMBER */}
                   <CardNumber
                     cur={questions.indexOf(question) + 1}
@@ -201,12 +209,25 @@ const styles = StyleSheet.create({
     width: hp('37.0%')
   },
   factContainer: {
-    flex: 10
+    flex: 2
   },
   factText: {
     textAlign: 'center',
     fontSize: 18,
     backgroundColor: 'transparent'
+  },
+  answersContainer: {
+    flex: 8,
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  answer: {
+    textAlign: 'center',
+    backgroundColor: '#227093',
+    height: hp('8%'),
+    width: wp('85%'),
+    borderRadius: 25
   }
 });
 
