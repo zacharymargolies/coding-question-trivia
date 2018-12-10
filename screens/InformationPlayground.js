@@ -18,10 +18,6 @@ class InformationPlayground extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    this.props.setCurrentMode(INFORMATION_PLAYGROUND);
-  }
-
   render() {
     const allSelectors = [
       {

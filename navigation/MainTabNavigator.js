@@ -11,6 +11,9 @@ import TopicsScreen from '../screens/TopicsScreen';
 import InformationPlayground from '../screens/InformationPlayground';
 import QuizzableLand from '../screens/QuizzableLand';
 import DifficultyScreen from '../screens/DifficultyScreen';
+import store from '../store';
+import { setCurrentMode } from '../store/appState';
+import { INFORMATION_PLAYGROUND, QUIZZABLE_LAND } from '../store/appState';
 
 export const CardsStack = createStackNavigator({
   Cards: CardsScreen
@@ -28,6 +31,7 @@ QuizStack.navigationOptions = ({ navigation }) => {
   if (navigation.state.index > 1) {
     tabBarVisible = false;
   }
+  store.dispatch(setCurrentMode(QUIZZABLE_LAND));
   return {
     tabBarLabel: 'Quizzes',
     tabBarIcon: ({ focused }) => (
@@ -56,6 +60,7 @@ PlaygroundStack.navigationOptions = ({ navigation }) => {
   if (navigation.state.index > 1) {
     tabBarVisible = false;
   }
+  store.dispatch(setCurrentMode(INFORMATION_PLAYGROUND));
   return {
     tabBarLabel: 'Playground',
     tabBarIcon: ({ focused }) => (

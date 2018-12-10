@@ -9,8 +9,9 @@ import {
 import { CardNumber, CloseScreen } from '../components';
 
 import { fetchAllFacts, fetchFactsByTopic } from '../store/fact';
-import axios from 'axios';
 import { URL } from '../store';
+import { INFORMATION_PLAYGROUND, QUIZZABLE_LAND } from '../store/appState';
+import axios from 'axios';
 
 class CardsScreen extends React.Component {
   static navigationOptions = {
@@ -20,10 +21,10 @@ class CardsScreen extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    const { facts, questions } = this.props;
-    console.log('--- FACTS: --- ', facts);
-    console.log('--- QUESTIONS: --- ', questions);
-    if (facts.length) {
+    const { facts, questions, currentMode } = this.props;
+    // console.log('--- FACTS: --- ', facts);
+    // console.log('--- QUESTIONS: --- ', questions);
+    if (currentMode === INFORMATION_PLAYGROUND) {
       return (
         <React.Fragment>
           {/* CLOSE SCREEN */}
@@ -84,7 +85,7 @@ class CardsScreen extends React.Component {
           />
         </React.Fragment>
       );
-    } else if (questions.length) {
+    } else if (currentMode === QUIZZABLE_LAND) {
       return (
         <React.Fragment>
           {/* CLOSE SCREEN */}
@@ -214,7 +215,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   facts: state.fact.facts,
   topicId: state.fact.topicId,
-  questions: state.question.questions
+  questions: state.question.questions,
+  currentMode: state.appState.currentMode
 });
 
 const mapDispatchToProps = dispatch => ({

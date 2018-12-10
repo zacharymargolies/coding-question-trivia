@@ -18,10 +18,6 @@ class QuizzableWorld extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    this.props.setCurrentMode(QUIZZABLE_LAND);
-  }
-
   render() {
     const allSelectors = [
       {
