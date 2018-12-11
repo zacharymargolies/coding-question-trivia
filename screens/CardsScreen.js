@@ -112,7 +112,6 @@ class CardsScreen extends React.Component {
                   </View>
                   {/* ANSWERS  */}
                   <View style={styles.answersContainer}>
-                    <Text>Answers render here.</Text>
                     <Text style={styles.answer}>Answer 1</Text>
                     <Text style={styles.answer}>Answer 2</Text>
                     <Text style={styles.answer}>Answer 3</Text>
@@ -201,7 +200,7 @@ const styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: hp('5.0%')
+    marginBottom: hp('2.5%')
   },
   image: {
     resizeMode: 'contain',
@@ -219,15 +218,19 @@ const styles = StyleSheet.create({
   answersContainer: {
     flex: 8,
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   },
   answer: {
     textAlign: 'center',
-    backgroundColor: '#227093',
+    backgroundColor: '#ffb142',
+    borderWidth: wp('1%'),
+    borderColor: '#227093',
     height: hp('8%'),
-    width: wp('85%'),
-    borderRadius: 25
+    width: wp('80%'),
+    borderRadius: 25,
+    marginTop: hp('0.5%'),
+    marginBottom: hp('0.5%')
   }
 });
 

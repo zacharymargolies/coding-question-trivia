@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     borderRadius: wp('2.0%'),
     borderColor: '#84817a',
     position: 'absolute',
-    bottom: hp('2.0%'),
-    right: wp('4.0%')
+    bottom: hp('1.5%'),
+    right: wp('3.0%')
   },
   cardNumber: {
     color: '#84817a'
