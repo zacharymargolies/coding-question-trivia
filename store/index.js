@@ -5,10 +5,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import fact from './fact';
 import question from './question';
 import appState from './appState';
+import answer from './answer';
 
-export const URL = 'https://coding-trivia.herokuapp.com';
+// export const URL = 'https://coding-trivia.herokuapp.com';
+export const URL = 'http://localhost:8080';
 
-const reducer = combineReducers({ fact, question, appState });
+const reducer = combineReducers({ fact, question, appState, answer });
 // const middleWare = composeWithDevTools(
 //   applyMiddleware(thunkMiddleWare, createLogger({ collapsd: true }))
 // );

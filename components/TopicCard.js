@@ -9,6 +9,7 @@ import {
   setCurrentQuestionTopic,
   fetchQuestionsByTopic
 } from '../store/question';
+import { fetchAllAnswers } from '../store/answer';
 import { connect } from 'react-redux';
 import { QUIZZABLE_LAND } from '../store/appState';
 
@@ -17,13 +18,12 @@ const TopicCard = props => {
   const setTopicPlay = async () => {
     props.setCurrentFactTopic(topic.id);
     await props.getFactsByTopic(topic.id);
-    // navigation.navigate('Cards');
     navigation.push('Cards');
   };
   const setTopicQuiz = async () => {
     props.setCurrentQuestionTopic(topic.id);
     await props.getQuestionsByTopic(topic.id);
-    // navigation.navigate('Cards');
+    await props.getAllAnswers();
     navigation.push('Cards');
   };
   return (
@@ -94,6 +94,9 @@ const mapDispatchToProps = dispatch => ({
   },
   getQuestionsByTopic: topicId => {
     dispatch(fetchQuestionsByTopic(topicId));
+  },
+  getAllAnswers: () => {
+    dispatch(fetchAllAnswers());
   }
 });
 

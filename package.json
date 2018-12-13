@@ -39,7 +39,8 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "sequelize": "^4.39.0"
+    "sequelize": "^4.39.0",
+    "shuffle-array": "^1.0.1"
   },
   "devDependencies": {
     "jest-expo": "30.0.0"
