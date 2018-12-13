@@ -50,6 +50,7 @@ export const fetchQuestionsByTopic = topicId => async dispatch => {
         question.answer,
         ...shuffle.pick(allAnswers, { picks: 3 })
       ];
+      question.answerPool = shuffle(question.answerPool);
     });
     dispatch(setCurrentQuestions(questionsByTopic));
   } catch (err) {

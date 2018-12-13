@@ -53,6 +53,17 @@ export const fetchFactsByDifficulty = difficultyLevel => async dispatch => {
   }
 };
 
+export const fetchRandomFacts = () => async dispatch => {
+  try {
+    const request = await axios.get(`${URL}/api/facts/random`);
+    const randomFacts = request.data;
+    console.log('--- RANDOM FACTS: --- ', randomFacts);
+    dispatch(setCurrentFacts(randomFacts));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // INITIAL STATE
 const initialState = {
   facts: [],

@@ -1,14 +1,15 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import PlaygroundCard from '../components/PlaygroundCard';
-import { connect } from 'react-redux';
-import { setCurrentMode, QUIZZABLE_LAND } from '../store/appState';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import PlaygroundCard from "../components/PlaygroundCard";
+import { connect } from "react-redux";
+import { setCurrentMode, QUIZZABLE_LAND } from "../store/appState";
+import { allSelectors } from "../store";
 
 class QuizzableWorld extends React.Component {
   static navigationOptions = {
-    title: 'Quizzable Land',
+    title: "Quizzable Land",
     headerStyle: {
-      backgroundColor: '#f7f1e3'
+      backgroundColor: "#f7f1e3"
     }
   };
 
@@ -19,25 +20,6 @@ class QuizzableWorld extends React.Component {
   }
 
   render() {
-    const allSelectors = [
-      {
-        main: 'Topics',
-        image: 'https://i.ytimg.com/vi/xOGxyw9DSa8/maxresdefault.jpg',
-        id: 1
-      },
-      {
-        main: 'Difficulty',
-        image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgF3kq4R9m6RqKS2W3weyEiBfVXaaTO8HmMAghHLH3yTXSe3tt',
-        id: 2
-      },
-      {
-        main: 'Random',
-        image:
-          'https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Random-512.png',
-        id: 3
-      }
-    ];
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
@@ -59,10 +41,10 @@ class QuizzableWorld extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    backgroundColor: '#f7f1e3'
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    backgroundColor: "#f7f1e3"
   }
 });
 

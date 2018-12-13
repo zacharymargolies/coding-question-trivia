@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import PlaygroundCard from '../components/PlaygroundCard';
 import { connect } from 'react-redux';
 import { setCurrentMode, INFORMATION_PLAYGROUND } from '../store/appState';
+import { allSelectors } from '../store';
 
 class InformationPlayground extends React.Component {
   static navigationOptions = {
@@ -19,22 +20,6 @@ class InformationPlayground extends React.Component {
   }
 
   render() {
-    const allSelectors = [
-      {
-        main: 'Topics',
-        image: 'https://i.ytimg.com/vi/xOGxyw9DSa8/maxresdefault.jpg'
-      },
-      {
-        main: 'Difficulty',
-        image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgF3kq4R9m6RqKS2W3weyEiBfVXaaTO8HmMAghHLH3yTXSe3tt'
-      },
-      {
-        main: 'Random',
-        image:
-          'https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Random-512.png'
-      }
-    ];
     const { navigation } = this.props;
     return (
       <View style={styles.container}>

@@ -4,15 +4,24 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import { setCurrentTopic, fetchFactsByTopic } from '../store/fact';
+import {
+  setCurrentTopic,
+  fetchFactsByTopic,
+  fetchRandomFacts
+} from '../store/fact';
 import { connect } from 'react-redux';
 
 const PlaygroundCard = props => {
   const { selector, navigation } = props;
   return (
     <TouchableOpacity
-      onPress={() => {
-        navigation.push(`${selector.main}`);
+      onPress={async () => {
+        if (selector.main === 'Random') {
+          await props.getRandomFacts();
+          navigation.push('Cards');
+        } else {
+          navigation.push(`${selector.main}`);
+        }
       }}
       style={styles.container}
     >
@@ -67,6 +76,9 @@ const mapDispatchToProps = dispatch => ({
   },
   getFactsByTopic: topicId => {
     dispatch(fetchFactsByTopic(topicId));
+  },
+  getRandomFacts: () => {
+    dispatch(fetchRandomFacts());
   }
 });
 
