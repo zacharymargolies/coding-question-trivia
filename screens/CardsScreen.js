@@ -81,9 +81,9 @@ class CardsScreen extends React.Component {
             }}
             cardIndex={0}
             backgroundColor="#227093"
-            showSecondCard={false}
+            // showSecondCard={false}
             goBackToPreviousCardOnSwipeRight={true}
-            // stackSize={3}
+            stackSize={3}
           />
         </React.Fragment>
       );
