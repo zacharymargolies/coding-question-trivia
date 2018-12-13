@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -8,7 +8,11 @@ import { connect } from 'react-redux';
 
 const AnswerButton = props => {
   const { content } = props;
-  return <Text style={styles.answer}>{content}</Text>;
+  return (
+    <TouchableOpacity onPress={() => console.log('You selected: ', content)}>
+      <Text style={styles.answer}>{content}</Text>
+    </TouchableOpacity>
+  );
 };
 
 const styles = StyleSheet.create({
