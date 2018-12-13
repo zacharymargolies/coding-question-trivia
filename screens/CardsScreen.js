@@ -23,6 +23,7 @@ class CardsScreen extends React.Component {
   render() {
     const { navigate, goBack } = this.props.navigation;
     const { facts, questions, currentMode } = this.props;
+    console.log('--- CARDS SCREEN QUESTION: --- ', questions[0]);
     if (currentMode === INFORMATION_PLAYGROUND && facts.length) {
       return (
         <React.Fragment>
@@ -113,8 +114,13 @@ class CardsScreen extends React.Component {
                   </View>
                   {/* ANSWERS  */}
                   <View style={styles.answersContainer}>
-                    {question.answer.map(answer => (
-                      <AnswerButton key={answer.id} content={answer.value} />
+                    {question.answerPool.map(answer => (
+                      <AnswerButton
+                        correctAnswerId={question.answer.id}
+                        curAnswerId={answer.id}
+                        key={answer.id}
+                        content={answer.value}
+                      />
                     ))}
                   </View>
                   {/* CARD NUMBER */}

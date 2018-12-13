@@ -46,12 +46,11 @@ export const fetchQuestionsByTopic = topicId => async dispatch => {
 
     // ADD THREE RANDOM ANSWERS TO EACH QUESTION
     questionsByTopic.forEach(question => {
-      question.answer = [
+      question.answerPool = [
         question.answer,
         ...shuffle.pick(allAnswers, { picks: 3 })
       ];
     });
-    // console.log('--- FETCH QUESTIONS: --- ', questionsByTopic[0]);
     dispatch(setCurrentQuestions(questionsByTopic));
   } catch (err) {
     console.log(err);

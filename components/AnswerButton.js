@@ -6,10 +6,22 @@ import {
 } from 'react-native-responsive-screen';
 import { connect } from 'react-redux';
 
+const checkAnswer = (correctAnswerId, curAnswerId) => {
+  if (correctAnswerId === curAnswerId) {
+    console.log('You chose the correct answer!');
+  } else {
+    console.log('You chose the incorrect answer.');
+  }
+};
+
 const AnswerButton = props => {
-  const { content } = props;
+  const { correctAnswerId, curAnswerId, content } = props;
   return (
-    <TouchableOpacity onPress={() => console.log('You selected: ', content)}>
+    <TouchableOpacity
+      onPress={() => {
+        checkAnswer(correctAnswerId, curAnswerId);
+      }}
+    >
       <Text style={styles.answer}>{content}</Text>
     </TouchableOpacity>
   );
