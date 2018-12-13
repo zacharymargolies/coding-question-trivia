@@ -1,18 +1,18 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import Swiper from 'react-native-deck-swiper';
-import { connect } from 'react-redux';
+import React from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
+import Swiper from "react-native-deck-swiper";
+import { connect } from "react-redux";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import { CardNumber, CloseScreen, AnswerButton } from '../components';
+} from "react-native-responsive-screen";
+import { CardNumber, CloseScreen, AnswerButton } from "../components";
 
-import { fetchAllFacts, fetchFactsByTopic } from '../store/fact';
-import { INFORMATION_PLAYGROUND, QUIZZABLE_LAND } from '../store/appState';
-import { fetchAllAnswers } from '../store/answer';
-import { URL } from '../store';
-import axios from 'axios';
+import { fetchAllFacts, fetchFactsByTopic } from "../store/fact";
+import { INFORMATION_PLAYGROUND, QUIZZABLE_LAND } from "../store/appState";
+import { fetchAllAnswers } from "../store/answer";
+import { URL } from "../store";
+import axios from "axios";
 
 class CardsScreen extends React.Component {
   static navigationOptions = {
@@ -23,7 +23,6 @@ class CardsScreen extends React.Component {
   render() {
     const { navigate, goBack } = this.props.navigation;
     const { facts, questions, currentMode } = this.props;
-    console.log('--- CARDS SCREEN QUESTION: --- ', questions[0]);
     if (currentMode === INFORMATION_PLAYGROUND && facts.length) {
       return (
         <React.Fragment>
@@ -43,7 +42,7 @@ class CardsScreen extends React.Component {
                   {/* IMAGE */}
                   <View style={styles.imageContainer}>
                     <Image
-                      source={require('../assets/images/developer.jpg')}
+                      source={require("../assets/images/developer.jpg")}
                       style={styles.image}
                     />
                   </View>
@@ -61,7 +60,7 @@ class CardsScreen extends React.Component {
             }}
             onSwipedAll={() => {
               console.log("You've finished all the cards!");
-              navigate('Topics');
+              navigate("Topics");
             }}
             onSwipedTop={async idx => {
               const { id } = this.props.facts[idx];
@@ -81,7 +80,9 @@ class CardsScreen extends React.Component {
             }}
             cardIndex={0}
             backgroundColor="#227093"
-            stackSize={3}
+            showSecondCard={false}
+            goBackToPreviousCardOnSwipeRight={true}
+            // stackSize={3}
           />
         </React.Fragment>
       );
@@ -104,13 +105,13 @@ class CardsScreen extends React.Component {
                   {/* IMAGE */}
                   <View style={styles.imageContainer}>
                     <Image
-                      source={require('../assets/images/developer.jpg')}
+                      source={require("../assets/images/developer.jpg")}
                       style={styles.image}
                     />
                   </View>
                   {/* QUESTION CONTENT */}
-                  <View style={styles.factContainer}>
-                    <Text style={styles.factText}>{question.content}</Text>
+                  <View style={styles.questionContainer}>
+                    <Text style={styles.questionText}>{question.content}</Text>
                   </View>
                   {/* ANSWERS  */}
                   <View style={styles.answersContainer}>
@@ -170,62 +171,70 @@ class CardsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff"
   },
   card: {
-    marginTop: hp('5%'),
-    marginBottom: hp('-2.5%'),
+    marginTop: hp("5%"),
+    marginBottom: hp("-2.5%"),
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
     borderRadius: 25,
-    borderColor: '#ffb142',
-    justifyContent: 'center',
-    backgroundColor: '#ffb142'
+    borderColor: "#ffb142",
+    justifyContent: "center",
+    backgroundColor: "#ffb142"
   },
   topicContainer: {
     flex: 1,
-    marginTop: hp('2.0%')
+    marginTop: hp("2.0%")
   },
   topicText: {
-    fontFamily: 'Arial Rounded MT Bold',
-    fontWeight: 'bold',
+    fontFamily: "Arial Rounded MT Bold",
+    fontWeight: "bold",
     fontSize: 42,
-    color: 'white',
-    textAlign: 'center'
+    color: "white",
+    textAlign: "center"
   },
   line: {
-    marginTop: hp('1.0%'),
-    marginBottom: hp('3%'),
-    alignSelf: 'center',
-    width: wp('80%'),
-    borderBottomColor: 'white',
-    borderBottomWidth: hp('.25%'),
-    borderRadius: wp('.25%')
+    marginTop: hp("1.0%"),
+    marginBottom: hp("3%"),
+    alignSelf: "center",
+    width: wp("80%"),
+    borderBottomColor: "white",
+    borderBottomWidth: hp(".25%"),
+    borderRadius: wp(".25%")
   },
   imageContainer: {
     flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: hp('2.5%')
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: hp("2.5%")
   },
   image: {
-    resizeMode: 'contain',
-    height: hp('37.0%'),
-    width: hp('37.0%')
+    resizeMode: "contain",
+    height: hp("37.0%"),
+    width: hp("37.0%")
   },
   factContainer: {
+    flex: 8
+  },
+  questionContainer: {
     flex: 2
   },
   factText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 18,
-    backgroundColor: 'transparent'
+    backgroundColor: "transparent"
+  },
+  questionText: {
+    textAlign: "center",
+    fontSize: 18,
+    backgroundColor: "transparent"
   },
   answersContainer: {
     flex: 8,
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+    alignItems: "center"
   }
 });
 
