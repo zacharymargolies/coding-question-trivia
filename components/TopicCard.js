@@ -1,42 +1,51 @@
 import React from 'react';
-import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-import { setCurrentTopic, fetchFactsByTopic } from '../server/store/fact';
+import { setCurrentFactTopic, fetchFactsByTopic } from '../store/fact';
+import {
+  setCurrentQuestionTopic,
+  fetchQuestionsByTopic
+} from '../store/question';
+import { fetchAllAnswers } from '../store/answer';
 import { connect } from 'react-redux';
+import { QUIZZABLE_LAND } from '../store/appState';
 
-class TopicCard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { topic, navigate } = this.props;
-    return (
-      <TouchableOpacity
-        onPress={async () => {
-          this.props.setCurrentTopic(topic.id);
-          await this.props.getFactsByTopic(topic.id);
-          navigate('Cards');
-        }}
-        style={styles.container}
+const TopicCard = props => {
+  const { topic, navigation, currentMode } = props;
+  const setTopicPlay = async () => {
+    props.setCurrentFactTopic(topic.id);
+    await props.getFactsByTopic(topic.id);
+    navigation.push('Cards');
+  };
+  const setTopicQuiz = async () => {
+    props.setCurrentQuestionTopic(topic.id);
+    await props.getQuestionsByTopic(topic.id);
+    await props.getAllAnswers();
+    navigation.push('Cards');
+  };
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        currentMode === QUIZZABLE_LAND ? setTopicQuiz() : setTopicPlay();
+      }}
+      style={styles.container}
+    >
+      {/* TOPIC TEXT */}
+      <Text
+        adjustsFontSizeToFit={true}
+        numberOfLines={1}
+        style={styles.topicText}
       >
-        // TOPIC TEXT
-        <Text
-          adjustsFontSizeToFit={true}
-          numberOfLines={1}
-          style={styles.topicText}
-        >
-          {topic.main}
-        </Text>
-        // TOPIC IMAGE
-        <Image style={styles.topicImage} source={{ uri: topic.image }} />
-      </TouchableOpacity>
-    );
-  }
-}
+        {topic.main}
+      </Text>
+      {/* TOPIC IMAGE */}
+      <Image style={styles.topicImage} source={{ uri: topic.image }} />
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -62,23 +71,36 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   topicImage: {
-    marginTop: hp('0.5%'),
-    height: hp('8%'),
-    width: hp('8%'),
-    borderRadius: hp('4%')
+    marginTop: hp('1.0%'),
+    height: hp('9%'),
+    width: hp('9%'),
+    borderRadius: hp('4.5%')
   }
 });
 
+const mapStateToProps = state => ({
+  currentMode: state.appState.currentMode
+});
+
 const mapDispatchToProps = dispatch => ({
-  setCurrentTopic: topicId => {
-    dispatch(setCurrentTopic(topicId));
+  setCurrentFactTopic: topicId => {
+    dispatch(setCurrentFactTopic(topicId));
   },
   getFactsByTopic: topicId => {
     dispatch(fetchFactsByTopic(topicId));
+  },
+  setCurrentQuestionTopic: topicId => {
+    dispatch(setCurrentQuestionTopic(topicId));
+  },
+  getQuestionsByTopic: topicId => {
+    dispatch(fetchQuestionsByTopic(topicId));
+  },
+  getAllAnswers: () => {
+    dispatch(fetchAllAnswers());
   }
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(TopicCard);

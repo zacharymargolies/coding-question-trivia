@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -7,26 +7,21 @@ import {
 import { setCurrentTopic, fetchFactsByTopic } from '../store/fact';
 import { connect } from 'react-redux';
 
-const PlaygroundCard = props => {
-  const { selector, navigation } = props;
+const TopicCard = props => {
+  const { content } = props;
   return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.push(`${selector.main}`);
-      }}
-      style={styles.container}
-    >
+    <React.Fragment style={styles.container}>
+      {/* TOPIC IMAGE */}
+      {/* <Image style={styles.topicImage} source={{ uri: topic.image }} /> */}
       {/* TOPIC TEXT */}
       <Text
         adjustsFontSizeToFit={true}
-        numberOfLines={1}
+        numberOfLines={3}
         style={styles.topicText}
       >
-        {selector.main}
+        {content}
       </Text>
-      {/* TOPIC IMAGE */}
-      <Image style={styles.topicImage} source={{ uri: selector.image }} />
-    </TouchableOpacity>
+    </React.Fragment>
   );
 };
 
@@ -34,8 +29,8 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     backgroundColor: '#ffb142',
-    height: hp('20%'),
-    width: wp('30%'),
+    height: hp('35%'),
+    width: wp('90%'),
     alignItems: 'center',
     margin: wp('1.0%'),
     borderRadius: wp('5%'),
@@ -54,10 +49,10 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   topicImage: {
-    marginTop: hp('0.5%'),
-    height: hp('8%'),
-    width: hp('8%'),
-    borderRadius: hp('4%')
+    marginTop: hp('1.0%'),
+    height: hp('9%'),
+    width: hp('9%'),
+    borderRadius: hp('4.5%')
   }
 });
 
@@ -73,4 +68,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(PlaygroundCard);
+)(TopicCard);

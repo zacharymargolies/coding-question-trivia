@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { URL } from './index';
 
 // ACTION TYPES
 const SET_CURRENT_FACTS = 'SET_CURRENT_FACTS';
@@ -10,20 +11,19 @@ export const setCurrentFacts = allFacts => ({
   type: SET_CURRENT_FACTS,
   allFacts
 });
-export const setCurrentTopic = topic => ({
+export const setCurrentFactTopic = topic => ({
   type: SET_CURRENT_TOPIC,
   topic
 });
-export const setCurrentDifficulty = allFacts => ({
+export const setCurrentFactDifficulty = difficultyLevel => ({
   type: SET_CURRENT_DIFFICULTY,
-  allFacts
+  difficultyLevel
 });
 
 // THUNK CREATORS
 export const fetchAllFacts = () => async dispatch => {
   try {
-    const request = await axios.get('http://localhost:8080/api/facts');
-    // const request = await axios.get("http://192.168.1.5:8080/api/facts");
+    const request = await axios.get(`${URL}/api/facts`);
     const allFacts = request.data;
     dispatch(setCurrentFacts(allFacts));
   } catch (err) {
@@ -33,10 +33,7 @@ export const fetchAllFacts = () => async dispatch => {
 
 export const fetchFactsByTopic = topicId => async dispatch => {
   try {
-    const request = await axios.get(
-      `http://localhost:8080/api/facts/topic/${topicId}`
-      // `http://192.168.1.5:8080/api/facts/${topicId}`
-    );
+    const request = await axios.get(`${URL}/api/facts/topic/${topicId}`);
     const facts = request.data;
     dispatch(setCurrentFacts(facts));
   } catch (err) {
@@ -47,8 +44,7 @@ export const fetchFactsByTopic = topicId => async dispatch => {
 export const fetchFactsByDifficulty = difficultyLevel => async dispatch => {
   try {
     const request = await axios.get(
-      `http://localhost:8080/api/facts/difficulty/${difficultyLevel}`
-      // `http://192.168.1.5:8080/api/facts/${topicId}`
+      `${URL}/api/facts/difficulty/${difficultyLevel}`
     );
     const factsByDifficulty = request.data;
     dispatch(setCurrentFacts(factsByDifficulty));
@@ -60,11 +56,15 @@ export const fetchFactsByDifficulty = difficultyLevel => async dispatch => {
 // INITIAL STATE
 const initialState = {
   facts: [],
-  topicId: null
+  topicId: null,
+  difficultyLevel: null
 };
 
 // REDUCER
-export default function(state = initialState, action) {
+export default function(
+  state = { facts: [], topicId: null, difficultyLevel: null },
+  action
+) {
   switch (action.type) {
     case SET_CURRENT_FACTS:
       return {

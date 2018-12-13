@@ -12,6 +12,7 @@ const PlaygroundCard = props => {
   return (
     <TouchableOpacity
       onPress={() => {
+        // navigate(`${selector.main}`);
         navigation.push(`${selector.main}`);
       }}
       style={styles.container}

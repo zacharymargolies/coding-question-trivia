@@ -9,61 +9,78 @@ import TabBarIcon from '../components/TabBarIcon';
 import CardsScreen from '../screens/CardsScreen';
 import TopicsScreen from '../screens/TopicsScreen';
 import InformationPlayground from '../screens/InformationPlayground';
+import QuizzableLand from '../screens/QuizzableLand';
 import DifficultyScreen from '../screens/DifficultyScreen';
+import store from '../store';
+import { setCurrentMode } from '../store/appState';
+import { INFORMATION_PLAYGROUND, QUIZZABLE_LAND } from '../store/appState';
 
-const CardsStack = createStackNavigator({
+export const CardsStack = createStackNavigator({
   Cards: CardsScreen
 });
 
-CardsStack.navigationOptions = {
-  tabBarLabel: 'Cards',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-browsers${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-  tabBarVisible: false
-};
-
-export const TopicsStack = createStackNavigator({
-  Topics: TopicsScreen
+export const QuizStack = createStackNavigator({
+  Quizzes: QuizzableLand,
+  Topics: TopicsScreen,
+  Difficulty: DifficultyScreen,
+  Cards: CardsScreen
 });
 
-TopicsStack.navigationOptions = {
-  tabBarLabel: 'Topics'
+QuizStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 1) {
+    tabBarVisible = false;
+  }
+  store.dispatch(setCurrentMode(QUIZZABLE_LAND));
+  return {
+    tabBarLabel: 'Quizzes',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={
+          Platform.OS === 'ios'
+            ? `ios-browsers${focused ? '' : '-outline'}`
+            : 'md-information-circle'
+        }
+      />
+    ),
+    tabBarVisible
+  };
 };
 
 const PlaygroundStack = createStackNavigator({
-  Playground: InformationPlayground
+  Playground: InformationPlayground,
+  Topics: TopicsScreen,
+  Difficulty: DifficultyScreen,
+  Cards: CardsScreen
 });
 
-PlaygroundStack.navigationOptions = {
-  tabBarLabel: 'Playground',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-list${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  )
+PlaygroundStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 1) {
+    tabBarVisible = false;
+  }
+  store.dispatch(setCurrentMode(INFORMATION_PLAYGROUND));
+  return {
+    tabBarLabel: 'Playground',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={
+          Platform.OS === 'ios'
+            ? `ios-list${focused ? '' : '-outline'}`
+            : 'md-information-circle'
+        }
+      />
+    ),
+    tabBarVisible
+  };
 };
-
-export const DifficultyStack = createStackNavigator({
-  Difficulty: DifficultyScreen
-});
 
 export default createBottomTabNavigator(
   {
     PlaygroundStack,
-    CardsStack
+    QuizStack
   },
   {
     tabBarOptions: {
