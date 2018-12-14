@@ -82,6 +82,8 @@ class CardsScreen extends React.Component {
             cardIndex={0}
             backgroundColor="#227093"
             // showSecondCard={false}
+            verticalThreshold={hp("15%")}
+            horizontalThreshold={wp("20%")}
             goBackToPreviousCardOnSwipeRight={true}
             stackSize={3}
           />
@@ -154,6 +156,8 @@ class CardsScreen extends React.Component {
               }
             }}
             cardIndex={0}
+            verticalThreshold={hp("15%")}
+            horizontalThreshold={wp("20%")}
             backgroundColor="#227093"
             stackSize={3}
           />

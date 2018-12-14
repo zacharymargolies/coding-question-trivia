@@ -23,8 +23,8 @@ export default class RandomScreen extends Component {
         <View style={styles.textContainer}>
           <Text style={styles.text}>How many cards would you like to see?</Text>
         </View>
-        {quantities.map(quantity => (
-          <RandomCard quantity={quantity} navigation={navigation} />
+        {quantities.map((quantity, idx) => (
+          <RandomCard key={idx} quantity={quantity} navigation={navigation} />
         ))}
       </View>
     );

@@ -57,7 +57,6 @@ export const fetchRandomFacts = quantity => async dispatch => {
   try {
     const request = await axios.get(`${URL}/api/facts/random/${quantity}`);
     const randomFacts = request.data;
-    console.log("--- RANDOM FACTS: --- ", randomFacts);
     dispatch(setCurrentFacts(randomFacts));
   } catch (err) {
     console.log(err);

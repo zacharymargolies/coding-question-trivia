@@ -49,15 +49,13 @@ const styles = StyleSheet.create({
     shadowRadius: 9.51,
     elevation: 10
   },
-  topicText: {
-    fontSize: 70,
-    color: "white"
-  },
   topicTextContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    fontSize: 40,
+    alignItems: "center"
+  },
+  topicText: {
+    fontSize: 70,
     color: "white"
   }
 });
