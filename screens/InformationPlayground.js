@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#f7f1e3"
   },
   textContainer: {
-    // flex: 1,
     marginTop: hp("12.5%"),
     marginBottom: hp("5%")
   },

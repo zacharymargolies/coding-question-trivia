@@ -1,27 +1,30 @@
-import React from 'react';
-import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
+} from "react-native-responsive-screen";
 import {
   setCurrentTopic,
   fetchFactsByTopic,
   fetchRandomFacts
-} from '../store/fact';
-import { connect } from 'react-redux';
+} from "../store/fact";
+import { connect } from "react-redux";
 
 const PlaygroundCard = props => {
   const { selector, navigation } = props;
   return (
     <TouchableOpacity
-      onPress={async () => {
-        if (selector.main === 'Random') {
-          await props.getRandomFacts();
-          navigation.push('Cards');
-        } else {
-          navigation.push(`${selector.main}`);
-        }
+      // onPress={async () => {
+      //   if (selector.main === 'Random') {
+      //     await props.getRandomFacts();
+      //     navigation.push('Cards');
+      //   } else {
+      //     navigation.push(`${selector.main}`);
+      //   }
+      // }}
+      onPress={() => {
+        navigation.push(`${selector.main}`);
       }}
       style={styles.container}
     >
@@ -41,14 +44,14 @@ const PlaygroundCard = props => {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    backgroundColor: '#ffb142',
-    height: hp('20%'),
-    width: wp('30%'),
-    alignItems: 'center',
-    margin: wp('1.0%'),
-    borderRadius: wp('5%'),
-    shadowColor: '#cc8e35',
+    display: "flex",
+    backgroundColor: "#ffb142",
+    height: hp("20%"),
+    width: wp("30%"),
+    alignItems: "center",
+    margin: wp("1.0%"),
+    borderRadius: wp("5%"),
+    shadowColor: "#cc8e35",
     shadowOffset: {
       width: 0,
       height: 7
@@ -58,15 +61,15 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   topicText: {
-    marginTop: hp('4%'),
+    marginTop: hp("4%"),
     fontSize: 26,
-    color: 'white'
+    color: "white"
   },
   topicImage: {
-    marginTop: hp('0.5%'),
-    height: hp('8%'),
-    width: hp('8%'),
-    borderRadius: hp('4%')
+    marginTop: hp("0.5%"),
+    height: hp("8%"),
+    width: hp("8%"),
+    borderRadius: hp("4%")
   }
 });
 

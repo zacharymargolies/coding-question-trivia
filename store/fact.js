@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { URL } from './index';
+import axios from "axios";
+import { URL } from "./index";
 
 // ACTION TYPES
-const SET_CURRENT_FACTS = 'SET_CURRENT_FACTS';
-const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
-const SET_CURRENT_DIFFICULTY = 'SET_CURRENT_DIFFICULTY';
+const SET_CURRENT_FACTS = "SET_CURRENT_FACTS";
+const SET_CURRENT_TOPIC = "SET_CURRENT_TOPIC";
+const SET_CURRENT_DIFFICULTY = "SET_CURRENT_DIFFICULTY";
 
 // ACTION CREATORS
 export const setCurrentFacts = allFacts => ({
@@ -53,11 +53,11 @@ export const fetchFactsByDifficulty = difficultyLevel => async dispatch => {
   }
 };
 
-export const fetchRandomFacts = () => async dispatch => {
+export const fetchRandomFacts = quantity => async dispatch => {
   try {
-    const request = await axios.get(`${URL}/api/facts/random`);
+    const request = await axios.get(`${URL}/api/facts/random/${quantity}`);
     const randomFacts = request.data;
-    console.log('--- RANDOM FACTS: --- ', randomFacts);
+    console.log("--- RANDOM FACTS: --- ", randomFacts);
     dispatch(setCurrentFacts(randomFacts));
   } catch (err) {
     console.log(err);

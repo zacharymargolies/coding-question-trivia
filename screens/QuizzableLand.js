@@ -4,6 +4,10 @@ import PlaygroundCard from "../components/PlaygroundCard";
 import { connect } from "react-redux";
 import { setCurrentMode, QUIZZABLE_LAND } from "../store/appState";
 import { allSelectors } from "../store";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 
 class QuizzableWorld extends React.Component {
   static navigationOptions = {
@@ -23,9 +27,12 @@ class QuizzableWorld extends React.Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text>
-          Time to quiz yourself! Choose a selector below to get started!
-        </Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>Time to quiz yourself!</Text>
+          <Text style={styles.text}>
+            Choose a selector below to get started!
+          </Text>
+        </View>
         {allSelectors.map(selector => (
           <PlaygroundCard
             selector={selector}
@@ -45,6 +52,14 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-around",
     backgroundColor: "#f7f1e3"
+  },
+  textContainer: {
+    marginTop: hp("12.5%"),
+    marginBottom: hp("5%")
+  },
+  text: {
+    fontSize: 32,
+    textAlign: "center"
   }
 });
 
