@@ -235,7 +235,8 @@ const styles = StyleSheet.create({
     flex: 8,
     flexWrap: "wrap",
     justifyContent: "flex-start",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: hp("7%")
   }
 });
 
