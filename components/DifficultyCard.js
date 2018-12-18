@@ -18,7 +18,7 @@ import { QUIZZABLE_LAND } from "../store/appState";
 
 const DifficultyCard = props => {
   const { difficultyLevel, navigate, currentMode } = props;
-  // const imgPath = `level${difficultyLevel}`;
+  const imgPath = `level${difficultyLevel}`;
   const difficulties = {
     1: 0.1,
     2: 0.2,
@@ -59,7 +59,7 @@ const DifficultyCard = props => {
         {difficultyLevel}
       </Text>
       {/* TOPIC IMAGE */}
-      {/* <Image style={styles.topicImage} source={images[imgPath]} /> */}
+      <Image style={styles.topicImage} source={images[imgPath]} />
     </TouchableOpacity>
   );
 };

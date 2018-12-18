@@ -6,7 +6,13 @@ export const images = {
   level1: require(`../assets/images/difficulty-1.jpg`),
   level2: require(`../assets/images/difficulty-2.jpg`),
   level3: require(`../assets/images/difficulty-3.jpg`),
-  level4: require(`../assets/images/difficulty-4.jpg`)
+  level4: require(`../assets/images/difficulty-4.jpg`),
+  level5: require(`../assets/images/difficulty-5.jpg`),
+  level6: require(`../assets/images/difficulty-6.jpg`),
+  level7: require(`../assets/images/difficulty-7.jpg`),
+  level8: require(`../assets/images/difficulty-8.jpg`),
+  level9: require(`../assets/images/difficulty-9.jpg`),
+  level10: require(`../assets/images/difficulty-10.jpg`)
 };
 
 export default class TopicsScreen extends Component {
