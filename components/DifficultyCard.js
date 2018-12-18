@@ -18,12 +18,18 @@ import { QUIZZABLE_LAND } from "../store/appState";
 
 const DifficultyCard = props => {
   const { difficultyLevel, navigate, currentMode } = props;
-  const imgPath = `level${difficultyLevel}`;
+  // const imgPath = `level${difficultyLevel}`;
   const difficulties = {
-    1: 0.3,
-    2: 0.5,
-    3: 0.6,
-    4: 0.9
+    1: 0.1,
+    2: 0.2,
+    3: 0.3,
+    4: 0.4,
+    5: 0.5,
+    6: 0.6,
+    7: 0.7,
+    8: 0.8,
+    9: 0.9,
+    10: 1.0
   };
   const setCurrentDifficultyPlay = async () => {
     props.setCurrentDifficultyPlay(difficulties[difficultyLevel]);
@@ -53,7 +59,7 @@ const DifficultyCard = props => {
         {difficultyLevel}
       </Text>
       {/* TOPIC IMAGE */}
-      <Image style={styles.topicImage} source={images[imgPath]} />
+      {/* <Image style={styles.topicImage} source={images[imgPath]} /> */}
     </TouchableOpacity>
   );
 };

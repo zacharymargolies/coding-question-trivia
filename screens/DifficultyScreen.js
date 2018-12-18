@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import DifficultyCard from '../components/DifficultyCard';
+import React, { Component } from "react";
+import { StyleSheet, View } from "react-native";
+import DifficultyCard from "../components/DifficultyCard";
 
 export const images = {
   level1: require(`../assets/images/difficulty-1.jpg`),
@@ -11,9 +11,9 @@ export const images = {
 
 export default class TopicsScreen extends Component {
   static navigationOptions = {
-    title: 'Difficulty',
+    title: "Difficulty",
     headerStyle: {
-      backgroundColor: '#f7f1e3'
+      backgroundColor: "#f7f1e3"
     }
   };
 
@@ -21,7 +21,7 @@ export default class TopicsScreen extends Component {
     super(props);
 
     this.state = {
-      difficultyLevels: ['1', '2', '3', '4']
+      difficultyLevels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
     };
   }
 
@@ -44,9 +44,9 @@ export default class TopicsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    backgroundColor: '#f7f1e3'
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    backgroundColor: "#f7f1e3"
   }
 });
