@@ -6,28 +6,52 @@ import {
 } from "react-native-responsive-screen";
 import { connect } from "react-redux";
 
-const checkAnswer = (correctAnswerId, curAnswerId) => {
-  if (correctAnswerId === curAnswerId) {
-    console.log("You chose the correct answer!");
-  } else {
-    console.log("You chose the incorrect answer.");
-  }
-};
+class AnswerButton extends React.Component {
+  constructor(props) {
+    super(props);
 
-const AnswerButton = props => {
-  const { correctAnswerId, curAnswerId, content } = props;
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          checkAnswer(correctAnswerId, curAnswerId);
-        }}
+    this.state = {
+      answered: false,
+      correct: false
+    };
+  }
+
+  checkAnswer = (correctAnswerId, curAnswerId) => {
+    if (correctAnswerId === curAnswerId) {
+      this.setState({
+        answered: true,
+        correct: true
+      });
+      console.log("You chose the correct answer!");
+    } else {
+      this.setState({ answered: true, correct: false });
+      console.log("You chose the incorrect answer.");
+    }
+  };
+
+  render() {
+    const { correctAnswerId, curAnswerId, content } = this.props;
+    return (
+      <View
+        style={
+          this.state.answered
+            ? this.state.correct
+              ? styles.correctContainer
+              : styles.incorrectContainer
+            : styles.container
+        }
       >
-        <Text style={styles.answerText}>{content}</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+        <TouchableOpacity
+          onPress={() => {
+            this.checkAnswer(correctAnswerId, curAnswerId);
+          }}
+        >
+          <Text style={styles.answerText}>{content}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -37,6 +61,32 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffb142",
     borderWidth: wp("1%"),
     borderColor: "#227093",
+    height: hp("4%"),
+    width: wp("80%"),
+    borderRadius: 25,
+    marginTop: hp("0.5%"),
+    marginBottom: hp("0.5%")
+  },
+  correctContainer: {
+    flex: 1,
+    alignContent: "center",
+    justifyContent: "center",
+    backgroundColor: "#ffb142",
+    borderWidth: wp("1%"),
+    borderColor: "#05c46b",
+    height: hp("4%"),
+    width: wp("80%"),
+    borderRadius: 25,
+    marginTop: hp("0.5%"),
+    marginBottom: hp("0.5%")
+  },
+  incorrectContainer: {
+    flex: 1,
+    alignContent: "center",
+    justifyContent: "center",
+    backgroundColor: "#ffb142",
+    borderWidth: wp("1%"),
+    borderColor: "#ff3f34",
     height: hp("4%"),
     width: wp("80%"),
     borderRadius: 25,
