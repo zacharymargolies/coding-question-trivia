@@ -76,7 +76,6 @@ export const fetchQuestionsByDifficulty = difficultyLevel => async dispatch => {
     const questionsByDifficulty = request.data;
     // SET ANSWERS TO QUESTION
     const questionsWithAnswers = await answerFetcher(questionsByDifficulty);
-    console.log("QUESTION WITH ANSWERS: ", questionsWithAnswers[0]);
     dispatch(setCurrentQuestions(questionsWithAnswers));
   } catch (err) {
     console.log(err);
