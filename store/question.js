@@ -1,11 +1,11 @@
-import axios from 'axios';
-import { URL } from './index';
-import shuffle from 'shuffle-array';
+import axios from "axios";
+import { URL } from "./index";
+import shuffle from "shuffle-array";
 
 // ACTION TYPES
-const SET_CURRENT_QUESTIONS = 'SET_CURRENT_QUESTIONS';
-const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
-const SET_CURRENT_DIFFICULTY = 'SET_CURRENT_DIFFICULTY';
+const SET_CURRENT_QUESTIONS = "SET_CURRENT_QUESTIONS";
+const SET_CURRENT_TOPIC = "SET_CURRENT_TOPIC";
+const SET_CURRENT_DIFFICULTY = "SET_CURRENT_DIFFICULTY";
 
 // ACTION CREATORS
 export const setCurrentQuestions = allQuestions => ({
@@ -32,6 +32,24 @@ export const fetchAllQuestions = () => async dispatch => {
   }
 };
 
+// ANSWER FETCHER
+const answerFetcher = async questions => {
+  // FETCH ALL ANSWERS
+  const requestAnswers = await axios.get(`${URL}/api/answers/`);
+  const allAnswers = requestAnswers.data;
+
+  // ADD THREE RANDOM ANSWERS TO EACH QUESTION
+  questions.forEach(question => {
+    question.answerPool = [
+      question.answer,
+      ...shuffle.pick(allAnswers, { picks: 3 })
+    ];
+    question.answerPool = shuffle(question.answerPool);
+  });
+
+  return questions;
+};
+
 export const fetchQuestionsByTopic = topicId => async dispatch => {
   try {
     // FETCH QUESTIONS BY TOPIC
@@ -40,19 +58,10 @@ export const fetchQuestionsByTopic = topicId => async dispatch => {
     );
     const questionsByTopic = requestQuestions.data;
 
-    // FETCH ALL ANSWERS
-    const requestAnswers = await axios.get(`${URL}/api/answers/`);
-    const allAnswers = requestAnswers.data;
+    // SET ANSWERS TO QUESTION
+    const questionsWithAnswers = await answerFetcher(questionsByTopic);
 
-    // ADD THREE RANDOM ANSWERS TO EACH QUESTION
-    questionsByTopic.forEach(question => {
-      question.answerPool = [
-        question.answer,
-        ...shuffle.pick(allAnswers, { picks: 3 })
-      ];
-      question.answerPool = shuffle(question.answerPool);
-    });
-    dispatch(setCurrentQuestions(questionsByTopic));
+    dispatch(setCurrentQuestions(questionsWithAnswers));
   } catch (err) {
     console.log(err);
   }
@@ -60,11 +69,15 @@ export const fetchQuestionsByTopic = topicId => async dispatch => {
 
 export const fetchQuestionsByDifficulty = difficultyLevel => async dispatch => {
   try {
+    // FETCH QUESTION BY DIFFICULTY
     const request = await axios.get(
       `${URL}/api/questions/difficulty/${difficultyLevel}`
     );
     const questionsByDifficulty = request.data;
-    dispatch(setCurrentQuestions(questionsByDifficulty));
+    // SET ANSWERS TO QUESTION
+    const questionsWithAnswers = await answerFetcher(questionsByDifficulty);
+    console.log("QUESTION WITH ANSWERS: ", questionsWithAnswers[0]);
+    dispatch(setCurrentQuestions(questionsWithAnswers));
   } catch (err) {
     console.log(err);
   }
