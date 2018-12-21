@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, ScrollView, View } from "react-native";
 import DifficultyCard from "../components/DifficultyCard";
 
 export const images = {
@@ -34,20 +34,25 @@ export default class TopicsScreen extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>
-        {this.state.difficultyLevels.map((difficultyLevel, idx) => (
-          <DifficultyCard
-            difficultyLevel={difficultyLevel}
-            key={idx}
-            navigate={navigate}
-          />
-        ))}
-      </View>
+      <ScrollView overScrollMode={"never"} style={styles.scrollContainer}>
+        <View style={styles.container}>
+          {this.state.difficultyLevels.map((difficultyLevel, idx) => (
+            <DifficultyCard
+              difficultyLevel={difficultyLevel}
+              key={idx}
+              navigate={navigate}
+            />
+          ))}
+        </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flex: 1
+  },
   container: {
     flex: 1,
     flexDirection: "row",

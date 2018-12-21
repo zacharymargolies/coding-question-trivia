@@ -83,12 +83,12 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   topicText: {
-    marginTop: hp("4%"),
+    marginTop: hp("3%"),
     fontSize: 26,
     color: "white"
   },
   topicImage: {
-    marginTop: hp("0.5%"),
+    marginTop: hp("2.0%"),
     height: hp("8%"),
     width: hp("8%"),
     borderRadius: hp("4%")
