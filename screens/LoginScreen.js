@@ -9,6 +9,8 @@ import {
 } from "react-native-responsive-screen";
 import { WebBrowser, AuthSession } from "expo";
 import { URL } from "../store";
+import { setLogin } from "../store/appState";
+import axios from "axios";
 
 class LoginScreen extends React.Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class LoginScreen extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <View>
@@ -45,8 +48,23 @@ class LoginScreen extends React.Component {
             style={styles.button}
             raised
             title="LOG IN WITH GOOGLE"
+            // onPress={async () => {
+            //   Linking.openURL(`${URL}/auth/google`);
+            // }}
             onPress={async () => {
-              Linking.openURL(`${URL}/auth/google`);
+              let result = await AuthSession.startAsync({
+                authUrl: `${URL}/auth/google`
+              });
+              console.log("RESULT: ", result);
+              const login = result.type === "success" ? true : false;
+              const me = await axios.get("http://localhost:8080/auth/me", {
+                withCredentials: true
+              });
+              console.log("ME: ", me);
+              this.props.setLogin(login);
+              if (login) {
+                navigation.navigate("Main");
+              }
             }}
             color={Colors.backgroundColorBlue}
             backgroundColor={Colors.orange}
@@ -77,7 +95,13 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapDispatchToProps = dispatch => ({
+  setLogin: login => {
+    dispatch(setLogin(login));
+  }
+});
+
 export default connect(
   null,
-  null
+  mapDispatchToProps
 )(LoginScreen);
