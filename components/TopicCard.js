@@ -12,6 +12,7 @@ import {
 import { fetchAllAnswers } from '../store/answer';
 import { connect } from 'react-redux';
 import { QUIZZABLE_LAND } from '../store/appState';
+import Colors from '../styles/constants/Colors';
 
 const TopicCard = props => {
   const { topic, navigation, currentMode } = props;
@@ -50,13 +51,13 @@ const TopicCard = props => {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    backgroundColor: '#ffb142',
+    backgroundColor: Colors.orange,
     height: hp('20%'),
     width: wp('30%'),
     alignItems: 'center',
     margin: wp('1.0%'),
     borderRadius: wp('5%'),
-    shadowColor: '#cc8e35',
+    shadowColor: Colors.shadowOrange,
     shadowOffset: {
       width: 0,
       height: 7
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
   topicText: {
     marginTop: hp('4%'),
     fontSize: 26,
-    color: 'white'
+    color: Colors.white
   },
   topicImage: {
     marginTop: hp('1.0%'),

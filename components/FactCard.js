@@ -75,10 +75,6 @@ const FactCard = props => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
   card: {
     marginTop: hp('5%'),
     marginBottom: hp('-2.5%'),
@@ -87,6 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderColor: Colors.orange,
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: Colors.orange
   },
   topicContainer: {
@@ -121,7 +118,8 @@ const styles = StyleSheet.create({
     width: hp('37.0%')
   },
   factContainer: {
-    flex: 8
+    flex: 8,
+    width: wp('80%')
   },
   factText: {
     textAlign: 'center',

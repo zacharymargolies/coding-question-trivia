@@ -4,6 +4,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
+import Colors from '../styles/constants/Colors';
 
 const CardNumber = props => {
   return (
@@ -23,17 +24,17 @@ const styles = StyleSheet.create({
     height: hp('5.0%'),
     borderWidth: wp('1.0%'),
     borderRadius: wp('2.0%'),
-    borderColor: '#84817a',
+    borderColor: Colors.cardNumberColor,
     position: 'absolute',
     bottom: hp('1.5%'),
     right: wp('3.0%')
   },
   cardNumber: {
-    color: '#84817a'
+    color: Colors.cardNumberColor
   },
   line: {
     borderWidth: wp('0.25%'),
-    borderColor: '#84817a',
+    borderColor: Colors.cardNumberColor,
     width: '80%'
   }
 });

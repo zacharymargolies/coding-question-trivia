@@ -89,10 +89,6 @@ const QuizCard = props => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
   card: {
     marginTop: hp('5%'),
     marginBottom: hp('-2.5%'),
@@ -101,6 +97,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderColor: Colors.orange,
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: Colors.orange
   },
   topicContainer: {
