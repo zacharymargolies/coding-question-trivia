@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.backgroundColorBlue,
+    backgroundColor: Colors.orange,
     borderWidth: wp('1%'),
     borderColor: Colors.correctAnswerGreen,
     height: hp('4%'),
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     marginBottom: hp('0.5%')
   },
   answerText: {
+    padding: wp('1.5%'),
     textAlign: 'center'
   }
 });

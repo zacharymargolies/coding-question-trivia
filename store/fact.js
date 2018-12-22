@@ -63,17 +63,21 @@ export const fetchRandomFacts = quantity => async dispatch => {
   }
 };
 
-export const discardFact = (userId, factId) => async () => {
+export const discardFact = (userId, factId, discard) => async () => {
   try {
-    await axios.put(`${URL}/api/facts/user/${userId}/discard/${factId}`);
+    await axios.put(
+      `${URL}/api/facts/user/${userId}/discard/${factId}/${discard}`
+    );
   } catch (err) {
     console.log(err);
   }
 };
 
-export const makeQuizzableFact = (userId, factId) => async () => {
+export const makeQuizzableFact = (userId, factId, quizzable) => async () => {
   try {
-    await axios.put(`${URL}/api/facts/user/${userId}/quizzable/${factId}`);
+    await axios.put(
+      `${URL}/api/facts/user/${userId}/quizzable/${factId}/${quizzable}`
+    );
   } catch (err) {
     console.log(err);
   }

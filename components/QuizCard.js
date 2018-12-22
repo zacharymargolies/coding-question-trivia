@@ -24,7 +24,13 @@ const QuizCard = props => {
             <View style={styles.card}>
               {/* TOPIC */}
               <View style={styles.topicContainer}>
-                <Text style={styles.topicText}>{question.topic.main} </Text>
+                <Text
+                  adjustsFontSizeToFit={true}
+                  numberOfLines={1}
+                  style={styles.topicText}
+                >
+                  {question.topic.main}{' '}
+                </Text>
               </View>
               {/* LINE */}
               <View style={styles.line} />
@@ -102,9 +108,11 @@ const styles = StyleSheet.create({
   },
   topicContainer: {
     flex: 1,
-    marginTop: hp('2.0%')
+    marginTop: hp('2.0%'),
+    width: wp('80%')
   },
   topicText: {
+    width: wp('80%'),
     fontFamily: 'Arial Rounded MT Bold',
     fontWeight: 'bold',
     fontSize: 42,

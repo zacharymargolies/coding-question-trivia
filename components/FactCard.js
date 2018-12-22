@@ -56,20 +56,24 @@ const FactCard = props => {
         onSwipedTop={idx => {
           const { id } = facts[idx];
           const userId = 1;
-          props.discardFact(userId, id);
+          const discard = true;
+          props.discardFact(userId, id, discard);
         }}
-        onSwipedBottom={async idx => {
+        onSwipedBottom={idx => {
           const { id } = facts[idx];
           const userId = 1;
           props.makeQuizzableFact(userId, id);
         }}
         cardIndex={0}
         backgroundColor={Colors.backgroundColorBlue}
-        // showSecondCard={false}
+        showSecondCard={true}
         verticalThreshold={hp('15%')}
-        horizontalThreshold={wp('20%')}
+        horizontalThreshold={wp('12.5%')}
         goBackToPreviousCardOnSwipeRight={true}
         stackSize={3}
+        animateCardOpacity={true}
+        // swipeBackCard={true}
+        // childrenOnTop={true}
       />
     </React.Fragment>
   );
@@ -134,11 +138,11 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  discardFact: (userId, factId) => {
-    dispatch(discardFact(userId, factId));
+  discardFact: (userId, factId, discard) => {
+    dispatch(discardFact(userId, factId, discard));
   },
-  makeQuizzableFact: (userId, factId) => {
-    dispatch(makeQuizzableFact(userId, factId));
+  makeQuizzableFact: (userId, factId, quizzable) => {
+    dispatch(makeQuizzableFact(userId, factId, quizzable));
   }
 });
 
