@@ -1,10 +1,10 @@
-import axios from "axios";
-import { URL } from "./index";
+import axios from 'axios';
+import { URL } from './index';
 
 // ACTION TYPES
-const SET_CURRENT_FACTS = "SET_CURRENT_FACTS";
-const SET_CURRENT_TOPIC = "SET_CURRENT_TOPIC";
-const SET_CURRENT_DIFFICULTY = "SET_CURRENT_DIFFICULTY";
+const SET_CURRENT_FACTS = 'SET_CURRENT_FACTS';
+const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
+const SET_CURRENT_DIFFICULTY = 'SET_CURRENT_DIFFICULTY';
 
 // ACTION CREATORS
 export const setCurrentFacts = allFacts => ({
@@ -58,6 +58,22 @@ export const fetchRandomFacts = quantity => async dispatch => {
     const request = await axios.get(`${URL}/api/facts/random/${quantity}`);
     const randomFacts = request.data;
     dispatch(setCurrentFacts(randomFacts));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const discardFact = (userId, factId) => async () => {
+  try {
+    await axios.put(`${URL}/api/facts/user/${userId}/discard/${factId}`);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const makeQuizzableFact = (userId, factId) => async () => {
+  try {
+    await axios.put(`${URL}/api/facts/user/${userId}/quizzable/${factId}`);
   } catch (err) {
     console.log(err);
   }

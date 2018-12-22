@@ -6,8 +6,9 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import { CardNumber, CloseScreen } from '../components';
-import axios from 'axios';
 import Colors from '../styles/constants/Colors';
+import { connect } from 'react-redux';
+import { discardFact, makeQuizzableFact } from '../store/fact';
 
 const FactCard = props => {
   const { facts, navigation, navigate } = props;
@@ -22,7 +23,13 @@ const FactCard = props => {
             <View style={styles.card}>
               {/* TOPIC */}
               <View style={styles.topicContainer}>
-                <Text style={styles.topicText}> {fact.topic.main} </Text>
+                <Text
+                  style={styles.topicText}
+                  adjustsFontSizeToFit={true}
+                  numberOfLines={1}
+                >
+                  {fact.topic.main}
+                </Text>
               </View>
               {/* LINE */}
               <View style={styles.line} />
@@ -46,21 +53,15 @@ const FactCard = props => {
           console.log("You've finished all the cards!");
           navigate('Topics');
         }}
-        onSwipedTop={async idx => {
+        onSwipedTop={idx => {
           const { id } = facts[idx];
-          try {
-            await axios.put(`${URL}/api/facts/quizzable/${id}`);
-          } catch (err) {
-            console.log(err);
-          }
+          const userId = 1;
+          props.discardFact(userId, id);
         }}
         onSwipedBottom={async idx => {
           const { id } = facts[idx];
-          try {
-            await axios.put(`${URL}/api/facts/discard/${id}`);
-          } catch (err) {
-            console.log(err);
-          }
+          const userId = 1;
+          props.makeQuizzableFact(userId, id);
         }}
         cardIndex={0}
         backgroundColor={Colors.backgroundColorBlue}
@@ -88,13 +89,15 @@ const styles = StyleSheet.create({
   },
   topicContainer: {
     flex: 1,
-    marginTop: hp('2.0%')
+    marginTop: hp('2.0%'),
+    width: wp('80%')
   },
   topicText: {
-    fontFamily: 'Arial Rounded MT Bold',
+    width: wp('80%'),
+    // fontFamily: 'Sans Forgetica',
     fontWeight: 'bold',
     fontSize: 42,
-    color: 'white',
+    color: Colors.white,
     textAlign: 'center'
   },
   line: {
@@ -122,10 +125,24 @@ const styles = StyleSheet.create({
     width: wp('80%')
   },
   factText: {
+    // fontFamily: 'Sans Forgetica',
+    fontFamily: 'Helvetica',
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 22,
     backgroundColor: 'transparent'
   }
 });
 
-export default FactCard;
+const mapDispatchToProps = dispatch => ({
+  discardFact: (userId, factId) => {
+    dispatch(discardFact(userId, factId));
+  },
+  makeQuizzableFact: (userId, factId) => {
+    dispatch(makeQuizzableFact(userId, factId));
+  }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(FactCard);

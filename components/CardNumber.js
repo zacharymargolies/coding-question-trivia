@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     right: wp('3.0%')
   },
   cardNumber: {
-    color: Colors.cardNumberColor
+    color: Colors.cardNumberColor,
+    fontFamily: 'Helvetica'
   },
   line: {
     borderWidth: wp('0.25%'),
