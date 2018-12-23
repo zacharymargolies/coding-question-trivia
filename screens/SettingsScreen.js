@@ -6,7 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import Colors from '../styles/constants/Colors';
 import { connect } from 'react-redux';
-import store from '../store';
+import SelectMultiple from 'react-native-select-multiple';
 
 class SettingsScreen extends Component {
   static navigationOptions = {
@@ -18,19 +18,18 @@ class SettingsScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { selectedFacts: [] };
   }
 
   render() {
     const { allDiscardedFacts } = this.props;
     return (
       <View style={styles.container}>
-        {allDiscardedFacts.map(fact => (
-          <React.Fragment key={fact.id}>
-            <Text>Discarded Fact</Text>
-            <Text>{fact.content}</Text>
-          </React.Fragment>
-        ))}
+        <SelectMultiple
+          items={allDiscardedFacts}
+          selectedItems={this.state.selectedFacts}
+          onSelectionsChange={selectedFacts => this.setState({ selectedFacts })}
+        />
       </View>
     );
   }
