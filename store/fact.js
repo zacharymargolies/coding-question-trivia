@@ -3,6 +3,7 @@ import { URL } from './index';
 
 // ACTION TYPES
 const SET_CURRENT_FACTS = 'SET_CURRENT_FACTS';
+const SET_DISCARDED_FACTS = 'SET_DISCARDED_FACTS';
 const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
 const SET_CURRENT_DIFFICULTY = 'SET_CURRENT_DIFFICULTY';
 
@@ -19,6 +20,10 @@ export const setCurrentFactDifficulty = difficultyLevel => ({
   type: SET_CURRENT_DIFFICULTY,
   difficultyLevel
 });
+export const setAllDiscardedFacts = allDiscardedFacts => ({
+  type: SET_DISCARDED_FACTS,
+  allDiscardedFacts
+});
 
 // THUNK CREATORS
 export const fetchAllFacts = () => async dispatch => {
@@ -26,6 +31,16 @@ export const fetchAllFacts = () => async dispatch => {
     const request = await axios.get(`${URL}/api/facts`);
     const allFacts = request.data;
     dispatch(setCurrentFacts(allFacts));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const fetchAllDiscardedFacts = userId => async dispatch => {
+  try {
+    const request = await axios.get(`${URL}/api/facts/user/${userId}/discard/`);
+    const allDiscardedFacts = request.data;
+    dispatch(setAllDiscardedFacts(allDiscardedFacts));
   } catch (err) {
     console.log(err);
   }
@@ -86,13 +101,19 @@ export const makeQuizzableFact = (userId, factId, quizzable) => async () => {
 // INITIAL STATE
 const initialState = {
   facts: [],
+  allDiscardedFacts: [],
   topicId: null,
   difficultyLevel: null
 };
 
 // REDUCER
 export default function(
-  state = { facts: [], topicId: null, difficultyLevel: null },
+  state = {
+    facts: [],
+    allDiscardedFacts: [],
+    topicId: null,
+    difficultyLevel: null
+  },
   action
 ) {
   switch (action.type) {
@@ -110,6 +131,11 @@ export default function(
       return {
         ...state,
         difficultyLevel: action.difficultyLevel
+      };
+    case SET_DISCARDED_FACTS:
+      return {
+        ...state,
+        allDiscardedFacts: action.allDiscardedFacts
       };
     default:
       return state;

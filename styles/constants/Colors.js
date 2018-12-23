@@ -17,5 +17,6 @@ export default {
   white: 'white',
   correctAnswerGreen: '#05c46b',
   incorrectAnswerRed: '#ff3f34',
-  cardNumberColor: '#84817a'
+  cardNumberColor: '#84817a',
+  screenBackground: '#f7f1e3'
 };

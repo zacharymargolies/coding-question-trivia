@@ -1,20 +1,25 @@
-import React from "react";
-import { Platform } from "react-native";
+import React from 'react';
+import { Platform } from 'react-native';
 import {
   createStackNavigator,
   createBottomTabNavigator
-} from "react-navigation";
+} from 'react-navigation';
 
-import TabBarIcon from "../components/TabBarIcon";
-import CardsScreen from "../screens/CardsScreen";
-import TopicsScreen from "../screens/TopicsScreen";
-import InformationPlayground from "../screens/InformationPlayground";
-import QuizzableLand from "../screens/QuizzableLand";
-import DifficultyScreen from "../screens/DifficultyScreen";
-import RandomScreen from "../screens/RandomScreen.js";
-import store from "../store";
-import { setCurrentMode } from "../store/appState";
-import { INFORMATION_PLAYGROUND, QUIZZABLE_LAND } from "../store/appState";
+import TabBarIcon from '../components/TabBarIcon';
+import CardsScreen from '../screens/CardsScreen';
+import TopicsScreen from '../screens/TopicsScreen';
+import InformationPlayground from '../screens/InformationPlayground';
+import QuizzableLand from '../screens/QuizzableLand';
+import DifficultyScreen from '../screens/DifficultyScreen';
+import RandomScreen from '../screens/RandomScreen.js';
+import SettingsScreen from '../screens/SettingsScreen';
+import store from '../store';
+import {
+  setCurrentMode,
+  INFORMATION_PLAYGROUND,
+  QUIZZABLE_LAND
+} from '../store/appState';
+import { fetchAllDiscardedFacts } from '../store/fact';
 
 export const CardsStack = createStackNavigator({
   Cards: CardsScreen
@@ -35,14 +40,14 @@ QuizStack.navigationOptions = ({ navigation }) => {
   }
   store.dispatch(setCurrentMode(QUIZZABLE_LAND));
   return {
-    tabBarLabel: "Quizzes",
+    tabBarLabel: 'Quizzes',
     tabBarIcon: ({ focused }) => (
       <TabBarIcon
         focused={focused}
         name={
-          Platform.OS === "ios"
-            ? `ios-browsers${focused ? "" : "-outline"}`
-            : "md-information-circle"
+          Platform.OS === 'ios'
+            ? `ios-browsers${focused ? '' : '-outline'}`
+            : 'md-information-circle'
         }
       />
     ),
@@ -65,14 +70,14 @@ PlaygroundStack.navigationOptions = ({ navigation }) => {
   }
   store.dispatch(setCurrentMode(INFORMATION_PLAYGROUND));
   return {
-    tabBarLabel: "Playground",
+    tabBarLabel: 'Playground',
     tabBarIcon: ({ focused }) => (
       <TabBarIcon
         focused={focused}
         name={
-          Platform.OS === "ios"
-            ? `ios-list${focused ? "" : "-outline"}`
-            : "md-information-circle"
+          Platform.OS === 'ios'
+            ? `ios-list${focused ? '' : '-outline'}`
+            : 'md-information-circle'
         }
       />
     ),
@@ -80,10 +85,32 @@ PlaygroundStack.navigationOptions = ({ navigation }) => {
   };
 };
 
+const SettingsStack = createStackNavigator({
+  Settings: SettingsScreen
+});
+
+SettingsStack.navigationOptions = () => {
+  store.dispatch(fetchAllDiscardedFacts(1));
+  return {
+    tabBarLabel: 'Settings',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={
+          Platform.OS === 'ios'
+            ? `ios-list${focused ? '' : '-outline'}`
+            : 'settings'
+        }
+      />
+    )
+  };
+};
+
 export default createBottomTabNavigator(
   {
     PlaygroundStack,
-    QuizStack
+    QuizStack,
+    SettingsStack
   },
   {
     tabBarOptions: {
@@ -92,7 +119,7 @@ export default createBottomTabNavigator(
       },
       style: {
         marginBottom: -15,
-        backgroundColor: "#f7f1e3"
+        backgroundColor: '#f7f1e3'
       }
     }
   }
