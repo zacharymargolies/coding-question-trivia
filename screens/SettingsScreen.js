@@ -7,6 +7,7 @@ import {
 import Colors from '../styles/constants/Colors';
 import { connect } from 'react-redux';
 import SelectMultiple from 'react-native-select-multiple';
+import { discardFact } from '../store/fact';
 
 class SettingsScreen extends Component {
   static navigationOptions = {
@@ -21,6 +22,13 @@ class SettingsScreen extends Component {
     this.state = { selectedFacts: [] };
   }
 
+  undiscardFacts = selectedFacts => {
+    console.log('UNDISCARD FACTS RAN');
+    selectedFacts.map(fact => {
+      this.props.undiscardFact(fact);
+    });
+  };
+
   render() {
     const { allDiscardedFacts } = this.props;
     return (
@@ -30,6 +38,15 @@ class SettingsScreen extends Component {
           selectedItems={this.state.selectedFacts}
           onSelectionsChange={selectedFacts => this.setState({ selectedFacts })}
         />
+
+        <TouchableOpacity
+          onPress={() => {
+            console.log('ON PRESS CLICKED');
+            this.undiscardFacts(this.state.selectedFacts);
+          }}
+        >
+          <Text>Undiscard Items</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -45,9 +62,12 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   allDiscardedFacts: state.fact.allDiscardedFacts
 });
-// const mapDispatchToProps = ({})
+const mapDispatchToProps = dispatch => ({
+  undiscardFact: selectedFact =>
+    dispatch(discardFact(1, selectedFact.id, false))
+});
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(SettingsScreen);
