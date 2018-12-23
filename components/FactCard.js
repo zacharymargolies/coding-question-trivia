@@ -53,16 +53,17 @@ const FactCard = props => {
           console.log("You've finished all the cards!");
           navigate('Topics');
         }}
-        onSwipedTop={idx => {
+        onSwipedBottom={idx => {
           const { id } = facts[idx];
           const userId = 1;
           const discard = true;
           props.discardFact(userId, id, discard);
         }}
-        onSwipedBottom={idx => {
+        onSwipedTop={idx => {
           const { id } = facts[idx];
           const userId = 1;
-          props.makeQuizzableFact(userId, id);
+          const quizzable = true;
+          props.makeQuizzableFact(userId, id, quizzable);
         }}
         cardIndex={0}
         backgroundColor={Colors.backgroundColorBlue}

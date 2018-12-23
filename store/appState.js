@@ -1,16 +1,23 @@
 // MODES
-export const INFORMATION_PLAYGROUND = "INFORMATION_PLAYGROUND";
-export const QUIZZABLE_LAND = "QUIZZABLE_LAND";
+export const INFORMATION_PLAYGROUND = 'INFORMATION_PLAYGROUND';
+export const QUIZZABLE_LAND = 'QUIZZABLE_LAND';
 
 // ACTION TYPES
-const SET_CURRENT_MODE = "SET_CURRENT_MODE";
-const SET_LOGIN = "SET_LOGIN";
+const SET_CURRENT_MODE = 'SET_CURRENT_MODE';
+const SET_LOGIN = 'SET_LOGIN';
 
 // ACTION CREATORS
-export const setCurrentMode = currentMode => ({
-  type: SET_CURRENT_MODE,
-  currentMode
-});
+// export const setCurrentMode = currentMode => ({
+//   type: SET_CURRENT_MODE,
+//   currentMode
+// });
+export const setCurrentMode = currentMode => {
+  console.log('SET CURRENT MODE RAN');
+  return {
+    type: SET_CURRENT_MODE,
+    currentMode
+  };
+};
 
 export const setLogin = login => ({
   type: SET_LOGIN,

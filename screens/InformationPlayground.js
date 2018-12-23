@@ -1,19 +1,19 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import PlaygroundCard from "../components/PlaygroundCard";
-import { connect } from "react-redux";
-import { setCurrentMode, INFORMATION_PLAYGROUND } from "../store/appState";
-import { allSelectors } from "../store";
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import PlaygroundCard from '../components/PlaygroundCard';
+import { connect } from 'react-redux';
+import { setCurrentMode, INFORMATION_PLAYGROUND } from '../store/appState';
+import { allSelectors } from '../store';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from "react-native-responsive-screen";
+} from 'react-native-responsive-screen';
 
 class InformationPlayground extends React.Component {
   static navigationOptions = {
-    title: "Information Playground",
+    title: 'Information Playground',
     headerStyle: {
-      backgroundColor: "#f7f1e3"
+      backgroundColor: '#f7f1e3'
     }
   };
 
@@ -49,27 +49,27 @@ class InformationPlayground extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    backgroundColor: "#f7f1e3"
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    backgroundColor: '#f7f1e3'
   },
   textContainer: {
-    marginTop: hp("12.5%"),
-    marginBottom: hp("5%")
+    marginTop: hp('12.5%'),
+    marginBottom: hp('5%')
   },
   text: {
     fontSize: 32,
-    textAlign: "center"
+    textAlign: 'center'
   }
 });
 
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentMode: currentMode => {
-    dispatch(setCurrentMode(currentMode));
-  }
+  // setCurrentMode: currentMode => {
+  //   dispatch(setCurrentMode(currentMode));
+  // }
 });
 
 export default connect(

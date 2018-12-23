@@ -7,7 +7,7 @@ import {
 import Colors from '../styles/constants/Colors';
 import { connect } from 'react-redux';
 import SelectMultiple from 'react-native-select-multiple';
-import { discardFact } from '../store/fact';
+import { discardFact, fetchAllDiscardedFacts } from '../store/fact';
 
 class SettingsScreen extends Component {
   static navigationOptions = {
@@ -23,7 +23,6 @@ class SettingsScreen extends Component {
   }
 
   undiscardFacts = selectedFacts => {
-    console.log('UNDISCARD FACTS RAN');
     selectedFacts.map(fact => {
       this.props.undiscardFact(fact);
     });
@@ -41,8 +40,9 @@ class SettingsScreen extends Component {
 
         <TouchableOpacity
           onPress={() => {
-            console.log('ON PRESS CLICKED');
             this.undiscardFacts(this.state.selectedFacts);
+            this.props.getAllDiscardedFacts(1);
+            this.setState({ selectedFacts: [] });
           }}
         >
           <Text>Undiscard Items</Text>
@@ -64,7 +64,8 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   undiscardFact: selectedFact =>
-    dispatch(discardFact(1, selectedFact.id, false))
+    dispatch(discardFact(1, selectedFact.id, false)),
+  getAllDiscardedFacts: userId => dispatch(fetchAllDiscardedFacts(userId))
 });
 
 export default connect(

@@ -37,6 +37,7 @@ export const fetchAllFacts = () => async dispatch => {
 };
 
 export const fetchAllDiscardedFacts = userId => async dispatch => {
+  console.log('FETCH ALL DISCARDED FACTS RAN');
   try {
     const request = await axios.get(`${URL}/api/facts/user/${userId}/discard/`);
     const allDiscardedFacts = request.data;

@@ -89,7 +89,7 @@ const SettingsStack = createStackNavigator({
   Settings: SettingsScreen
 });
 
-SettingsStack.navigationOptions = () => {
+SettingsStack.navigationOptions = ({ navigation }) => {
   store.dispatch(fetchAllDiscardedFacts(1));
   return {
     tabBarLabel: 'Settings',
