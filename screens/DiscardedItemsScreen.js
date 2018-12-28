@@ -31,29 +31,38 @@ class DiscardedItemsScreen extends Component {
   render() {
     const { allDiscardedFacts } = this.props;
     return (
-      <View style={styles.container}>
-        <SelectMultiple
-          items={allDiscardedFacts}
-          selectedItems={this.state.selectedFacts}
-          onSelectionsChange={selectedFacts => this.setState({ selectedFacts })}
-        />
-
-        <TouchableOpacity
-          disabled={!this.state.selectedFacts.length}
-          style={
-            this.state.selectedFacts.length
-              ? styles.undiscardButtonAvailable
-              : styles.undiscardButtonUnavailable
-          }
-          onPress={async () => {
-            await this.undiscardFacts(this.state.selectedFacts);
-            await this.props.getAllDiscardedFacts(1);
-            this.setState({ selectedFacts: [] });
-          }}
-        >
-          <Text style={styles.undiscardButtonText}>UNDISCARD ITEMS</Text>
-        </TouchableOpacity>
-      </View>
+      <React.Fragment>
+        {allDiscardedFacts.length ? (
+          <View style={styles.container}>
+            <SelectMultiple
+              items={allDiscardedFacts}
+              selectedItems={this.state.selectedFacts}
+              onSelectionsChange={selectedFacts =>
+                this.setState({ selectedFacts })
+              }
+            />
+            <TouchableOpacity
+              disabled={!this.state.selectedFacts.length}
+              style={
+                this.state.selectedFacts.length
+                  ? styles.undiscardButtonAvailable
+                  : styles.undiscardButtonUnavailable
+              }
+              onPress={async () => {
+                await this.undiscardFacts(this.state.selectedFacts);
+                await this.props.getAllDiscardedFacts(1);
+                this.setState({ selectedFacts: [] });
+              }}
+            >
+              <Text style={styles.undiscardButtonText}>UNDISCARD ITEMS</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.container}>
+            <Text>No Discarded Facts Found...</Text>
+          </View>
+        )}
+      </React.Fragment>
     );
   }
 }

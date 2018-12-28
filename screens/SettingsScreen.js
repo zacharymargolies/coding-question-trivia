@@ -36,7 +36,9 @@ class SettingsScreen extends Component {
               onPress={() => navigation.navigate(option.navigate)}
               key={option.id}
             >
-              <Text>{option.title}</Text>
+              <Text style={styles.settingsOptionButtonText}>
+                {option.title}
+              </Text>
             </TouchableOpacity>
           );
         })}
@@ -48,8 +50,23 @@ class SettingsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.screenBackground
-    // alignItems: 'center'
+    backgroundColor: Colors.screenBackground,
+    alignItems: 'center'
+  },
+  settingsOptionButton: {
+    justifyContent: 'center',
+    height: hp('5%'),
+    width: wp('90%'),
+    backgroundColor: Colors.orange,
+    borderColor: Colors.orange,
+    borderRadius: 10,
+    marginTop: hp('1%'),
+    marginBottom: hp('1%')
+  },
+  settingsOptionButtonText: {
+    textAlign: 'center',
+    fontSize: 24,
+    color: Colors.white
   }
 });
 
