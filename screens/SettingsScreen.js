@@ -19,34 +19,27 @@ class SettingsScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { selectedFacts: [] };
   }
 
-  undiscardFacts = selectedFacts => {
-    selectedFacts.map(fact => {
-      this.props.undiscardFact(fact);
-    });
-  };
-
   render() {
-    const { allDiscardedFacts } = this.props;
+    const { navigation } = this.props;
+    const options = [
+      { title: 'Discarded Items', id: 1, navigate: 'DiscardedItems' },
+      { title: 'Quizzable Items', id: 2, navigate: 'QuizzableItems' }
+    ];
     return (
       <View style={styles.container}>
-        <SelectMultiple
-          items={allDiscardedFacts}
-          selectedItems={this.state.selectedFacts}
-          onSelectionsChange={selectedFacts => this.setState({ selectedFacts })}
-        />
-
-        <TouchableOpacity
-          onPress={() => {
-            this.undiscardFacts(this.state.selectedFacts);
-            this.props.getAllDiscardedFacts(1);
-            this.setState({ selectedFacts: [] });
-          }}
-        >
-          <Text>Undiscard Items</Text>
-        </TouchableOpacity>
+        {options.map(option => {
+          return (
+            <TouchableOpacity
+              style={styles.settingsOptionButton}
+              onPress={() => navigation.navigate(option.navigate)}
+              key={option.id}
+            >
+              <Text>{option.title}</Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
     );
   }
@@ -56,17 +49,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.screenBackground
+    // alignItems: 'center'
   }
 });
 
-const mapStateToProps = state => ({
-  allDiscardedFacts: state.fact.allDiscardedFacts
-});
-const mapDispatchToProps = dispatch => ({
-  undiscardFact: selectedFact =>
-    dispatch(discardFact(1, selectedFact.id, false)),
-  getAllDiscardedFacts: userId => dispatch(fetchAllDiscardedFacts(userId))
-});
+const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(
   mapStateToProps,

@@ -13,6 +13,7 @@ import QuizzableLand from '../screens/QuizzableLand';
 import DifficultyScreen from '../screens/DifficultyScreen';
 import RandomScreen from '../screens/RandomScreen.js';
 import SettingsScreen from '../screens/SettingsScreen';
+import DiscardedItemsScreen from '../screens/DiscardedItemsScreen';
 import store from '../store';
 import {
   setCurrentMode,
@@ -86,7 +87,8 @@ PlaygroundStack.navigationOptions = ({ navigation }) => {
 };
 
 const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen
+  Settings: SettingsScreen,
+  DiscardedItems: DiscardedItemsScreen
 });
 
 SettingsStack.navigationOptions = ({ navigation }) => {

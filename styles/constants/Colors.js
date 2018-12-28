@@ -18,5 +18,7 @@ export default {
   correctAnswerGreen: '#05c46b',
   incorrectAnswerRed: '#ff3f34',
   cardNumberColor: '#84817a',
-  screenBackground: '#f7f1e3'
+  screenBackground: '#f7f1e3',
+  buttonAvailable: '#218c74',
+  buttonUnavailable: '#b33939'
 };
