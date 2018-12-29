@@ -85,10 +85,12 @@ const QuizCard = props => {
           }
         }}
         cardIndex={0}
-        verticalThreshold={hp('15%')}
-        horizontalThreshold={wp('20%')}
         backgroundColor={Colors.backgroundColorBlue}
+        showSecondCard={true}
+        verticalThreshold={hp('10%')}
+        horizontalThreshold={wp('15%')}
         stackSize={3}
+        animateCardOpacity={true}
       />
     </React.Fragment>
   );

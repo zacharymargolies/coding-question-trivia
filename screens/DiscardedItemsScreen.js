@@ -34,13 +34,18 @@ class DiscardedItemsScreen extends Component {
       <React.Fragment>
         {allDiscardedFacts.length ? (
           <View style={styles.container}>
+            {/* DISCARDED ITEMS LIST */}
             <SelectMultiple
               items={allDiscardedFacts}
               selectedItems={this.state.selectedFacts}
               onSelectionsChange={selectedFacts =>
                 this.setState({ selectedFacts })
               }
+              checkboxStyle={styles.checkboxUnselected}
+              rowStyle={styles.row}
             />
+
+            {/* UNDISCARD BUTTON */}
             <TouchableOpacity
               disabled={!this.state.selectedFacts.length}
               style={
@@ -100,6 +105,9 @@ const styles = StyleSheet.create({
   undiscardButtonText: {
     fontSize: 28,
     color: Colors.orange
+  },
+  row: {
+    paddingRight: 50
   }
 });
 

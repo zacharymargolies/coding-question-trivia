@@ -68,8 +68,8 @@ const FactCard = props => {
         cardIndex={0}
         backgroundColor={Colors.backgroundColorBlue}
         showSecondCard={true}
-        verticalThreshold={hp('15%')}
-        horizontalThreshold={wp('12.5%')}
+        verticalThreshold={hp('10%')}
+        horizontalThreshold={wp('15%')}
         goBackToPreviousCardOnSwipeRight={true}
         stackSize={3}
         animateCardOpacity={true}
