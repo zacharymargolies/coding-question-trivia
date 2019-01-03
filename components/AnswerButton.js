@@ -17,8 +17,10 @@ class AnswerButton extends React.Component {
     };
   }
 
-  checkAnswer = (correctAnswerId, curAnswerId) => {
+  checkAnswer = (correctAnswerId, curAnswerId, soundEffects) => {
     if (correctAnswerId === curAnswerId) {
+      console.log('--- SOUND EFFECTS: ---', soundEffects);
+      soundEffects.correctAnswer.playAsync();
       this.setState({
         answered: true,
         correct: true
@@ -31,7 +33,8 @@ class AnswerButton extends React.Component {
   };
 
   render() {
-    const { correctAnswerId, curAnswerId, content } = this.props;
+    const { correctAnswerId, curAnswerId, content, soundEffects } = this.props;
+
     return (
       <View
         style={
@@ -44,7 +47,7 @@ class AnswerButton extends React.Component {
       >
         <TouchableOpacity
           onPress={() => {
-            this.checkAnswer(correctAnswerId, curAnswerId);
+            this.checkAnswer(correctAnswerId, curAnswerId, soundEffects);
           }}
         >
           <Text style={styles.answerText}>{content}</Text>

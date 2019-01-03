@@ -35,6 +35,7 @@
     "react-native-modal": "^7.0.2",
     "react-native-responsive-screen": "^1.1.9",
     "react-native-select-multiple": "^1.2.0",
+    "react-native-sound": "^0.10.9",
     "react-navigation": "^2.16.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",

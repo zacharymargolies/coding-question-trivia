@@ -6,13 +6,27 @@ import {
   heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 import { CardNumber, CloseScreen, AnswerButton } from '../components';
-
 import { URL } from '../store';
 import axios from 'axios';
 import Colors from '../styles/constants/Colors';
+import Expo from 'expo';
+
+const loadSounds = async () => {
+  const correctAnswer = new Expo.Audio.Sound();
+  try {
+    await correctAnswer.loadAsync(
+      require('../assets/sounds/correctAnswer.mp3')
+    );
+  } catch (err) {
+    console.log(err);
+  }
+  return { correctAnswer };
+};
 
 const QuizCard = props => {
   const { questions, goBack, navigation } = props;
+  const soundEffects = loadSounds();
+  console.log('--- SOUND EFFECT --- ', soundEffects);
   return (
     <React.Fragment>
       {/* CLOSE SCREEN */}
@@ -49,6 +63,7 @@ const QuizCard = props => {
               <View style={styles.answersContainer}>
                 {question.answerPool.map(answer => (
                   <AnswerButton
+                    soundEffects={soundEffects}
                     correctAnswerId={question.answer.id}
                     curAnswerId={answer.id}
                     key={answer.id}
