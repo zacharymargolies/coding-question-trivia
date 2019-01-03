@@ -1,32 +1,18 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import Swiper from 'react-native-deck-swiper';
+import React from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
+import Swiper from "react-native-deck-swiper";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import { CardNumber, CloseScreen, AnswerButton } from '../components';
-import { URL } from '../store';
-import axios from 'axios';
-import Colors from '../styles/constants/Colors';
-import Expo from 'expo';
-
-const loadSounds = async () => {
-  const correctAnswer = new Expo.Audio.Sound();
-  try {
-    await correctAnswer.loadAsync(
-      require('../assets/sounds/correctAnswer.mp3')
-    );
-  } catch (err) {
-    console.log(err);
-  }
-  return { correctAnswer };
-};
+} from "react-native-responsive-screen";
+import { CardNumber, CloseScreen, AnswerButton } from "../components";
+import { URL } from "../store";
+import axios from "axios";
+import Colors from "../styles/constants/Colors";
+import Expo from "expo";
 
 const QuizCard = props => {
   const { questions, goBack, navigation } = props;
-  const soundEffects = loadSounds();
-  console.log('--- SOUND EFFECT --- ', soundEffects);
   return (
     <React.Fragment>
       {/* CLOSE SCREEN */}
@@ -43,7 +29,7 @@ const QuizCard = props => {
                   numberOfLines={1}
                   style={styles.topicText}
                 >
-                  {question.topic.main}{' '}
+                  {question.topic.main}{" "}
                 </Text>
               </View>
               {/* LINE */}
@@ -51,7 +37,7 @@ const QuizCard = props => {
               {/* IMAGE */}
               <View style={styles.imageContainer}>
                 <Image
-                  source={require('../assets/images/developer.jpg')}
+                  source={require("../assets/images/developer.jpg")}
                   style={styles.image}
                 />
               </View>
@@ -63,7 +49,6 @@ const QuizCard = props => {
               <View style={styles.answersContainer}>
                 {question.answerPool.map(answer => (
                   <AnswerButton
-                    soundEffects={soundEffects}
                     correctAnswerId={question.answer.id}
                     curAnswerId={answer.id}
                     key={answer.id}
@@ -102,8 +87,8 @@ const QuizCard = props => {
         cardIndex={0}
         backgroundColor={Colors.backgroundColorBlue}
         showSecondCard={true}
-        verticalThreshold={hp('10%')}
-        horizontalThreshold={wp('15%')}
+        verticalThreshold={hp("10%")}
+        horizontalThreshold={wp("15%")}
         stackSize={3}
         animateCardOpacity={true}
       />
@@ -113,63 +98,63 @@ const QuizCard = props => {
 
 const styles = StyleSheet.create({
   card: {
-    marginTop: hp('5%'),
-    marginBottom: hp('-2.5%'),
+    marginTop: hp("5%"),
+    marginBottom: hp("-2.5%"),
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: "column",
     borderRadius: 25,
     borderColor: Colors.orange,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: Colors.orange
   },
   topicContainer: {
     flex: 1,
-    marginTop: hp('2.0%'),
-    width: wp('80%')
+    marginTop: hp("2.0%"),
+    width: wp("80%")
   },
   topicText: {
-    width: wp('80%'),
-    fontFamily: 'Arial Rounded MT Bold',
-    fontWeight: 'bold',
+    width: wp("80%"),
+    fontFamily: "Arial Rounded MT Bold",
+    fontWeight: "bold",
     fontSize: 42,
-    color: 'white',
-    textAlign: 'center'
+    color: "white",
+    textAlign: "center"
   },
   line: {
-    marginTop: hp('1.0%'),
-    marginBottom: hp('3%'),
-    alignSelf: 'center',
-    width: wp('80%'),
-    borderBottomColor: 'white',
-    borderBottomWidth: hp('.25%'),
-    borderRadius: wp('.25%')
+    marginTop: hp("1.0%"),
+    marginBottom: hp("3%"),
+    alignSelf: "center",
+    width: wp("80%"),
+    borderBottomColor: "white",
+    borderBottomWidth: hp(".25%"),
+    borderRadius: wp(".25%")
   },
   imageContainer: {
     flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: hp('2.5%')
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: hp("2.5%")
   },
   image: {
-    resizeMode: 'contain',
-    height: hp('37.0%'),
-    width: hp('37.0%')
+    resizeMode: "contain",
+    height: hp("37.0%"),
+    width: hp("37.0%")
   },
   questionContainer: {
     flex: 2
   },
   questionText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 18,
-    backgroundColor: 'transparent'
+    backgroundColor: "transparent"
   },
   answersContainer: {
     flex: 8,
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginBottom: hp('7%')
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginBottom: hp("7%")
   }
 });
 

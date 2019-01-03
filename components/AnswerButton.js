@@ -1,11 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import { connect } from 'react-redux';
-import Colors from '../styles/constants/Colors';
+} from "react-native-responsive-screen";
+import { connect } from "react-redux";
+import Colors from "../styles/constants/Colors";
+import Expo from "expo";
 
 class AnswerButton extends React.Component {
   constructor(props) {
@@ -17,18 +18,35 @@ class AnswerButton extends React.Component {
     };
   }
 
-  checkAnswer = (correctAnswerId, curAnswerId, soundEffects) => {
+  checkAnswer = async (correctAnswerId, curAnswerId) => {
     if (correctAnswerId === curAnswerId) {
-      console.log('--- SOUND EFFECTS: ---', soundEffects);
-      soundEffects.correctAnswer.playAsync();
+      const correctAnswer = new Expo.Audio.Sound();
+
+      try {
+        await correctAnswer.loadAsync(
+          require("../assets/sounds/correctAnswer.mp3")
+        );
+        await correctAnswer.playAsync();
+      } catch (err) {
+        console.log(err);
+      }
       this.setState({
         answered: true,
         correct: true
       });
-      console.log('You chose the correct answer!');
+      console.log("You chose the correct answer!");
     } else {
       this.setState({ answered: true, correct: false });
-      console.log('You chose the incorrect answer.');
+      const incorrectAnswer = new Expo.Audio.Sound();
+      try {
+        await incorrectAnswer.loadAsync(
+          require("../assets/sounds/incorrectAnswer.wav")
+        );
+        await incorrectAnswer.playAsync();
+      } catch (err) {
+        console.log(err);
+      }
+      console.log("You chose the incorrect answer.");
     }
   };
 
@@ -60,46 +78,46 @@ class AnswerButton extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
+    alignContent: "center",
+    justifyContent: "center",
     backgroundColor: Colors.orange,
-    borderWidth: wp('1%'),
+    borderWidth: wp("1%"),
     borderColor: Colors.backgroundColorBlue,
-    height: hp('4%'),
-    width: wp('80%'),
+    height: hp("4%"),
+    width: wp("80%"),
     borderRadius: 25,
-    marginTop: hp('0.5%'),
-    marginBottom: hp('0.5%')
+    marginTop: hp("0.5%"),
+    marginBottom: hp("0.5%")
   },
   correctContainer: {
     flex: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
+    alignContent: "center",
+    justifyContent: "center",
     backgroundColor: Colors.orange,
-    borderWidth: wp('1%'),
+    borderWidth: wp("1%"),
     borderColor: Colors.correctAnswerGreen,
-    height: hp('4%'),
-    width: wp('80%'),
+    height: hp("4%"),
+    width: wp("80%"),
     borderRadius: 25,
-    marginTop: hp('0.5%'),
-    marginBottom: hp('0.5%')
+    marginTop: hp("0.5%"),
+    marginBottom: hp("0.5%")
   },
   incorrectContainer: {
     flex: 1,
-    alignContent: 'center',
-    justifyContent: 'center',
+    alignContent: "center",
+    justifyContent: "center",
     backgroundColor: Colors.orange,
-    borderWidth: wp('1%'),
+    borderWidth: wp("1%"),
     borderColor: Colors.incorrectAnswerRed,
-    height: hp('4%'),
-    width: wp('80%'),
+    height: hp("4%"),
+    width: wp("80%"),
     borderRadius: 25,
-    marginTop: hp('0.5%'),
-    marginBottom: hp('0.5%')
+    marginTop: hp("0.5%"),
+    marginBottom: hp("0.5%")
   },
   answerText: {
-    padding: wp('1.5%'),
-    textAlign: 'center'
+    padding: wp("1.5%"),
+    textAlign: "center"
   }
 });
 
