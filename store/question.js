@@ -70,6 +70,23 @@ export const fetchQuestionsByTopic = (topicId, userId) => async dispatch => {
   }
 };
 
+export const makeQuizzableQuestions = (
+  userId,
+  quizzable,
+  questions
+) => async () => {
+  questions.forEach(async question => {
+    const { id } = question;
+    try {
+      await axios.put(
+        `${URL}/api/questions/user/${userId}/quizzable/${id}/${quizzable}`
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  });
+};
+
 export const fetchQuestionsByDifficulty = (
   difficultyLevel,
   userId

@@ -8,7 +8,8 @@ import {
 import { CardNumber, CloseScreen } from "../components";
 import Colors from "../styles/constants/Colors";
 import { connect } from "react-redux";
-import { discardFact, makeQuizzableFact } from "../store/fact";
+import { discardFact } from "../store/fact";
+import { makeQuizzableQuestions } from "../store/question";
 import { userId } from "../store/index";
 
 const FactCard = props => {
@@ -60,9 +61,9 @@ const FactCard = props => {
           props.discardFact(userId, id, discard);
         }}
         onSwipedTop={idx => {
-          const { id } = facts[idx];
+          const { questions } = facts[idx];
           const quizzable = true;
-          props.makeQuizzableFact(userId, id, quizzable);
+          props.makeQuizzableQuestions(userId, quizzable, questions);
         }}
         cardIndex={0}
         backgroundColor={Colors.backgroundColorBlue}
@@ -141,8 +142,8 @@ const mapDispatchToProps = dispatch => ({
   discardFact: (userId, factId, discard) => {
     dispatch(discardFact(userId, factId, discard));
   },
-  makeQuizzableFact: (userId, factId, quizzable) => {
-    dispatch(makeQuizzableFact(userId, factId, quizzable));
+  makeQuizzableQuestions: (userId, quizzable, questions) => {
+    dispatch(makeQuizzableQuestions(userId, quizzable, questions));
   }
 });
 

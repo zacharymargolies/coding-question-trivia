@@ -95,16 +95,6 @@ export const discardFact = (userId, factId, discard) => async () => {
   }
 };
 
-export const makeQuizzableFact = (userId, factId, quizzable) => async () => {
-  try {
-    await axios.put(
-      `${URL}/api/facts/user/${userId}/quizzable/${factId}/${quizzable}`
-    );
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 // INITIAL STATE
 const initialState = {
   facts: [],
