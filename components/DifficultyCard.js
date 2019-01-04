@@ -1,21 +1,22 @@
-import React from 'react';
-import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
+} from "react-native-responsive-screen";
 import {
   setCurrentFactDifficulty,
   fetchFactsByDifficulty
-} from '../store/fact';
+} from "../store/fact";
 import {
   setCurrentQuestionDifficulty,
   fetchQuestionsByDifficulty
-} from '../store/question';
-import { connect } from 'react-redux';
-import { images } from '../screens/DifficultyScreen';
-import { QUIZZABLE_LAND } from '../store/appState';
-import Colors from '../styles/constants/Colors';
+} from "../store/question";
+import { connect } from "react-redux";
+import { images } from "../screens/DifficultyScreen";
+import { QUIZZABLE_LAND } from "../store/appState";
+import Colors from "../styles/constants/Colors";
+import { userId } from "../store/index";
 
 const DifficultyCard = props => {
   const { difficultyLevel, navigate, currentMode } = props;
@@ -34,13 +35,13 @@ const DifficultyCard = props => {
   };
   const setCurrentDifficultyPlay = async () => {
     props.setCurrentDifficultyPlay(difficulties[difficultyLevel]);
-    await props.getFactsByDifficulty(difficulties[difficultyLevel]);
-    navigate('Cards');
+    await props.getFactsByDifficulty(difficulties[difficultyLevel], userId);
+    navigate("Cards");
   };
   const setCurrentDifficultyQuiz = async () => {
     props.setCurrentQuestionDifficulty(difficulties[difficultyLevel]);
-    await props.getQuestionsByDifficulty(difficulties[difficultyLevel]);
-    navigate('Cards');
+    await props.getQuestionsByDifficulty(difficulties[difficultyLevel], userId);
+    navigate("Cards");
   };
   return (
     <TouchableOpacity
@@ -67,13 +68,13 @@ const DifficultyCard = props => {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
+    display: "flex",
     backgroundColor: Colors.orange,
-    height: hp('20%'),
-    width: wp('30%'),
-    alignItems: 'center',
-    margin: wp('1.0%'),
-    borderRadius: wp('5%'),
+    height: hp("20%"),
+    width: wp("30%"),
+    alignItems: "center",
+    margin: wp("1.0%"),
+    borderRadius: wp("5%"),
     shadowColor: Colors.shadowOrange,
     shadowOffset: {
       width: 0,
@@ -84,15 +85,15 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   topicText: {
-    marginTop: hp('3%'),
+    marginTop: hp("3%"),
     fontSize: 26,
     color: Colors.white
   },
   topicImage: {
-    marginTop: hp('2.0%'),
-    height: hp('8%'),
-    width: hp('8%'),
-    borderRadius: hp('4%')
+    marginTop: hp("2.0%"),
+    height: hp("8%"),
+    width: hp("8%"),
+    borderRadius: hp("4%")
   }
 });
 
@@ -104,14 +105,14 @@ const mapDispatchToProps = dispatch => ({
   setCurrentDifficultyPlay: difficultyLevel => {
     dispatch(setCurrentFactDifficulty(difficultyLevel));
   },
-  getFactsByDifficulty: difficultyLevel => {
-    dispatch(fetchFactsByDifficulty(difficultyLevel));
+  getFactsByDifficulty: (difficultyLevel, userId) => {
+    dispatch(fetchFactsByDifficulty(difficultyLevel, userId));
   },
   setCurrentQuestionDifficulty: difficultyLevel => {
     dispatch(setCurrentQuestionDifficulty(difficultyLevel));
   },
-  getQuestionsByDifficulty: difficultyLevel => {
-    dispatch(fetchQuestionsByDifficulty(difficultyLevel));
+  getQuestionsByDifficulty: (difficultyLevel, userId) => {
+    dispatch(fetchQuestionsByDifficulty(difficultyLevel, userId));
   }
 });
 

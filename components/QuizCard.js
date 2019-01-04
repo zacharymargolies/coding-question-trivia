@@ -29,7 +29,7 @@ const QuizCard = props => {
                   numberOfLines={1}
                   style={styles.topicText}
                 >
-                  {question.topic.main}{" "}
+                  {question.topic.main}
                 </Text>
               </View>
               {/* LINE */}

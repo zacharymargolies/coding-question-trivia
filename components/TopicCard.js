@@ -1,31 +1,32 @@
-import React from 'react';
-import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import { setCurrentFactTopic, fetchFactsByTopic } from '../store/fact';
+} from "react-native-responsive-screen";
+import { setCurrentFactTopic, fetchFactsByTopic } from "../store/fact";
 import {
   setCurrentQuestionTopic,
   fetchQuestionsByTopic
-} from '../store/question';
-import { fetchAllAnswers } from '../store/answer';
-import { connect } from 'react-redux';
-import { QUIZZABLE_LAND } from '../store/appState';
-import Colors from '../styles/constants/Colors';
+} from "../store/question";
+import { fetchAllAnswers } from "../store/answer";
+import { connect } from "react-redux";
+import { QUIZZABLE_LAND } from "../store/appState";
+import Colors from "../styles/constants/Colors";
+import { userId } from "../store/index";
 
 const TopicCard = props => {
   const { topic, navigation, currentMode } = props;
   const setTopicPlay = async () => {
     props.setCurrentFactTopic(topic.id);
-    await props.getFactsByTopic(topic.id);
-    navigation.push('Cards');
+    await props.getFactsByTopic(topic.id, userId);
+    navigation.push("Cards");
   };
   const setTopicQuiz = async () => {
     props.setCurrentQuestionTopic(topic.id);
-    await props.getQuestionsByTopic(topic.id);
+    await props.getQuestionsByTopic(topic.id, userId);
     await props.getAllAnswers();
-    navigation.push('Cards');
+    navigation.push("Cards");
   };
   return (
     <TouchableOpacity
@@ -50,13 +51,13 @@ const TopicCard = props => {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
+    display: "flex",
     backgroundColor: Colors.orange,
-    height: hp('20%'),
-    width: wp('30%'),
-    alignItems: 'center',
-    margin: wp('1.0%'),
-    borderRadius: wp('5%'),
+    height: hp("20%"),
+    width: wp("30%"),
+    alignItems: "center",
+    margin: wp("1.0%"),
+    borderRadius: wp("5%"),
     shadowColor: Colors.shadowOrange,
     shadowOffset: {
       width: 0,
@@ -67,15 +68,15 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   topicText: {
-    marginTop: hp('4%'),
+    marginTop: hp("4%"),
     fontSize: 26,
     color: Colors.white
   },
   topicImage: {
-    marginTop: hp('1.0%'),
-    height: hp('9%'),
-    width: hp('9%'),
-    borderRadius: hp('4.5%')
+    marginTop: hp("1.0%"),
+    height: hp("9%"),
+    width: hp("9%"),
+    borderRadius: hp("4.5%")
   }
 });
 
@@ -87,14 +88,14 @@ const mapDispatchToProps = dispatch => ({
   setCurrentFactTopic: topicId => {
     dispatch(setCurrentFactTopic(topicId));
   },
-  getFactsByTopic: topicId => {
-    dispatch(fetchFactsByTopic(topicId));
+  getFactsByTopic: (topicId, userId) => {
+    dispatch(fetchFactsByTopic(topicId, userId));
   },
   setCurrentQuestionTopic: topicId => {
     dispatch(setCurrentQuestionTopic(topicId));
   },
-  getQuestionsByTopic: topicId => {
-    dispatch(fetchQuestionsByTopic(topicId));
+  getQuestionsByTopic: (topicId, userId) => {
+    dispatch(fetchQuestionsByTopic(topicId, userId));
   },
   getAllAnswers: () => {
     dispatch(fetchAllAnswers());

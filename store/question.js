@@ -50,11 +50,14 @@ const answerFetcher = async questions => {
   return questions;
 };
 
-export const fetchQuestionsByTopic = topicId => async dispatch => {
+export const fetchQuestionsByTopic = (topicId, userId) => async dispatch => {
   try {
     // FETCH QUESTIONS BY TOPIC
+    // const requestQuestions = await axios.get(
+    //   `${URL}/api/questions/topic/${topicId}`
+    // );
     const requestQuestions = await axios.get(
-      `${URL}/api/questions/topic/${topicId}`
+      `${URL}/api/questions/user/${userId}/topic/${topicId}`
     );
     const questionsByTopic = requestQuestions.data;
 
@@ -67,11 +70,17 @@ export const fetchQuestionsByTopic = topicId => async dispatch => {
   }
 };
 
-export const fetchQuestionsByDifficulty = difficultyLevel => async dispatch => {
+export const fetchQuestionsByDifficulty = (
+  difficultyLevel,
+  userId
+) => async dispatch => {
   try {
     // FETCH QUESTION BY DIFFICULTY
+    // const request = await axios.get(
+    //   `${URL}/api/questions/difficulty/${difficultyLevel}`
+    // );
     const request = await axios.get(
-      `${URL}/api/questions/difficulty/${difficultyLevel}`
+      `${URL}/api/questions/user/${userId}/difficulty/${difficultyLevel}`
     );
     const questionsByDifficulty = request.data;
     // SET ANSWERS TO QUESTION

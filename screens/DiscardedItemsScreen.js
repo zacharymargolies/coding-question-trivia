@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Picker, Text, TouchableOpacity } from 'react-native';
+import React, { Component } from "react";
+import { StyleSheet, View, Picker, Text, TouchableOpacity } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
-} from 'react-native-responsive-screen';
-import Colors from '../styles/constants/Colors';
-import { connect } from 'react-redux';
-import SelectMultiple from 'react-native-select-multiple';
-import { discardFact, fetchAllDiscardedFacts } from '../store/fact';
+} from "react-native-responsive-screen";
+import Colors from "../styles/constants/Colors";
+import { connect } from "react-redux";
+import SelectMultiple from "react-native-select-multiple";
+import { discardFact, fetchAllDiscardedFacts } from "../store/fact";
 
 class DiscardedItemsScreen extends Component {
   static navigationOptions = {
-    title: 'Discarded Items',
+    title: "Discarded Items",
     headerStyle: {
       backgroundColor: Colors.screenBackground
     }
@@ -79,24 +79,24 @@ const styles = StyleSheet.create({
     // alignItems: 'center'
   },
   undiscardButtonAvailable: {
-    alignSelf: 'center',
-    height: hp('5%'),
-    width: wp('90%'),
-    marginBottom: hp('1.5%'),
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: "center",
+    height: hp("5%"),
+    width: wp("90%"),
+    marginBottom: hp("1.5%"),
+    justifyContent: "center",
+    alignItems: "center",
     borderColor: Colors.screenBackground,
     borderWidth: 1,
     borderRadius: 10,
     backgroundColor: Colors.buttonAvailable
   },
   undiscardButtonUnavailable: {
-    alignSelf: 'center',
-    height: hp('5%'),
-    width: wp('90%'),
-    marginBottom: hp('1.5%'),
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: "center",
+    height: hp("5%"),
+    width: wp("90%"),
+    marginBottom: hp("1.5%"),
+    justifyContent: "center",
+    alignItems: "center",
     borderColor: Colors.screenBackground,
     borderWidth: 1,
     borderRadius: 10,

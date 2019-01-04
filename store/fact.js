@@ -1,11 +1,11 @@
-import axios from 'axios';
-import { URL } from './index';
+import axios from "axios";
+import { URL } from "./index";
 
 // ACTION TYPES
-const SET_CURRENT_FACTS = 'SET_CURRENT_FACTS';
-const SET_DISCARDED_FACTS = 'SET_DISCARDED_FACTS';
-const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
-const SET_CURRENT_DIFFICULTY = 'SET_CURRENT_DIFFICULTY';
+const SET_CURRENT_FACTS = "SET_CURRENT_FACTS";
+const SET_DISCARDED_FACTS = "SET_DISCARDED_FACTS";
+const SET_CURRENT_TOPIC = "SET_CURRENT_TOPIC";
+const SET_CURRENT_DIFFICULTY = "SET_CURRENT_DIFFICULTY";
 
 // ACTION CREATORS
 export const setCurrentFacts = allFacts => ({
@@ -37,7 +37,7 @@ export const fetchAllFacts = () => async dispatch => {
 };
 
 export const fetchAllDiscardedFacts = userId => async dispatch => {
-  console.log('FETCH ALL DISCARDED FACTS RAN');
+  console.log("FETCH ALL DISCARDED FACTS RAN");
   try {
     const request = await axios.get(`${URL}/api/facts/user/${userId}/discard/`);
     const allDiscardedFacts = request.data;
@@ -47,9 +47,12 @@ export const fetchAllDiscardedFacts = userId => async dispatch => {
   }
 };
 
-export const fetchFactsByTopic = topicId => async dispatch => {
+export const fetchFactsByTopic = (topicId, userId) => async dispatch => {
   try {
-    const request = await axios.get(`${URL}/api/facts/topic/${topicId}`);
+    // const request = await axios.get(`${URL}/api/facts/topic/${topicId}`);
+    const request = await axios.get(
+      `${URL}/api/facts/user/${userId}/topic/${topicId}`
+    );
     const facts = request.data;
     dispatch(setCurrentFacts(facts));
   } catch (err) {
@@ -57,10 +60,13 @@ export const fetchFactsByTopic = topicId => async dispatch => {
   }
 };
 
-export const fetchFactsByDifficulty = difficultyLevel => async dispatch => {
+export const fetchFactsByDifficulty = (
+  difficultyLevel,
+  userId
+) => async dispatch => {
   try {
     const request = await axios.get(
-      `${URL}/api/facts/difficulty/${difficultyLevel}`
+      `${URL}/api/facts/user/${userId}/difficulty/${difficultyLevel}`
     );
     const factsByDifficulty = request.data;
     dispatch(setCurrentFacts(factsByDifficulty));

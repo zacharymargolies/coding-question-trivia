@@ -34,7 +34,6 @@ class AnswerButton extends React.Component {
         answered: true,
         correct: true
       });
-      console.log("You chose the correct answer!");
     } else {
       this.setState({ answered: true, correct: false });
       const incorrectAnswer = new Expo.Audio.Sound();
@@ -46,7 +45,6 @@ class AnswerButton extends React.Component {
       } catch (err) {
         console.log(err);
       }
-      console.log("You chose the incorrect answer.");
     }
   };
 
