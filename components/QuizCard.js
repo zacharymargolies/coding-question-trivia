@@ -9,7 +9,6 @@ import { CardNumber, CloseScreen, AnswerButton } from "../components";
 import { URL } from "../store";
 import axios from "axios";
 import Colors from "../styles/constants/Colors";
-import Expo from "expo";
 
 const QuizCard = props => {
   const { questions, goBack, navigation } = props;
@@ -20,6 +19,7 @@ const QuizCard = props => {
       <Swiper
         cards={questions}
         renderCard={question => {
+          // console.log("--- QUESTION: --- ", question);
           return (
             <View style={styles.card}>
               {/* TOPIC */}

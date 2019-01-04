@@ -60,9 +60,9 @@ export const fetchQuestionsByTopic = (topicId, userId) => async dispatch => {
       `${URL}/api/questions/user/${userId}/topic/${topicId}`
     );
     const questionsByTopic = requestQuestions.data;
-
     // SET ANSWERS TO QUESTION
     const questionsWithAnswers = await answerFetcher(questionsByTopic);
+    console.log("--- QUESTION WITH ANSWERS: --- ", questionsWithAnswers);
 
     dispatch(setCurrentQuestions(questionsWithAnswers));
   } catch (err) {
