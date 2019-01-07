@@ -7,11 +7,15 @@ import {
 import Colors from '../styles/constants/Colors';
 import { connect } from 'react-redux';
 import SelectMultiple from 'react-native-select-multiple';
-import { discardFact, fetchAllDiscardedFacts } from '../store/fact';
+import {
+  makeQuizzableQuestions,
+  fetchAllQuizzableItems,
+} from '../store/question';
+import { userId } from '../store/index';
 
-class DiscardedItemsScreen extends Component {
+class QuizzableItemsScreen extends Component {
   static navigationOptions = {
-    title: 'Discarded Items',
+    title: 'Quizzable Items',
     headerStyle: {
       backgroundColor: Colors.screenBackground,
     },
@@ -19,27 +23,27 @@ class DiscardedItemsScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { selectedFacts: [] };
+    this.state = { quizzableItems: [] };
   }
 
-  undiscardFacts = selectedFacts => {
-    selectedFacts.map(fact => {
-      this.props.undiscardFact(fact);
+  unquizItems = (userId, quizzableItems) => {
+    quizzableItems.map(item => {
+      this.props.unquizItem(userId, item);
     });
   };
 
   render() {
-    const { allDiscardedFacts } = this.props;
+    const { allQuizzableItems } = this.props;
     return (
       <React.Fragment>
-        {allDiscardedFacts.length ? (
+        {allQuizzableItems.length ? (
           <View style={styles.container}>
             {/* DISCARDED ITEMS LIST */}
             <SelectMultiple
-              items={allDiscardedFacts}
-              selectedItems={this.state.selectedFacts}
-              onSelectionsChange={selectedFacts =>
-                this.setState({ selectedFacts })
+              items={allQuizzableItems}
+              selectedItems={this.state.quizzableItems}
+              onSelectionsChange={quizzableItems =>
+                this.setState({ quizzableItems })
               }
               checkboxStyle={styles.checkboxUnselected}
               rowStyle={styles.row}
@@ -47,24 +51,24 @@ class DiscardedItemsScreen extends Component {
 
             {/* UNDISCARD BUTTON */}
             <TouchableOpacity
-              disabled={!this.state.selectedFacts.length}
+              disabled={!this.state.quizzableItems.length}
               style={
-                this.state.selectedFacts.length
+                this.state.quizzableItems.length
                   ? styles.undiscardButtonAvailable
                   : styles.undiscardButtonUnavailable
               }
               onPress={async () => {
-                await this.undiscardFacts(this.state.selectedFacts);
-                await this.props.getAllDiscardedFacts(1);
-                this.setState({ selectedFacts: [] });
+                await this.unquizItems(userId, this.state.quizzableItems);
+                await this.props.getAllQuizzableItems(userId);
+                this.setState({ quizzableItems: [] });
               }}
             >
-              <Text style={styles.undiscardButtonText}>UNDISCARD ITEMS</Text>
+              <Text style={styles.undiscardButtonText}>MAKE UNQUIZZABLE</Text>
             </TouchableOpacity>
           </View>
         ) : (
           <View style={styles.container}>
-            <Text>No Discarded Facts Found...</Text>
+            <Text>No Quizzable Items Found...</Text>
           </View>
         )}
       </React.Fragment>
@@ -111,15 +115,15 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  allDiscardedFacts: state.fact.allDiscardedFacts,
+  allQuizzableItems: state.question.allQuizzableItems,
 });
 const mapDispatchToProps = dispatch => ({
-  undiscardFact: selectedFact =>
-    dispatch(discardFact(1, selectedFact.id, false)),
-  getAllDiscardedFacts: userId => dispatch(fetchAllDiscardedFacts(userId)),
+  unquizItem: (userId, selectedItem) =>
+    dispatch(makeQuizzableQuestions(userId, false, selectedItem)),
+  getAllQuizzableItems: userId => dispatch(fetchAllQuizzableItems(userId)),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DiscardedItemsScreen);
+)(QuizzableItemsScreen);

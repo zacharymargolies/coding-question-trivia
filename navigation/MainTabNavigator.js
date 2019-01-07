@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import {
   createStackNavigator,
-  createBottomTabNavigator
+  createBottomTabNavigator,
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -18,12 +18,15 @@ import store from '../store';
 import {
   setCurrentMode,
   INFORMATION_PLAYGROUND,
-  QUIZZABLE_LAND
+  QUIZZABLE_LAND,
 } from '../store/appState';
 import { fetchAllDiscardedFacts } from '../store/fact';
+import QuizzableItemsScreen from '../screens/QuizzableItemsScreen';
+import { userId } from '../store/index';
+import { fetchAllQuizzableItems } from '../store/question';
 
 export const CardsStack = createStackNavigator({
-  Cards: CardsScreen
+  Cards: CardsScreen,
 });
 
 export const QuizStack = createStackNavigator({
@@ -31,7 +34,7 @@ export const QuizStack = createStackNavigator({
   Topics: TopicsScreen,
   Difficulty: DifficultyScreen,
   Random: RandomScreen,
-  Cards: CardsScreen
+  Cards: CardsScreen,
 });
 
 QuizStack.navigationOptions = ({ navigation }) => {
@@ -52,7 +55,7 @@ QuizStack.navigationOptions = ({ navigation }) => {
         }
       />
     ),
-    tabBarVisible
+    tabBarVisible,
   };
 };
 
@@ -61,7 +64,7 @@ const PlaygroundStack = createStackNavigator({
   Topics: TopicsScreen,
   Difficulty: DifficultyScreen,
   Random: RandomScreen,
-  Cards: CardsScreen
+  Cards: CardsScreen,
 });
 
 PlaygroundStack.navigationOptions = ({ navigation }) => {
@@ -82,17 +85,19 @@ PlaygroundStack.navigationOptions = ({ navigation }) => {
         }
       />
     ),
-    tabBarVisible
+    tabBarVisible,
   };
 };
 
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,
-  DiscardedItems: DiscardedItemsScreen
+  DiscardedItems: DiscardedItemsScreen,
+  QuizzableItems: QuizzableItemsScreen,
 });
 
 SettingsStack.navigationOptions = ({ navigation }) => {
-  store.dispatch(fetchAllDiscardedFacts(1));
+  store.dispatch(fetchAllDiscardedFacts(userId));
+  store.dispatch(fetchAllQuizzableItems(userId));
   return {
     tabBarLabel: 'Settings',
     tabBarIcon: ({ focused }) => (
@@ -104,7 +109,7 @@ SettingsStack.navigationOptions = ({ navigation }) => {
             : 'settings'
         }
       />
-    )
+    ),
   };
 };
 
@@ -112,17 +117,17 @@ export default createBottomTabNavigator(
   {
     PlaygroundStack,
     QuizStack,
-    SettingsStack
+    SettingsStack,
   },
   {
     tabBarOptions: {
       labelStyle: {
-        fontSize: 12
+        fontSize: 12,
       },
       style: {
         marginBottom: -15,
-        backgroundColor: '#f7f1e3'
-      }
-    }
+        backgroundColor: '#f7f1e3',
+      },
+    },
   }
 );

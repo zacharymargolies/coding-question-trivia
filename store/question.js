@@ -1,24 +1,29 @@
-import axios from "axios";
-import { URL } from "./index";
-import shuffle from "shuffle-array";
+import axios from 'axios';
+import { URL } from './index';
+import shuffle from 'shuffle-array';
 
 // ACTION TYPES
-const SET_CURRENT_QUESTIONS = "SET_CURRENT_QUESTIONS";
-const SET_CURRENT_TOPIC = "SET_CURRENT_TOPIC";
-const SET_CURRENT_DIFFICULTY = "SET_CURRENT_DIFFICULTY";
+const SET_CURRENT_QUESTIONS = 'SET_CURRENT_QUESTIONS';
+const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
+const SET_CURRENT_DIFFICULTY = 'SET_CURRENT_DIFFICULTY';
+const SET_ALL_QUIZZABLE_ITEMS = 'SET_ALL_QUIZZABLE_ITEMS';
 
 // ACTION CREATORS
 export const setCurrentQuestions = allQuestions => ({
   type: SET_CURRENT_QUESTIONS,
-  allQuestions
+  allQuestions,
 });
 export const setCurrentQuestionTopic = topicId => ({
   type: SET_CURRENT_TOPIC,
-  topicId
+  topicId,
 });
 export const setCurrentQuestionDifficulty = difficultyLevel => ({
   type: SET_CURRENT_DIFFICULTY,
-  difficultyLevel
+  difficultyLevel,
+});
+export const setAllQuizzableItems = allQuizzableItems => ({
+  type: SET_ALL_QUIZZABLE_ITEMS,
+  allQuizzableItems,
 });
 
 // THUNK CREATORS
@@ -27,6 +32,16 @@ export const fetchAllQuestions = () => async dispatch => {
     const request = await axios.get(`${URL}/api/questions`);
     const allQuestions = request.data;
     dispatch(setCurrentQuestions(allQuestions));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const fetchAllQuizzableItems = userId => async dispatch => {
+  try {
+    const request = await axios.get(`${URL}/api/questions/user/${userId}`);
+    const allQuizzableItems = request.data;
+    dispatch(setAllQuizzableItems(allQuizzableItems));
   } catch (err) {
     console.log(err);
   }
@@ -42,7 +57,7 @@ const answerFetcher = async questions => {
   questions.forEach(question => {
     question.answerPool = [
       question.answer,
-      ...shuffle.pick(allAnswers, { picks: 3 })
+      ...shuffle.pick(allAnswers, { picks: 3 }),
     ];
     question.answerPool = shuffle(question.answerPool);
   });
@@ -62,19 +77,13 @@ export const fetchQuestionsByTopic = (topicId, userId) => async dispatch => {
     const questionsByTopic = requestQuestions.data;
     // SET ANSWERS TO QUESTION
     const questionsWithAnswers = await answerFetcher(questionsByTopic);
-    console.log("--- QUESTION WITH ANSWERS: --- ", questionsWithAnswers);
-
     dispatch(setCurrentQuestions(questionsWithAnswers));
   } catch (err) {
     console.log(err);
   }
 };
 
-export const makeQuizzableQuestions = (
-  userId,
-  quizzable,
-  questions
-) => async () => {
+export const makeQuizzableQuestions = (userId, quizzable, questions) => () => {
   questions.forEach(async question => {
     const { id } = question;
     try {
@@ -122,7 +131,8 @@ export const fetchQuestionsByFact = factId => async dispatch => {
 const initialState = {
   questions: [],
   topicId: null,
-  difficultyLevel: null
+  difficultyLevel: null,
+  allQuizzableItems: [],
 };
 
 // REDUCER
@@ -131,17 +141,22 @@ export default function(state = initialState, action) {
     case SET_CURRENT_QUESTIONS:
       return {
         ...state,
-        questions: action.allQuestions
+        questions: action.allQuestions,
       };
     case SET_CURRENT_TOPIC:
       return {
         ...state,
-        topicId: action.topicId
+        topicId: action.topicId,
       };
     case SET_CURRENT_DIFFICULTY:
       return {
         ...state,
-        difficultyLevel: action.difficultyLevel
+        difficultyLevel: action.difficultyLevel,
+      };
+    case SET_ALL_QUIZZABLE_ITEMS:
+      return {
+        ...state,
+        allQuizzableItems: action.allQuizzableItems,
       };
     default:
       return state;
