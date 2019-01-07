@@ -67,10 +67,6 @@ const answerFetcher = async questions => {
 
 export const fetchQuestionsByTopic = (topicId, userId) => async dispatch => {
   try {
-    // FETCH QUESTIONS BY TOPIC
-    // const requestQuestions = await axios.get(
-    //   `${URL}/api/questions/topic/${topicId}`
-    // );
     const requestQuestions = await axios.get(
       `${URL}/api/questions/user/${userId}/topic/${topicId}`
     );
@@ -101,10 +97,6 @@ export const fetchQuestionsByDifficulty = (
   userId
 ) => async dispatch => {
   try {
-    // FETCH QUESTION BY DIFFICULTY
-    // const request = await axios.get(
-    //   `${URL}/api/questions/difficulty/${difficultyLevel}`
-    // );
     const request = await axios.get(
       `${URL}/api/questions/user/${userId}/difficulty/${difficultyLevel}`
     );
@@ -122,6 +114,22 @@ export const fetchQuestionsByFact = factId => async dispatch => {
     const request = await axios.get(`${URL}/api/questions/fact/${factId}`);
     const questionsByFact = request.data;
     dispatch(setCurrentQuestions(questionsByFact));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const updateSRQuestionData = async (
+  userId,
+  questionId,
+  performanceRating
+) => {
+  try {
+    const request = await axios.put(
+      `${URL}/api/questions/user/${userId}/update/${questionId}`,
+      { performanceRating }
+    );
+    const updatedQuestion = request.data;
   } catch (err) {
     console.log(err);
   }

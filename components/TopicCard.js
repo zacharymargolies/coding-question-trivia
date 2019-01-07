@@ -1,32 +1,32 @@
-import React from "react";
-import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import React from 'react';
+import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from "react-native-responsive-screen";
-import { setCurrentFactTopic, fetchFactsByTopic } from "../store/fact";
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import { setCurrentFactTopic, fetchFactsByTopic } from '../store/fact';
 import {
   setCurrentQuestionTopic,
-  fetchQuestionsByTopic
-} from "../store/question";
-import { fetchAllAnswers } from "../store/answer";
-import { connect } from "react-redux";
-import { QUIZZABLE_LAND } from "../store/appState";
-import Colors from "../styles/constants/Colors";
-import { userId } from "../store/index";
+  fetchQuestionsByTopic,
+} from '../store/question';
+import { fetchAllAnswers } from '../store/answer';
+import { connect } from 'react-redux';
+import { QUIZZABLE_LAND } from '../store/appState';
+import Colors from '../styles/constants/Colors';
+import { userId } from '../store/index';
 
 const TopicCard = props => {
   const { topic, navigation, currentMode } = props;
   const setTopicPlay = async () => {
     props.setCurrentFactTopic(topic.id);
     await props.getFactsByTopic(topic.id, userId);
-    navigation.push("Cards");
+    navigation.push('Cards');
   };
   const setTopicQuiz = async () => {
     props.setCurrentQuestionTopic(topic.id);
     await props.getQuestionsByTopic(topic.id, userId);
     await props.getAllAnswers();
-    navigation.push("Cards");
+    navigation.push('Cards');
   };
   return (
     <TouchableOpacity
@@ -51,37 +51,37 @@ const TopicCard = props => {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
+    display: 'flex',
     backgroundColor: Colors.orange,
-    height: hp("20%"),
-    width: wp("30%"),
-    alignItems: "center",
-    margin: wp("1.0%"),
-    borderRadius: wp("5%"),
+    height: hp('20%'),
+    width: wp('30%'),
+    alignItems: 'center',
+    margin: wp('1.0%'),
+    borderRadius: wp('5%'),
     shadowColor: Colors.shadowOrange,
     shadowOffset: {
       width: 0,
-      height: 7
+      height: 7,
     },
     shadowOpacity: 0.43,
     shadowRadius: 9.51,
-    elevation: 10
+    elevation: 10,
   },
   topicText: {
-    marginTop: hp("4%"),
+    marginTop: hp('4%'),
     fontSize: 26,
-    color: Colors.white
+    color: Colors.white,
   },
   topicImage: {
-    marginTop: hp("1.0%"),
-    height: hp("9%"),
-    width: hp("9%"),
-    borderRadius: hp("4.5%")
-  }
+    marginTop: hp('1.0%'),
+    height: hp('9%'),
+    width: hp('9%'),
+    borderRadius: hp('4.5%'),
+  },
 });
 
 const mapStateToProps = state => ({
-  currentMode: state.appState.currentMode
+  currentMode: state.appState.currentMode,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -99,7 +99,7 @@ const mapDispatchToProps = dispatch => ({
   },
   getAllAnswers: () => {
     dispatch(fetchAllAnswers());
-  }
+  },
 });
 
 export default connect(

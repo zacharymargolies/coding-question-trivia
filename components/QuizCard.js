@@ -1,14 +1,14 @@
-import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
-import Swiper from "react-native-deck-swiper";
+import React from 'react';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import Swiper from 'react-native-deck-swiper';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
-} from "react-native-responsive-screen";
-import { CardNumber, CloseScreen, AnswerButton } from "../components";
-import { URL } from "../store";
-import axios from "axios";
-import Colors from "../styles/constants/Colors";
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import { CardNumber, CloseScreen, AnswerButton } from '../components';
+import { URL } from '../store';
+import axios from 'axios';
+import Colors from '../styles/constants/Colors';
 
 const QuizCard = props => {
   const { questions, goBack, navigation } = props;
@@ -19,7 +19,6 @@ const QuizCard = props => {
       <Swiper
         cards={questions}
         renderCard={question => {
-          // console.log("--- QUESTION: --- ", question);
           return (
             <View style={styles.card}>
               {/* TOPIC */}
@@ -37,7 +36,7 @@ const QuizCard = props => {
               {/* IMAGE */}
               <View style={styles.imageContainer}>
                 <Image
-                  source={require("../assets/images/developer.jpg")}
+                  source={require('../assets/images/developer.jpg')}
                   style={styles.image}
                 />
               </View>
@@ -87,8 +86,8 @@ const QuizCard = props => {
         cardIndex={0}
         backgroundColor={Colors.backgroundColorBlue}
         showSecondCard={true}
-        verticalThreshold={hp("10%")}
-        horizontalThreshold={wp("15%")}
+        verticalThreshold={hp('10%')}
+        horizontalThreshold={wp('15%')}
         stackSize={3}
         animateCardOpacity={true}
       />
@@ -98,64 +97,64 @@ const QuizCard = props => {
 
 const styles = StyleSheet.create({
   card: {
-    marginTop: hp("5%"),
-    marginBottom: hp("-2.5%"),
+    marginTop: hp('5%'),
+    marginBottom: hp('-2.5%'),
     flex: 1,
-    flexDirection: "column",
+    flexDirection: 'column',
     borderRadius: 25,
     borderColor: Colors.orange,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: Colors.orange
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.orange,
   },
   topicContainer: {
     flex: 1,
-    marginTop: hp("2.0%"),
-    width: wp("80%")
+    marginTop: hp('2.0%'),
+    width: wp('80%'),
   },
   topicText: {
-    width: wp("80%"),
-    fontFamily: "Arial Rounded MT Bold",
-    fontWeight: "bold",
+    width: wp('80%'),
+    fontFamily: 'Arial Rounded MT Bold',
+    fontWeight: 'bold',
     fontSize: 42,
-    color: "white",
-    textAlign: "center"
+    color: 'white',
+    textAlign: 'center',
   },
   line: {
-    marginTop: hp("1.0%"),
-    marginBottom: hp("3%"),
-    alignSelf: "center",
-    width: wp("80%"),
-    borderBottomColor: "white",
-    borderBottomWidth: hp(".25%"),
-    borderRadius: wp(".25%")
+    marginTop: hp('1.0%'),
+    marginBottom: hp('3%'),
+    alignSelf: 'center',
+    width: wp('80%'),
+    borderBottomColor: 'white',
+    borderBottomWidth: hp('.25%'),
+    borderRadius: wp('.25%'),
   },
   imageContainer: {
     flex: 3,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: hp("2.5%")
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: hp('2.5%'),
   },
   image: {
-    resizeMode: "contain",
-    height: hp("37.0%"),
-    width: hp("37.0%")
+    resizeMode: 'contain',
+    height: hp('37.0%'),
+    width: hp('37.0%'),
   },
   questionContainer: {
-    flex: 2
+    flex: 2,
   },
   questionText: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 18,
-    backgroundColor: "transparent"
+    backgroundColor: 'transparent',
   },
   answersContainer: {
     flex: 8,
-    flexWrap: "wrap",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    marginBottom: hp("7%")
-  }
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginBottom: hp('7%'),
+  },
 });
 
 export default QuizCard;
