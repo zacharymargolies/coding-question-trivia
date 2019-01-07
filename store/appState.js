@@ -7,27 +7,20 @@ const SET_CURRENT_MODE = 'SET_CURRENT_MODE';
 const SET_LOGIN = 'SET_LOGIN';
 
 // ACTION CREATORS
-// export const setCurrentMode = currentMode => ({
-//   type: SET_CURRENT_MODE,
-//   currentMode
-// });
-export const setCurrentMode = currentMode => {
-  console.log('SET CURRENT MODE RAN');
-  return {
-    type: SET_CURRENT_MODE,
-    currentMode
-  };
-};
+export const setCurrentMode = currentMode => ({
+  type: SET_CURRENT_MODE,
+  currentMode,
+});
 
 export const setLogin = login => ({
   type: SET_LOGIN,
-  login
+  login,
 });
 
 // INITIAL STATE
 const initialState = {
   currentMode: null,
-  loggedIn: false
+  loggedIn: false,
 };
 
 // REDUCER
@@ -36,12 +29,12 @@ export default function(state = initialState, action) {
     case SET_CURRENT_MODE:
       return {
         ...state,
-        currentMode: action.currentMode
+        currentMode: action.currentMode,
       };
     case SET_LOGIN:
       return {
         ...state,
-        loggedIn: action.login
+        loggedIn: action.login,
       };
     default:
       return state;
