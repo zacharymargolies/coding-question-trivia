@@ -1,28 +1,28 @@
-import axios from "axios";
-import { URL } from "./index";
+import axios from 'axios';
+import { URL } from './index';
 
 // ACTION TYPES
-const SET_CURRENT_FACTS = "SET_CURRENT_FACTS";
-const SET_DISCARDED_FACTS = "SET_DISCARDED_FACTS";
-const SET_CURRENT_TOPIC = "SET_CURRENT_TOPIC";
-const SET_CURRENT_DIFFICULTY = "SET_CURRENT_DIFFICULTY";
+const SET_CURRENT_FACTS = 'SET_CURRENT_FACTS';
+const SET_DISCARDED_FACTS = 'SET_DISCARDED_FACTS';
+const SET_CURRENT_TOPIC = 'SET_CURRENT_TOPIC';
+const SET_CURRENT_DIFFICULTY = 'SET_CURRENT_DIFFICULTY';
 
 // ACTION CREATORS
 export const setCurrentFacts = allFacts => ({
   type: SET_CURRENT_FACTS,
-  allFacts
+  allFacts,
 });
 export const setCurrentFactTopic = topic => ({
   type: SET_CURRENT_TOPIC,
-  topic
+  topic,
 });
 export const setCurrentFactDifficulty = difficultyLevel => ({
   type: SET_CURRENT_DIFFICULTY,
-  difficultyLevel
+  difficultyLevel,
 });
 export const setAllDiscardedFacts = allDiscardedFacts => ({
   type: SET_DISCARDED_FACTS,
-  allDiscardedFacts
+  allDiscardedFacts,
 });
 
 // THUNK CREATORS
@@ -37,7 +37,6 @@ export const fetchAllFacts = () => async dispatch => {
 };
 
 export const fetchAllDiscardedFacts = userId => async dispatch => {
-  console.log("FETCH ALL DISCARDED FACTS RAN");
   try {
     const request = await axios.get(`${URL}/api/facts/user/${userId}/discard/`);
     const allDiscardedFacts = request.data;
@@ -100,7 +99,7 @@ const initialState = {
   facts: [],
   allDiscardedFacts: [],
   topicId: null,
-  difficultyLevel: null
+  difficultyLevel: null,
 };
 
 // REDUCER
@@ -109,7 +108,7 @@ export default function(
     facts: [],
     allDiscardedFacts: [],
     topicId: null,
-    difficultyLevel: null
+    difficultyLevel: null,
   },
   action
 ) {
@@ -117,22 +116,22 @@ export default function(
     case SET_CURRENT_FACTS:
       return {
         ...state,
-        facts: action.allFacts
+        facts: action.allFacts,
       };
     case SET_CURRENT_TOPIC:
       return {
         ...state,
-        topicId: action.topicId
+        topicId: action.topicId,
       };
     case SET_CURRENT_DIFFICULTY:
       return {
         ...state,
-        difficultyLevel: action.difficultyLevel
+        difficultyLevel: action.difficultyLevel,
       };
     case SET_DISCARDED_FACTS:
       return {
         ...state,
-        allDiscardedFacts: action.allDiscardedFacts
+        allDiscardedFacts: action.allDiscardedFacts,
       };
     default:
       return state;

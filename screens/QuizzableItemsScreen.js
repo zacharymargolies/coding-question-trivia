@@ -26,12 +26,6 @@ class QuizzableItemsScreen extends Component {
     this.state = { quizzableItems: [] };
   }
 
-  unquizItems = (userId, quizzableItems) => {
-    quizzableItems.map(item => {
-      this.props.unquizItem(userId, item);
-    });
-  };
-
   render() {
     const { allQuizzableItems } = this.props;
     return (
@@ -58,7 +52,7 @@ class QuizzableItemsScreen extends Component {
                   : styles.undiscardButtonUnavailable
               }
               onPress={async () => {
-                await this.unquizItems(userId, this.state.quizzableItems);
+                await this.props.unquizItems(userId, this.state.quizzableItems);
                 await this.props.getAllQuizzableItems(userId);
                 this.setState({ quizzableItems: [] });
               }}
@@ -118,8 +112,8 @@ const mapStateToProps = state => ({
   allQuizzableItems: state.question.allQuizzableItems,
 });
 const mapDispatchToProps = dispatch => ({
-  unquizItem: (userId, selectedItem) =>
-    dispatch(makeQuizzableQuestions(userId, false, selectedItem)),
+  unquizItems: (userId, quizzableItems) =>
+    dispatch(makeQuizzableQuestions(userId, false, quizzableItems)),
   getAllQuizzableItems: userId => dispatch(fetchAllQuizzableItems(userId)),
 });
 
