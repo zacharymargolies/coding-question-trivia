@@ -14,6 +14,7 @@ import DifficultyScreen from '../screens/DifficultyScreen';
 import RandomScreen from '../screens/RandomScreen.js';
 import SettingsScreen from '../screens/SettingsScreen';
 import DiscardedItemsScreen from '../screens/DiscardedItemsScreen';
+import TimelineScreen from '../screens/TimelineScreen';
 import store from '../store';
 import {
   setCurrentMode,
@@ -34,6 +35,7 @@ export const QuizStack = createStackNavigator({
   Topics: TopicsScreen,
   Difficulty: DifficultyScreen,
   Random: RandomScreen,
+  Timeline: TimelineScreen,
   Cards: CardsScreen,
 });
 

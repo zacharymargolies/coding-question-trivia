@@ -3,18 +3,18 @@ import { StyleSheet, View, Text } from 'react-native';
 import PlaygroundCard from '../components/PlaygroundCard';
 import { connect } from 'react-redux';
 import { setCurrentMode, QUIZZABLE_LAND } from '../store/appState';
-import { allSelectors } from '../store';
+import { quizzableSelectors } from '../store';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
 class QuizzableWorld extends React.Component {
   static navigationOptions = {
     title: 'Quizzable Land',
     headerStyle: {
-      backgroundColor: '#f7f1e3'
-    }
+      backgroundColor: '#f7f1e3',
+    },
   };
 
   constructor(props) {
@@ -33,7 +33,7 @@ class QuizzableWorld extends React.Component {
             Choose a selector below to get started!
           </Text>
         </View>
-        {allSelectors.map(selector => (
+        {quizzableSelectors.map(selector => (
           <PlaygroundCard
             selector={selector}
             key={selector.id}
@@ -51,16 +51,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    backgroundColor: '#f7f1e3'
+    backgroundColor: '#f7f1e3',
   },
   textContainer: {
     marginTop: hp('12.5%'),
-    marginBottom: hp('5%')
+    marginBottom: hp('5%'),
   },
   text: {
     fontSize: 32,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
 
 const mapStateToProps = state => ({});

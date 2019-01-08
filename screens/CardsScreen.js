@@ -8,12 +8,13 @@ import QuizCard from '../components/QuizCard';
 class CardsScreen extends React.Component {
   static navigationOptions = {
     header: null,
-    tabBarVisible: false
+    tabBarVisible: false,
   };
 
   render() {
     const { navigate, goBack } = this.props.navigation;
     const { facts, questions, currentMode } = this.props;
+    // console.log('--- QUESTIONS: ---', questions);
     if (currentMode === INFORMATION_PLAYGROUND && facts.length) {
       return (
         <FactCard
@@ -42,7 +43,7 @@ const mapStateToProps = state => ({
   topicId: state.fact.topicId,
   questions: state.question.questions,
   currentMode: state.appState.currentMode,
-  answers: state.answer.answers
+  answers: state.answer.answers,
 });
 
 export default connect(

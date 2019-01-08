@@ -3,18 +3,18 @@ import { StyleSheet, View, Text } from 'react-native';
 import PlaygroundCard from '../components/PlaygroundCard';
 import { connect } from 'react-redux';
 import { setCurrentMode, INFORMATION_PLAYGROUND } from '../store/appState';
-import { allSelectors } from '../store';
+import { playgroundSelectors } from '../store';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
 class InformationPlayground extends React.Component {
   static navigationOptions = {
     title: 'Information Playground',
     headerStyle: {
-      backgroundColor: '#f7f1e3'
-    }
+      backgroundColor: '#f7f1e3',
+    },
   };
 
   constructor(props) {
@@ -34,7 +34,7 @@ class InformationPlayground extends React.Component {
           </Text>
         </View>
 
-        {allSelectors.map(selector => (
+        {playgroundSelectors.map(selector => (
           <PlaygroundCard
             selector={selector}
             key={selector.id}
@@ -52,16 +52,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    backgroundColor: '#f7f1e3'
+    backgroundColor: '#f7f1e3',
   },
   textContainer: {
     marginTop: hp('12.5%'),
-    marginBottom: hp('5%')
+    marginBottom: hp('5%'),
   },
   text: {
     fontSize: 32,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });
 
 const mapStateToProps = state => ({});

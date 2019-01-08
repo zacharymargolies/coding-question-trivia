@@ -4,19 +4,23 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {
-  setCurrentTopic,
-  fetchFactsByTopic,
-  fetchRandomFacts,
-} from '../store/fact';
+import { fetchQuestionsByTimeline } from '../store/question';
+import { fetchAllAnswers } from '../store/answer';
 import { connect } from 'react-redux';
+import Colors from '../styles/constants/Colors';
+import { userId } from '../store/index';
 
-const PlaygroundCard = props => {
-  const { selector, navigation } = props;
+const TimelineCard = props => {
+  const { topic, navigation } = props;
+  const setTopicQuiz = async () => {
+    await props.getQuestionsByTimeline(userId);
+    await props.getAllAnswers();
+    navigation.push('Cards');
+  };
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.push(`${selector.main}`);
+        setTopicQuiz();
       }}
       style={styles.container}
     >
@@ -26,10 +30,10 @@ const PlaygroundCard = props => {
         numberOfLines={1}
         style={styles.topicText}
       >
-        {selector.main}
+        {topic.main}
       </Text>
       {/* TOPIC IMAGE */}
-      <Image style={styles.topicImage} source={{ uri: selector.image }} />
+      <Image style={styles.topicImage} source={{ uri: topic.image }} />
     </TouchableOpacity>
   );
 };
@@ -37,13 +41,13 @@ const PlaygroundCard = props => {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    backgroundColor: '#ffb142',
+    backgroundColor: Colors.orange,
     height: hp('20%'),
     width: wp('30%'),
     alignItems: 'center',
     margin: wp('1.0%'),
     borderRadius: wp('5%'),
-    shadowColor: '#cc8e35',
+    shadowColor: Colors.shadowOrange,
     shadowOffset: {
       width: 0,
       height: 7,
@@ -55,29 +59,30 @@ const styles = StyleSheet.create({
   topicText: {
     marginTop: hp('4%'),
     fontSize: 26,
-    color: 'white',
+    color: Colors.white,
   },
   topicImage: {
-    marginTop: hp('0.5%'),
-    height: hp('8%'),
-    width: hp('8%'),
-    borderRadius: hp('4%'),
+    marginTop: hp('1.0%'),
+    height: hp('9%'),
+    width: hp('9%'),
+    borderRadius: hp('4.5%'),
   },
 });
 
+const mapStateToProps = state => ({
+  currentMode: state.appState.currentMode,
+});
+
 const mapDispatchToProps = dispatch => ({
-  setCurrentTopic: topicId => {
-    dispatch(setCurrentTopic(topicId));
+  getQuestionsByTimeline: userId => {
+    dispatch(fetchQuestionsByTimeline(userId));
   },
-  getFactsByTopic: topicId => {
-    dispatch(fetchFactsByTopic(topicId));
-  },
-  getRandomFacts: () => {
-    dispatch(fetchRandomFacts());
+  getAllAnswers: () => {
+    dispatch(fetchAllAnswers());
   },
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
-)(PlaygroundCard);
+)(TimelineCard);

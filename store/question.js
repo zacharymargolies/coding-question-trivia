@@ -52,7 +52,6 @@ const answerFetcher = async questions => {
   // FETCH ALL ANSWERS
   const requestAnswers = await axios.get(`${URL}/api/answers/`);
   const allAnswers = requestAnswers.data;
-
   // ADD THREE RANDOM ANSWERS TO EACH QUESTION
   questions.forEach(question => {
     question.answerPool = [
@@ -114,6 +113,22 @@ export const fetchQuestionsByFact = factId => async dispatch => {
     const request = await axios.get(`${URL}/api/questions/fact/${factId}`);
     const questionsByFact = request.data;
     dispatch(setCurrentQuestions(questionsByFact));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const fetchQuestionsByTimeline = (
+  userId,
+  quantity
+) => async dispatch => {
+  try {
+    const request = await axios.get(
+      `${URL}/api/questions/user/${userId}/timeline/${quantity}`
+    );
+    const quizzableItems = request.data;
+    const quizzableItemsWithAnswers = await answerFetcher(quizzableItems);
+    dispatch(setCurrentQuestions(quizzableItemsWithAnswers));
   } catch (err) {
     console.log(err);
   }
