@@ -6,10 +6,11 @@ import fact from './fact';
 import question from './question';
 import appState from './appState';
 import answer from './answer';
+import user from './user';
 
 // export const URL = 'https://coding-trivia.herokuapp.com';
 export const URL = 'http://localhost:8080';
-// export const URL = 'http://192.168.1.7:8080';
+// export const URL = 'http://172.16.23.28:8080';
 export const userId = 1;
 
 export const playgroundSelectors = [
@@ -57,7 +58,7 @@ export const quizzableSelectors = [
   },
 ];
 
-const reducer = combineReducers({ fact, question, appState, answer });
+const reducer = combineReducers({ fact, question, appState, answer, user });
 // const middleWare = composeWithDevTools(
 //   applyMiddleware(thunkMiddleWare, createLogger({ collapsd: true }))
 // );
