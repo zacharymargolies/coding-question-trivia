@@ -13,18 +13,17 @@ import { fetchAllAnswers } from '../store/answer';
 import { connect } from 'react-redux';
 import { QUIZZABLE_LAND } from '../store/appState';
 import Colors from '../styles/constants/Colors';
-import { userId } from '../store/index';
 
 const TopicCard = props => {
   const { topic, navigation, currentMode } = props;
   const setTopicPlay = async () => {
     props.setCurrentFactTopic(topic.id);
-    await props.getFactsByTopic(topic.id, userId);
+    await props.getFactsByTopic(topic.id);
     navigation.push('Cards');
   };
   const setTopicQuiz = async () => {
     props.setCurrentQuestionTopic(topic.id);
-    await props.getQuestionsByTopic(topic.id, userId);
+    await props.getQuestionsByTopic(topic.id);
     await props.getAllAnswers();
     navigation.push('Cards');
   };
@@ -88,14 +87,14 @@ const mapDispatchToProps = dispatch => ({
   setCurrentFactTopic: topicId => {
     dispatch(setCurrentFactTopic(topicId));
   },
-  getFactsByTopic: (topicId, userId) => {
-    dispatch(fetchFactsByTopic(topicId, userId));
+  getFactsByTopic: topicId => {
+    dispatch(fetchFactsByTopic(topicId));
   },
   setCurrentQuestionTopic: topicId => {
     dispatch(setCurrentQuestionTopic(topicId));
   },
-  getQuestionsByTopic: (topicId, userId) => {
-    dispatch(fetchQuestionsByTopic(topicId, userId));
+  getQuestionsByTopic: topicId => {
+    dispatch(fetchQuestionsByTopic(topicId));
   },
   getAllAnswers: () => {
     dispatch(fetchAllAnswers());

@@ -116,7 +116,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   undiscardFact: selectedFact =>
     dispatch(discardFact(1, selectedFact.id, false)),
-  getAllDiscardedFacts: userId => dispatch(fetchAllDiscardedFacts(userId)),
+  getAllDiscardedFacts: () => dispatch(fetchAllDiscardedFacts()),
 });
 
 export default connect(

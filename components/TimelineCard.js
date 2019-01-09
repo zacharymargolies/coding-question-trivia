@@ -6,14 +6,13 @@ import {
 } from 'react-native-responsive-screen';
 import { fetchQuestionsByTimeline } from '../store/question';
 import { connect } from 'react-redux';
-import { userId } from '../store';
 
 const TimelineCard = props => {
   const { quantity, navigation } = props;
   return (
     <TouchableOpacity
       onPress={async () => {
-        await props.getQuestionsByTimeline(userId, quantity);
+        await props.getQuestionsByTimeline(quantity);
         navigation.push('Cards');
       }}
       style={styles.container}
@@ -62,8 +61,8 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getQuestionsByTimeline: (userId, quantity) => {
-    dispatch(fetchQuestionsByTimeline(userId, quantity));
+  getQuestionsByTimeline: quantity => {
+    dispatch(fetchQuestionsByTimeline(quantity));
   },
 });
 

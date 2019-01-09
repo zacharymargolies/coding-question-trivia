@@ -29,7 +29,7 @@ export const setAllQuizzableItems = allQuizzableItems => ({
 // THUNK CREATORS
 export const fetchAllQuestions = () => async dispatch => {
   try {
-    const request = await axios.get(`${URL}/api/questions`);
+    const request = await axios.get(`${URL}/api/questions/`);
     const allQuestions = request.data;
     dispatch(setCurrentQuestions(allQuestions));
   } catch (err) {
@@ -37,9 +37,9 @@ export const fetchAllQuestions = () => async dispatch => {
   }
 };
 
-export const fetchAllQuizzableItems = userId => async dispatch => {
+export const fetchAllQuizzableItems = () => async dispatch => {
   try {
-    const request = await axios.get(`${URL}/api/questions/user/${userId}`);
+    const request = await axios.get(`${URL}/api/questions/quizzable/`);
     const allQuizzableItems = request.data;
     dispatch(setAllQuizzableItems(allQuizzableItems));
   } catch (err) {
@@ -64,10 +64,10 @@ const answerFetcher = async questions => {
   return questions;
 };
 
-export const fetchQuestionsByTopic = (topicId, userId) => async dispatch => {
+export const fetchQuestionsByTopic = topicId => async dispatch => {
   try {
     const requestQuestions = await axios.get(
-      `${URL}/api/questions/user/${userId}/topic/${topicId}`
+      `${URL}/api/questions/topic/${topicId}`
     );
     const questionsByTopic = requestQuestions.data;
     // SET ANSWERS TO QUESTION
@@ -78,26 +78,21 @@ export const fetchQuestionsByTopic = (topicId, userId) => async dispatch => {
   }
 };
 
-export const makeQuizzableQuestions = (userId, quizzable, questions) => () => {
+export const makeQuizzableQuestions = (quizzable, questions) => () => {
   questions.forEach(async question => {
     const { id } = question;
     try {
-      await axios.put(
-        `${URL}/api/questions/user/${userId}/quizzable/${id}/${quizzable}`
-      );
+      await axios.put(`${URL}/api/questions/quizzable/${id}/${quizzable}`);
     } catch (err) {
       console.log(err);
     }
   });
 };
 
-export const fetchQuestionsByDifficulty = (
-  difficultyLevel,
-  userId
-) => async dispatch => {
+export const fetchQuestionsByDifficulty = difficultyLevel => async dispatch => {
   try {
     const request = await axios.get(
-      `${URL}/api/questions/user/${userId}/difficulty/${difficultyLevel}`
+      `${URL}/api/questions/difficulty/${difficultyLevel}`
     );
     const questionsByDifficulty = request.data;
     // SET ANSWERS TO QUESTION
@@ -118,13 +113,10 @@ export const fetchQuestionsByFact = factId => async dispatch => {
   }
 };
 
-export const fetchQuestionsByTimeline = (
-  userId,
-  quantity
-) => async dispatch => {
+export const fetchQuestionsByTimeline = quantity => async dispatch => {
   try {
     const request = await axios.get(
-      `${URL}/api/questions/user/${userId}/timeline/${quantity}`
+      `${URL}/api/questions/timeline/${quantity}`
     );
     const quizzableItems = request.data;
     const quizzableItemsWithAnswers = await answerFetcher(quizzableItems);
@@ -134,14 +126,10 @@ export const fetchQuestionsByTimeline = (
   }
 };
 
-export const updateSRQuestionData = async (
-  userId,
-  questionId,
-  performanceRating
-) => {
+export const updateSRQuestionData = async (questionId, performanceRating) => {
   try {
     const request = await axios.put(
-      `${URL}/api/questions/user/${userId}/update/${questionId}`,
+      `${URL}/api/questions/update/${questionId}`,
       { performanceRating }
     );
     const updatedQuestion = request.data;

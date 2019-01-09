@@ -25,14 +25,6 @@ class LoginScreen extends React.Component {
     };
   }
 
-  // async componentDidMount() {
-  //   await axios.get(`${URL}/api/topics`);
-  //   await axios.get(`${URL}/api/topics`);
-  //   CookieManager.getAll().then(res => {
-  //     console.log('CookieManager.getAll =>', res);
-  //   });
-  // }
-
   render() {
     const { navigation } = this.props;
     const { email, password } = this.state;

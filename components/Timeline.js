@@ -8,12 +8,11 @@ import { fetchQuestionsByTimeline } from '../store/question';
 import { fetchAllAnswers } from '../store/answer';
 import { connect } from 'react-redux';
 import Colors from '../styles/constants/Colors';
-import { userId } from '../store/index';
 
 const TimelineCard = props => {
   const { topic, navigation } = props;
   const setTopicQuiz = async () => {
-    await props.getQuestionsByTimeline(userId);
+    await props.getQuestionsByTimeline();
     await props.getAllAnswers();
     navigation.push('Cards');
   };
@@ -74,8 +73,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getQuestionsByTimeline: userId => {
-    dispatch(fetchQuestionsByTimeline(userId));
+  getQuestionsByTimeline: () => {
+    dispatch(fetchQuestionsByTimeline());
   },
   getAllAnswers: () => {
     dispatch(fetchAllAnswers());

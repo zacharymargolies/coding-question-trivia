@@ -11,7 +11,6 @@ import user from './user';
 // export const URL = 'https://coding-trivia.herokuapp.com';
 export const URL = 'http://localhost:8080';
 // export const URL = 'http://172.16.23.28:8080';
-export const userId = 1;
 
 export const playgroundSelectors = [
   {

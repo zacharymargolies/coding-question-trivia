@@ -28,7 +28,7 @@ export const setAllDiscardedFacts = allDiscardedFacts => ({
 // THUNK CREATORS
 export const fetchAllFacts = () => async dispatch => {
   try {
-    const request = await axios.get(`${URL}/api/facts`);
+    const request = await axios.get(`${URL}/api/facts/`);
     const allFacts = request.data;
     dispatch(setCurrentFacts(allFacts));
   } catch (err) {
@@ -36,9 +36,9 @@ export const fetchAllFacts = () => async dispatch => {
   }
 };
 
-export const fetchAllDiscardedFacts = userId => async dispatch => {
+export const fetchAllDiscardedFacts = () => async dispatch => {
   try {
-    const request = await axios.get(`${URL}/api/facts/user/${userId}/discard/`);
+    const request = await axios.get(`${URL}/api/facts/discarded/`);
     const allDiscardedFacts = request.data;
     dispatch(setAllDiscardedFacts(allDiscardedFacts));
   } catch (err) {
@@ -46,12 +46,9 @@ export const fetchAllDiscardedFacts = userId => async dispatch => {
   }
 };
 
-export const fetchFactsByTopic = (topicId, userId) => async dispatch => {
+export const fetchFactsByTopic = topicId => async dispatch => {
   try {
-    // const request = await axios.get(`${URL}/api/facts/topic/${topicId}`);
-    const request = await axios.get(
-      `${URL}/api/facts/user/${userId}/topic/${topicId}`
-    );
+    const request = await axios.get(`${URL}/api/facts/topic/${topicId}/`);
     const facts = request.data;
     dispatch(setCurrentFacts(facts));
   } catch (err) {
@@ -59,13 +56,10 @@ export const fetchFactsByTopic = (topicId, userId) => async dispatch => {
   }
 };
 
-export const fetchFactsByDifficulty = (
-  difficultyLevel,
-  userId
-) => async dispatch => {
+export const fetchFactsByDifficulty = difficultyLevel => async dispatch => {
   try {
     const request = await axios.get(
-      `${URL}/api/facts/user/${userId}/difficulty/${difficultyLevel}`
+      `${URL}/api/facts/difficulty/${difficultyLevel}/`
     );
     const factsByDifficulty = request.data;
     dispatch(setCurrentFacts(factsByDifficulty));
@@ -76,7 +70,7 @@ export const fetchFactsByDifficulty = (
 
 export const fetchRandomFacts = quantity => async dispatch => {
   try {
-    const request = await axios.get(`${URL}/api/facts/random/${quantity}`);
+    const request = await axios.get(`${URL}/api/facts/random/${quantity}/`);
     const randomFacts = request.data;
     dispatch(setCurrentFacts(randomFacts));
   } catch (err) {
@@ -84,11 +78,9 @@ export const fetchRandomFacts = quantity => async dispatch => {
   }
 };
 
-export const discardFact = (userId, factId, discard) => async () => {
+export const discardFact = (factId, discard) => async () => {
   try {
-    await axios.put(
-      `${URL}/api/facts/user/${userId}/discard/${factId}/${discard}`
-    );
+    await axios.put(`${URL}/api/facts/discarded/${factId}/${discard}/`);
   } catch (err) {
     console.log(err);
   }

@@ -11,7 +11,6 @@ import {
   makeQuizzableQuestions,
   fetchAllQuizzableItems,
 } from '../store/question';
-import { userId } from '../store/index';
 
 class QuizzableItemsScreen extends Component {
   static navigationOptions = {
@@ -52,8 +51,8 @@ class QuizzableItemsScreen extends Component {
                   : styles.undiscardButtonUnavailable
               }
               onPress={async () => {
-                await this.props.unquizItems(userId, this.state.quizzableItems);
-                await this.props.getAllQuizzableItems(userId);
+                await this.props.unquizItems(this.state.quizzableItems);
+                await this.props.getAllQuizzableItems();
                 this.setState({ quizzableItems: [] });
               }}
             >
@@ -112,9 +111,9 @@ const mapStateToProps = state => ({
   allQuizzableItems: state.question.allQuizzableItems,
 });
 const mapDispatchToProps = dispatch => ({
-  unquizItems: (userId, quizzableItems) =>
-    dispatch(makeQuizzableQuestions(userId, false, quizzableItems)),
-  getAllQuizzableItems: userId => dispatch(fetchAllQuizzableItems(userId)),
+  unquizItems: quizzableItems =>
+    dispatch(makeQuizzableQuestions(false, quizzableItems)),
+  getAllQuizzableItems: () => dispatch(fetchAllQuizzableItems()),
 });
 
 export default connect(

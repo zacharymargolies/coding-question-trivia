@@ -14,7 +14,6 @@ class CardsScreen extends React.Component {
   render() {
     const { navigate, goBack } = this.props.navigation;
     const { facts, questions, currentMode } = this.props;
-    // console.log('--- QUESTIONS: ---', questions);
     if (currentMode === INFORMATION_PLAYGROUND && facts.length) {
       return (
         <FactCard

@@ -23,7 +23,6 @@ import {
 } from '../store/appState';
 import { fetchAllDiscardedFacts } from '../store/fact';
 import QuizzableItemsScreen from '../screens/QuizzableItemsScreen';
-import { userId } from '../store/index';
 import { fetchAllQuizzableItems } from '../store/question';
 
 export const CardsStack = createStackNavigator({
@@ -98,8 +97,8 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = ({ navigation }) => {
-  store.dispatch(fetchAllDiscardedFacts(userId));
-  store.dispatch(fetchAllQuizzableItems(userId));
+  store.dispatch(fetchAllDiscardedFacts());
+  store.dispatch(fetchAllQuizzableItems());
   return {
     tabBarLabel: 'Settings',
     tabBarIcon: ({ focused }) => (

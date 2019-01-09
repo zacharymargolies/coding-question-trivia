@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { URL } from './index';
+import { setCurrentFacts } from './fact';
+import SRFacts from '../';
 
 // ACTION TYPES
 const SET_USER = 'SET_USER';

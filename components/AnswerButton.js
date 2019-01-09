@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import Colors from '../styles/constants/Colors';
 import Expo from 'expo';
 import { updateSRQuestionData } from '../store/question';
-import { userId } from '../store/index';
 
 class AnswerButton extends React.Component {
   constructor(props) {
@@ -55,11 +54,7 @@ class AnswerButton extends React.Component {
       } catch (err) {
         console.log(err);
       }
-      await this.props.updateSRData(
-        userId,
-        curAnswerId,
-        this.state.performanceRating
-      );
+      await this.props.updateSRData(curAnswerId, this.state.performanceRating);
     } else {
       this.adjustPerformanceRating(false);
       this.setState({
@@ -77,11 +72,7 @@ class AnswerButton extends React.Component {
         console.log(err);
       }
     }
-    await this.props.updateSRData(
-      userId,
-      curAnswerId,
-      this.state.performanceRating
-    );
+    await this.props.updateSRData(curAnswerId, this.state.performanceRating);
   };
 
   render() {
@@ -157,8 +148,8 @@ const styles = StyleSheet.create({
 
 // const mapStateToProps = props => ({});
 const mapDispatchToProps = dispatch => ({
-  updateSRData: (userId, questionId, performanceRating) => {
-    dispatch(updateSRQuestionData(userId, questionId, performanceRating));
+  updateSRData: (questionId, performanceRating) => {
+    dispatch(updateSRQuestionData(questionId, performanceRating));
   },
 });
 
