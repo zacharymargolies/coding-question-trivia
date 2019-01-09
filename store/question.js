@@ -126,6 +126,17 @@ export const fetchQuestionsByTimeline = quantity => async dispatch => {
   }
 };
 
+export const fetchRandomQuestions = quantity => async dispatch => {
+  try {
+    const request = await axios.get(`${URL}/api/questions/random/${quantity}`);
+    const quizzableItems = request.data;
+    const quizzableItemsWithAnswers = await answerFetcher(quizzableItems);
+    dispatch(setCurrentQuestions(quizzableItemsWithAnswers));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const updateSRQuestionData = async (questionId, performanceRating) => {
   try {
     const request = await axios.put(
