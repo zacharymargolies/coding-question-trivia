@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import {
   createStackNavigator,
-  createBottomTabNavigator
+  createBottomTabNavigator,
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -11,19 +11,31 @@ import TopicsScreen from '../screens/TopicsScreen';
 import InformationPlayground from '../screens/InformationPlayground';
 import QuizzableLand from '../screens/QuizzableLand';
 import DifficultyScreen from '../screens/DifficultyScreen';
+import RandomScreen from '../screens/RandomScreen.js';
+import SettingsScreen from '../screens/SettingsScreen';
+import DiscardedItemsScreen from '../screens/DiscardedItemsScreen';
+import TimelineScreen from '../screens/TimelineScreen';
 import store from '../store';
-import { setCurrentMode } from '../store/appState';
-import { INFORMATION_PLAYGROUND, QUIZZABLE_LAND } from '../store/appState';
+import {
+  setCurrentMode,
+  INFORMATION_PLAYGROUND,
+  QUIZZABLE_LAND,
+} from '../store/appState';
+import { fetchAllDiscardedFacts } from '../store/fact';
+import QuizzableItemsScreen from '../screens/QuizzableItemsScreen';
+import { fetchAllQuizzableItems } from '../store/question';
 
 export const CardsStack = createStackNavigator({
-  Cards: CardsScreen
+  Cards: CardsScreen,
 });
 
 export const QuizStack = createStackNavigator({
   Quizzes: QuizzableLand,
   Topics: TopicsScreen,
   Difficulty: DifficultyScreen,
-  Cards: CardsScreen
+  Random: RandomScreen,
+  Timeline: TimelineScreen,
+  Cards: CardsScreen,
 });
 
 QuizStack.navigationOptions = ({ navigation }) => {
@@ -44,7 +56,7 @@ QuizStack.navigationOptions = ({ navigation }) => {
         }
       />
     ),
-    tabBarVisible
+    tabBarVisible,
   };
 };
 
@@ -52,7 +64,8 @@ const PlaygroundStack = createStackNavigator({
   Playground: InformationPlayground,
   Topics: TopicsScreen,
   Difficulty: DifficultyScreen,
-  Cards: CardsScreen
+  Random: RandomScreen,
+  Cards: CardsScreen,
 });
 
 PlaygroundStack.navigationOptions = ({ navigation }) => {
@@ -73,24 +86,49 @@ PlaygroundStack.navigationOptions = ({ navigation }) => {
         }
       />
     ),
-    tabBarVisible
+    tabBarVisible,
+  };
+};
+
+const SettingsStack = createStackNavigator({
+  Settings: SettingsScreen,
+  DiscardedItems: DiscardedItemsScreen,
+  QuizzableItems: QuizzableItemsScreen,
+});
+
+SettingsStack.navigationOptions = ({ navigation }) => {
+  store.dispatch(fetchAllDiscardedFacts());
+  store.dispatch(fetchAllQuizzableItems());
+  return {
+    tabBarLabel: 'Settings',
+    tabBarIcon: ({ focused }) => (
+      <TabBarIcon
+        focused={focused}
+        name={
+          Platform.OS === 'ios'
+            ? `ios-list${focused ? '' : '-outline'}`
+            : 'settings'
+        }
+      />
+    ),
   };
 };
 
 export default createBottomTabNavigator(
   {
     PlaygroundStack,
-    QuizStack
+    QuizStack,
+    SettingsStack,
   },
   {
     tabBarOptions: {
       labelStyle: {
-        fontSize: 12
+        fontSize: 12,
       },
       style: {
         marginBottom: -15,
-        backgroundColor: '#f7f1e3'
-      }
-    }
+        backgroundColor: '#f7f1e3',
+      },
+    },
   }
 );

@@ -2,9 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { setCurrentTopic, fetchFactsByTopic } from '../store/fact';
+import {
+  setCurrentTopic,
+  fetchFactsByTopic,
+  fetchRandomFacts,
+} from '../store/fact';
 import { connect } from 'react-redux';
 
 const PlaygroundCard = props => {
@@ -42,23 +46,23 @@ const styles = StyleSheet.create({
     shadowColor: '#cc8e35',
     shadowOffset: {
       width: 0,
-      height: 7
+      height: 7,
     },
     shadowOpacity: 0.43,
     shadowRadius: 9.51,
-    elevation: 10
+    elevation: 10,
   },
   topicText: {
     marginTop: hp('4%'),
     fontSize: 26,
-    color: 'white'
+    color: 'white',
   },
   topicImage: {
     marginTop: hp('0.5%'),
     height: hp('8%'),
     width: hp('8%'),
-    borderRadius: hp('4%')
-  }
+    borderRadius: hp('4%'),
+  },
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -67,7 +71,10 @@ const mapDispatchToProps = dispatch => ({
   },
   getFactsByTopic: topicId => {
     dispatch(fetchFactsByTopic(topicId));
-  }
+  },
+  getRandomFacts: () => {
+    dispatch(fetchRandomFacts());
+  },
 });
 
 export default connect(

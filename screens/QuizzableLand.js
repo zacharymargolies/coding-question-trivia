@@ -3,13 +3,18 @@ import { StyleSheet, View, Text } from 'react-native';
 import PlaygroundCard from '../components/PlaygroundCard';
 import { connect } from 'react-redux';
 import { setCurrentMode, QUIZZABLE_LAND } from '../store/appState';
+import { quizzableSelectors } from '../store';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 class QuizzableWorld extends React.Component {
   static navigationOptions = {
     title: 'Quizzable Land',
     headerStyle: {
-      backgroundColor: '#f7f1e3'
-    }
+      backgroundColor: '#f7f1e3',
+    },
   };
 
   constructor(props) {
@@ -19,32 +24,16 @@ class QuizzableWorld extends React.Component {
   }
 
   render() {
-    const allSelectors = [
-      {
-        main: 'Topics',
-        image: 'https://i.ytimg.com/vi/xOGxyw9DSa8/maxresdefault.jpg',
-        id: 1
-      },
-      {
-        main: 'Difficulty',
-        image:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgF3kq4R9m6RqKS2W3weyEiBfVXaaTO8HmMAghHLH3yTXSe3tt',
-        id: 2
-      },
-      {
-        main: 'Random',
-        image:
-          'https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Random-512.png',
-        id: 3
-      }
-    ];
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text>
-          Time to quiz yourself! Choose a selector below to get started!
-        </Text>
-        {allSelectors.map(selector => (
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>Time to quiz yourself!</Text>
+          <Text style={styles.text}>
+            Choose a selector below to get started!
+          </Text>
+        </View>
+        {quizzableSelectors.map(selector => (
           <PlaygroundCard
             selector={selector}
             key={selector.id}
@@ -62,16 +51,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    backgroundColor: '#f7f1e3'
-  }
+    backgroundColor: '#f7f1e3',
+  },
+  textContainer: {
+    marginTop: hp('12.5%'),
+    marginBottom: hp('5%'),
+  },
+  text: {
+    fontSize: 32,
+    textAlign: 'center',
+  },
 });
 
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentMode: currentMode => {
-    dispatch(setCurrentMode(currentMode));
-  }
+  // setCurrentMode: currentMode => {
+  //   dispatch(setCurrentMode(currentMode));
+  // }
 });
 
 export default connect(

@@ -4,33 +4,22 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { setCurrentFactTopic, fetchFactsByTopic } from '../store/fact';
-import {
-  setCurrentQuestionTopic,
-  fetchQuestionsByTopic,
-} from '../store/question';
+import { fetchQuestionsByTimeline } from '../store/question';
 import { fetchAllAnswers } from '../store/answer';
 import { connect } from 'react-redux';
-import { QUIZZABLE_LAND } from '../store/appState';
 import Colors from '../styles/constants/Colors';
 
-const TopicCard = props => {
-  const { topic, navigation, currentMode } = props;
-  const setTopicPlay = async () => {
-    props.setCurrentFactTopic(topic.id);
-    await props.getFactsByTopic(topic.id);
-    navigation.push('Cards');
-  };
+const TimelineCard = props => {
+  const { topic, navigation } = props;
   const setTopicQuiz = async () => {
-    props.setCurrentQuestionTopic(topic.id);
-    await props.getQuestionsByTopic(topic.id);
+    await props.getQuestionsByTimeline();
     await props.getAllAnswers();
     navigation.push('Cards');
   };
   return (
     <TouchableOpacity
       onPress={() => {
-        currentMode === QUIZZABLE_LAND ? setTopicQuiz() : setTopicPlay();
+        setTopicQuiz();
       }}
       style={styles.container}
     >
@@ -84,17 +73,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentFactTopic: topicId => {
-    dispatch(setCurrentFactTopic(topicId));
-  },
-  getFactsByTopic: topicId => {
-    dispatch(fetchFactsByTopic(topicId));
-  },
-  setCurrentQuestionTopic: topicId => {
-    dispatch(setCurrentQuestionTopic(topicId));
-  },
-  getQuestionsByTopic: topicId => {
-    dispatch(fetchQuestionsByTopic(topicId));
+  getQuestionsByTimeline: () => {
+    dispatch(fetchQuestionsByTimeline());
   },
   getAllAnswers: () => {
     dispatch(fetchAllAnswers());
@@ -104,4 +84,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TopicCard);
+)(TimelineCard);

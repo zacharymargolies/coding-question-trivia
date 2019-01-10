@@ -1,50 +1,164 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { connect } from 'react-redux';
+import Colors from '../styles/constants/Colors';
+import Expo from 'expo';
+import { updateSRQuestionData } from '../store/question';
 
-const checkAnswer = (correctAnswerId, curAnswerId) => {
-  if (correctAnswerId === curAnswerId) {
-    console.log('You chose the correct answer!');
-  } else {
-    console.log('You chose the incorrect answer.');
+class AnswerButton extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      answered: false,
+      correct: false,
+      performanceRating: 0.6,
+    };
   }
-};
 
-const AnswerButton = props => {
-  const { correctAnswerId, curAnswerId, content } = props;
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        checkAnswer(correctAnswerId, curAnswerId);
-      }}
-    >
-      <Text style={styles.answer}>{content}</Text>
-    </TouchableOpacity>
-  );
-};
+  adjustPerformanceRating = answerCorrect => {
+    let newPerformanceRating = 0.6;
+    answerCorrect
+      ? (newPerformanceRating = this.state.performanceRating + 0.2)
+      : (newPerformanceRating = this.state.performanceRating - 0.2);
+
+    if (newPerformanceRating < 0) {
+      newPerformanceRating = 0.1;
+    } else if (newPerformanceRating > 1) {
+      newPerformanceRating = 1;
+    }
+
+    this.setState({
+      performanceRating: newPerformanceRating,
+    });
+  };
+
+  checkAnswer = async (correctAnswerId, curAnswerId, questionId) => {
+    if (correctAnswerId === curAnswerId) {
+      this.adjustPerformanceRating(true);
+      this.setState({
+        answered: true,
+        correct: true,
+      });
+      // PLAY SOUND
+      const correctAnswer = new Expo.Audio.Sound();
+      try {
+        await correctAnswer.loadAsync(
+          require('../assets/sounds/correctAnswer.mp3')
+        );
+        await correctAnswer.playAsync();
+      } catch (err) {
+        console.log(err);
+      }
+      await this.props.updateSRData(questionId, this.state.performanceRating);
+    } else {
+      this.adjustPerformanceRating(false);
+      this.setState({
+        answered: true,
+        correct: false,
+      });
+      // PLAY SOUND
+      const incorrectAnswer = new Expo.Audio.Sound();
+      try {
+        await incorrectAnswer.loadAsync(
+          require('../assets/sounds/incorrectAnswer.wav')
+        );
+        await incorrectAnswer.playAsync();
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    await this.props.updateSRData(questionId, this.state.performanceRating);
+  };
+
+  render() {
+    const {
+      correctAnswerId,
+      curAnswerId,
+      content,
+      soundEffects,
+      questionId,
+    } = this.props;
+
+    return (
+      <View
+        style={
+          this.state.answered
+            ? this.state.correct
+              ? styles.correctContainer
+              : styles.incorrectContainer
+            : styles.container
+        }
+      >
+        <TouchableOpacity
+          onPress={() => {
+            this.checkAnswer(correctAnswerId, curAnswerId, questionId);
+          }}
+        >
+          <Text style={styles.answerText}>{content}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  answer: {
-    textAlign: 'center',
-    backgroundColor: '#ffb142',
+  container: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.orange,
     borderWidth: wp('1%'),
-    borderColor: '#227093',
-    height: hp('8%'),
+    borderColor: Colors.backgroundColorBlue,
+    height: hp('4%'),
     width: wp('80%'),
     borderRadius: 25,
     marginTop: hp('0.5%'),
-    marginBottom: hp('0.5%')
-  }
+    marginBottom: hp('0.5%'),
+  },
+  correctContainer: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.orange,
+    borderWidth: wp('1%'),
+    borderColor: Colors.correctAnswerGreen,
+    height: hp('4%'),
+    width: wp('80%'),
+    borderRadius: 25,
+    marginTop: hp('0.5%'),
+    marginBottom: hp('0.5%'),
+  },
+  incorrectContainer: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.orange,
+    borderWidth: wp('1%'),
+    borderColor: Colors.incorrectAnswerRed,
+    height: hp('4%'),
+    width: wp('80%'),
+    borderRadius: 25,
+    marginTop: hp('0.5%'),
+    marginBottom: hp('0.5%'),
+  },
+  answerText: {
+    padding: wp('1.5%'),
+    textAlign: 'center',
+  },
 });
 
 // const mapStateToProps = props => ({});
-// const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  updateSRData: (questionId, performanceRating) =>
+    dispatch(updateSRQuestionData(questionId, performanceRating)),
+});
 
 export default connect(
   null,
-  null
+  mapDispatchToProps
 )(AnswerButton);

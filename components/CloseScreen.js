@@ -4,6 +4,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp
 } from 'react-native-responsive-screen';
+import Colors from '../styles/constants/Colors';
 
 export default class CloseScreen extends Component {
   constructor(props) {
@@ -11,13 +12,9 @@ export default class CloseScreen extends Component {
   }
 
   render() {
-    const { navigate, goBack, popToTop } = this.props.navigation;
+    const { goBack } = this.props.navigation;
     return (
-      <TouchableOpacity
-        style={styles.container}
-        // onPress={() => navigate('Topics')}
-        onPress={() => goBack()}
-      >
+      <TouchableOpacity style={styles.container} onPress={() => goBack()}>
         <Text style={styles.text}>X</Text>
       </TouchableOpacity>
     );
@@ -33,8 +30,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 50,
     fontFamily: 'Arial Rounded MT Bold',
-    color: '#ffb142',
-    textShadowColor: '#cc8e35',
+    color: Colors.orange,
+    textShadowColor: Colors.shadowOrange,
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 5
   }
