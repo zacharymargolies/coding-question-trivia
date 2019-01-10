@@ -114,8 +114,7 @@ const mapStateToProps = state => ({
   allDiscardedFacts: state.fact.allDiscardedFacts,
 });
 const mapDispatchToProps = dispatch => ({
-  undiscardFact: selectedFact =>
-    dispatch(discardFact(1, selectedFact.id, false)),
+  undiscardFact: selectedFact => dispatch(discardFact(selectedFact.id, false)),
   getAllDiscardedFacts: () => dispatch(fetchAllDiscardedFacts()),
 });
 

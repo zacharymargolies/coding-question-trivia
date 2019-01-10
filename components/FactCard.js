@@ -52,7 +52,7 @@ const FactCard = props => {
         }}
         onSwipedAll={() => {
           console.log("You've finished all the cards!");
-          navigate('Topics');
+          navigation.goBack();
         }}
         onSwipedBottom={idx => {
           const { id } = facts[idx];

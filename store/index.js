@@ -9,8 +9,8 @@ import answer from './answer';
 import user from './user';
 
 // export const URL = 'https://coding-trivia.herokuapp.com';
-export const URL = 'http://localhost:8080';
-// export const URL = 'http://172.16.23.28:8080';
+// export const URL = 'http://localhost:8080';
+export const URL = 'http://192.168.1.6:8080';
 
 export const playgroundSelectors = [
   {
