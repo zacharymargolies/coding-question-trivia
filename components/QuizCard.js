@@ -65,7 +65,6 @@ const QuizCard = props => {
           );
         }}
         onSwipedAll={() => {
-          console.log("You've finished all the cards!");
           goBack();
         }}
         onSwipedTop={async idx => {

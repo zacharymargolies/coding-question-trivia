@@ -43,15 +43,23 @@ const FactCard = props => {
               </View>
               {/* FACT CONTENT */}
               <View style={styles.factContainer}>
-                <Text style={styles.factText}>{fact.content}</Text>
+                <Text
+                  style={styles.factText}
+                  adjustsFontSizeToFit={true}
+                  minimumFontScale={0.9}
+                  numberOfLines={14}
+                >
+                  {fact.content}
+                </Text>
               </View>
               {/* CARD NUMBER */}
-              <CardNumber cur={facts.indexOf(fact) + 1} len={facts.length} />
+              <View style={styles.cardNumberContainer}>
+                <CardNumber cur={facts.indexOf(fact) + 1} len={facts.length} />
+              </View>
             </View>
           );
         }}
         onSwipedAll={() => {
-          console.log("You've finished all the cards!");
           navigation.goBack();
         }}
         onSwipedBottom={idx => {
@@ -106,7 +114,7 @@ const styles = StyleSheet.create({
   },
   line: {
     marginTop: hp('1.0%'),
-    marginBottom: hp('3%'),
+    marginBottom: hp('2%'),
     alignSelf: 'center',
     width: wp('80%'),
     borderBottomColor: 'white',
@@ -117,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: hp('2.5%'),
+    marginBottom: hp('2%'),
   },
   image: {
     resizeMode: 'contain',
@@ -134,6 +142,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 22,
     backgroundColor: 'transparent',
+  },
+  cardNumberContainer: {
+    flex: 1,
+    alignSelf: 'flex-end',
+    marginRight: wp('3%'),
+    marginBottom: hp('1%'),
   },
 });
 
