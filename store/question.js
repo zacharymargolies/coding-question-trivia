@@ -137,7 +137,10 @@ export const fetchRandomQuestions = quantity => async dispatch => {
   }
 };
 
-export const updateSRQuestionData = async (questionId, performanceRating) => {
+export const updateSRQuestionData = (
+  questionId,
+  performanceRating
+) => async dispatch => {
   try {
     const request = await axios.put(
       `${URL}/api/questions/update/${questionId}`,

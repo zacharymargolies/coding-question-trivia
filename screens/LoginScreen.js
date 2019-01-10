@@ -34,15 +34,19 @@ class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View>
-          <FormLabel labelStyle={styles.label}>Email</FormLabel>
+          <FormLabel labelStyle={styles.label}>Username</FormLabel>
           <FormInput
             inputStyle={styles.label}
             onChangeText={text => this.setState({ email: text })}
+            textContentType="username"
+            autoCapitalize="none"
           />
           <FormLabel labelStyle={styles.label}>Password</FormLabel>
           <FormInput
             inputStyle={styles.label}
             onChangeText={text => this.setState({ password: text })}
+            secureTextEntry={true}
+            textContentType="password"
           />
           <Button
             style={styles.button}

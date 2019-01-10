@@ -37,7 +37,7 @@ class AnswerButton extends React.Component {
     });
   };
 
-  checkAnswer = async (correctAnswerId, curAnswerId) => {
+  checkAnswer = async (correctAnswerId, curAnswerId, questionId) => {
     if (correctAnswerId === curAnswerId) {
       this.adjustPerformanceRating(true);
       this.setState({
@@ -54,7 +54,7 @@ class AnswerButton extends React.Component {
       } catch (err) {
         console.log(err);
       }
-      await this.props.updateSRData(curAnswerId, this.state.performanceRating);
+      await this.props.updateSRData(questionId, this.state.performanceRating);
     } else {
       this.adjustPerformanceRating(false);
       this.setState({
@@ -72,11 +72,17 @@ class AnswerButton extends React.Component {
         console.log(err);
       }
     }
-    await this.props.updateSRData(curAnswerId, this.state.performanceRating);
+    await this.props.updateSRData(questionId, this.state.performanceRating);
   };
 
   render() {
-    const { correctAnswerId, curAnswerId, content, soundEffects } = this.props;
+    const {
+      correctAnswerId,
+      curAnswerId,
+      content,
+      soundEffects,
+      questionId,
+    } = this.props;
 
     return (
       <View
@@ -90,7 +96,7 @@ class AnswerButton extends React.Component {
       >
         <TouchableOpacity
           onPress={() => {
-            this.checkAnswer(correctAnswerId, curAnswerId, soundEffects);
+            this.checkAnswer(correctAnswerId, curAnswerId, questionId);
           }}
         >
           <Text style={styles.answerText}>{content}</Text>
@@ -148,9 +154,8 @@ const styles = StyleSheet.create({
 
 // const mapStateToProps = props => ({});
 const mapDispatchToProps = dispatch => ({
-  updateSRData: (questionId, performanceRating) => {
-    dispatch(updateSRQuestionData(questionId, performanceRating));
-  },
+  updateSRData: (questionId, performanceRating) =>
+    dispatch(updateSRQuestionData(questionId, performanceRating)),
 });
 
 export default connect(

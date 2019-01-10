@@ -52,6 +52,7 @@ const QuizCard = props => {
                     curAnswerId={answer.id}
                     key={answer.id}
                     content={answer.value}
+                    questionId={question.id}
                   />
                 ))}
               </View>

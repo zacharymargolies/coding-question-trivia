@@ -7,7 +7,7 @@ import {
 import { fetchRandomFacts } from '../store/fact';
 import { fetchRandomQuestions } from '../store/question';
 import { connect } from 'react-redux';
-import { INFORMATION_PLAYGROUND, QUIZZABLE_LAND } from '../store/appState';
+import { INFORMATION_PLAYGROUND } from '../store/appState';
 
 const RandomCard = props => {
   const { quantity, navigation } = props;
