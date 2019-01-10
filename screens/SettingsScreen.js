@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Picker, Text, TouchableOpacity } from 'react-native';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp
+  heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Colors from '../styles/constants/Colors';
 import { connect } from 'react-redux';
 import SelectMultiple from 'react-native-select-multiple';
 import { discardFact, fetchAllDiscardedFacts } from '../store/fact';
+import { logoutUser } from '../store/user';
 
 class SettingsScreen extends Component {
   static navigationOptions = {
     title: 'Settings',
     headerStyle: {
-      backgroundColor: Colors.screenBackground
-    }
+      backgroundColor: Colors.screenBackground,
+    },
   };
 
   constructor(props) {
@@ -25,7 +26,8 @@ class SettingsScreen extends Component {
     const { navigation } = this.props;
     const options = [
       { title: 'Discarded Items', id: 1, navigate: 'DiscardedItems' },
-      { title: 'Quizzable Items', id: 2, navigate: 'QuizzableItems' }
+      { title: 'Quizzable Items', id: 2, navigate: 'QuizzableItems' },
+      { title: 'Logout', id: 3, navigate: 'Logout' },
     ];
     return (
       <View style={styles.container}>
@@ -33,7 +35,14 @@ class SettingsScreen extends Component {
           return (
             <TouchableOpacity
               style={styles.settingsOptionButton}
-              onPress={() => navigation.navigate(option.navigate)}
+              onPress={() => {
+                if (option.title === 'Logout') {
+                  this.props.logoutUser();
+                  navigation.navigate('Login');
+                } else {
+                  navigation.navigate(option.navigate);
+                }
+              }}
               key={option.id}
             >
               <Text style={styles.settingsOptionButtonText}>
@@ -51,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.screenBackground,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   settingsOptionButton: {
     justifyContent: 'center',
@@ -61,17 +70,21 @@ const styles = StyleSheet.create({
     borderColor: Colors.orange,
     borderRadius: 10,
     marginTop: hp('1%'),
-    marginBottom: hp('1%')
+    marginBottom: hp('1%'),
   },
   settingsOptionButtonText: {
     textAlign: 'center',
     fontSize: 24,
-    color: Colors.white
-  }
+    color: Colors.white,
+  },
 });
 
 const mapStateToProps = state => ({});
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  logoutUser: () => {
+    dispatch(logoutUser());
+  },
+});
 
 export default connect(
   mapStateToProps,

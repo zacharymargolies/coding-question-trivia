@@ -36,6 +36,16 @@ export const loginUser = (userEmail, password) => async dispatch => {
   }
 };
 
+export const logoutUser = () => async dispatch => {
+  try {
+    const user = await axios.post(`${URL}/auth/logout`);
+    dispatch(setUser({ email: '', id: '' }));
+  } catch (err) {
+    const errMessage = err.response.data;
+    dispatch(setError(errMessage));
+  }
+};
+
 const initialState = {
   email: '',
   id: 0,
