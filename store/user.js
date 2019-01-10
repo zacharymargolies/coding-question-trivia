@@ -1,22 +1,23 @@
 import axios from 'axios';
 import { URL } from './index';
-import { setCurrentFacts } from './fact';
-import SRFacts from '../';
 
 // ACTION TYPES
 const SET_USER = 'SET_USER';
+const SET_ERROR = 'SET_ERROR';
 
 // ACTION CREATORS
 export const setUser = userInfo => ({ type: SET_USER, userInfo });
+export const setError = error => ({ type: SET_ERROR, error });
 
 // THUNK CREATORS
-export const signUpUser = (email, password) => async () => {
+export const signUpUser = (email, password) => async dispatch => {
   try {
     await axios.post(`${URL}/auth/signup`, {
       email,
       password,
     });
   } catch (err) {
+    dispatch(setError('SIGN UP FAILED. PLEASE TRY AGAIN.'));
     console.log(err);
   }
 };
@@ -30,13 +31,15 @@ export const loginUser = (userEmail, password) => async dispatch => {
     const { email, id } = user.data;
     dispatch(setUser({ email, id }));
   } catch (err) {
-    console.log(err);
+    const errMessage = err.response.data;
+    dispatch(setError(errMessage));
   }
 };
 
 const initialState = {
   email: '',
   id: 0,
+  error: '',
 };
 
 export default function(state = initialState, action) {
@@ -46,6 +49,11 @@ export default function(state = initialState, action) {
         ...state,
         email: action.userInfo.email,
         id: action.userInfo.id,
+      };
+    case SET_ERROR:
+      return {
+        ...state,
+        error: action.error,
       };
     default:
       return state;

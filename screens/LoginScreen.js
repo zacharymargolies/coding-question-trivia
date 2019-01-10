@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { FormLabel, FormInput, Button } from 'react-native-elements';
+import { FormLabel, FormInput, Button, Text } from 'react-native-elements';
 import { StyleSheet, View, Linking, AsyncStorage } from 'react-native';
 import Colors from '../styles/constants/Colors';
 import {
@@ -34,6 +34,7 @@ class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View>
+          {/* USERNAME FIELD */}
           <FormLabel labelStyle={styles.label}>Username</FormLabel>
           <FormInput
             inputStyle={styles.label}
@@ -41,6 +42,8 @@ class LoginScreen extends React.Component {
             textContentType="username"
             autoCapitalize="none"
           />
+
+          {/* PASSWORD FIELD */}
           <FormLabel labelStyle={styles.label}>Password</FormLabel>
           <FormInput
             inputStyle={styles.label}
@@ -48,6 +51,13 @@ class LoginScreen extends React.Component {
             secureTextEntry={true}
             textContentType="password"
           />
+          {/* LOGIN CREDENTIALS STATUS */}
+          {!this.props.error ? null : (
+            <View style={styles.loginCredentialsStatus}>
+              <Text>{this.props.error}</Text>
+            </View>
+          )}
+          {/* SIGN UP BUTTON */}
           <Button
             style={styles.button}
             raised
@@ -58,6 +68,7 @@ class LoginScreen extends React.Component {
             color={Colors.backgroundColorBlue}
             backgroundColor={Colors.orange}
           />
+          {/* LOG IN BUTTON */}
           <Button
             style={styles.button}
             raised
@@ -116,6 +127,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   email: state.user.email,
+  error: state.user.error,
 });
 
 const mapDispatchToProps = dispatch => ({
