@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   email: state.user.email,
-  error: state.user.error,
+  error: state.user.status,
 });
 
 const mapDispatchToProps = dispatch => ({

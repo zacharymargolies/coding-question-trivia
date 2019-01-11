@@ -3,21 +3,23 @@ import { URL } from './index';
 
 // ACTION TYPES
 const SET_USER = 'SET_USER';
-const SET_ERROR = 'SET_ERROR';
+const SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';
 
 // ACTION CREATORS
 export const setUser = userInfo => ({ type: SET_USER, userInfo });
-export const setError = error => ({ type: SET_ERROR, error });
+export const setLoginStatus = status => ({ type: SET_LOGIN_STATUS, status });
 
 // THUNK CREATORS
 export const signUpUser = (email, password) => async dispatch => {
   try {
-    await axios.post(`${URL}/auth/signup`, {
+    const user = await axios.post(`${URL}/auth/signup`, {
       email,
       password,
     });
+    if (user)
+      dispatch(setLoginStatus('User successfully created. Please Log In.'));
   } catch (err) {
-    dispatch(setError('SIGN UP FAILED. PLEASE TRY AGAIN.'));
+    dispatch(setLoginStatus(err.response.data));
     console.log(err);
   }
 };
@@ -32,7 +34,7 @@ export const loginUser = (userEmail, password) => async dispatch => {
     dispatch(setUser({ email, id }));
   } catch (err) {
     const errMessage = err.response.data;
-    dispatch(setError(errMessage));
+    dispatch(setLoginStatus(errMessage));
   }
 };
 
@@ -42,29 +44,22 @@ export const logoutUser = () => async dispatch => {
     dispatch(setUser({ email: '', id: '' }));
   } catch (err) {
     const errMessage = err.response.data;
-    dispatch(setError(errMessage));
+    dispatch(setLoginStatus(errMessage));
   }
 };
 
 const initialState = {
   email: '',
   id: 0,
-  error: '',
+  status: '',
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
-      return {
-        ...state,
-        email: action.userInfo.email,
-        id: action.userInfo.id,
-      };
-    case SET_ERROR:
-      return {
-        ...state,
-        error: action.error,
-      };
+      return { ...state, email: action.userInfo.email, id: action.userInfo.id };
+    case SET_LOGIN_STATUS:
+      return { ...state, status: action.status };
     default:
       return state;
   }

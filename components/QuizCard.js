@@ -57,10 +57,12 @@ const QuizCard = props => {
                 ))}
               </View>
               {/* CARD NUMBER */}
-              <CardNumber
-                cur={questions.indexOf(question) + 1}
-                len={questions.length}
-              />
+              <View style={styles.cardNumberContainer}>
+                <CardNumber
+                  cur={questions.indexOf(question) + 1}
+                  len={questions.length}
+                />
+              </View>
             </View>
           );
         }}
@@ -154,6 +156,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginBottom: hp('7%'),
+  },
+  cardNumberContainer: {
+    flex: 1,
+    alignSelf: 'flex-end',
+    marginRight: wp('3%'),
+    marginBottom: hp('1%'),
   },
 });
 
