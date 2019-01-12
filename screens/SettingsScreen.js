@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Picker, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Colors from '../styles/constants/Colors';
 import { connect } from 'react-redux';
-import SelectMultiple from 'react-native-select-multiple';
-import { discardFact, fetchAllDiscardedFacts } from '../store/fact';
 import { logoutUser } from '../store/user';
 
 class SettingsScreen extends Component {

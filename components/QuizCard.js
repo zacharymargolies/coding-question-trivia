@@ -88,6 +88,7 @@ const QuizCard = props => {
         cardIndex={0}
         backgroundColor={Colors.backgroundColorBlue}
         showSecondCard={true}
+        disableRightSwipe={true}
         verticalThreshold={hp('10%')}
         horizontalThreshold={wp('15%')}
         stackSize={3}

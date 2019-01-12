@@ -20,8 +20,10 @@ class LoginScreen extends React.Component {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
+      // email: '',
+      // password: '',
+      email: 'testuser3',
+      password: 'testpass3',
     };
   }
 
@@ -52,7 +54,7 @@ class LoginScreen extends React.Component {
             textContentType="password"
           />
           {/* LOGIN CREDENTIALS STATUS */}
-          {!this.props.error ? null : (
+          {!this.props.status ? null : (
             <View style={styles.loginCredentialsStatus}>
               <Text>{this.props.error}</Text>
             </View>
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   email: state.user.email,
-  error: state.user.status,
+  status: state.user.status,
 });
 
 const mapDispatchToProps = dispatch => ({

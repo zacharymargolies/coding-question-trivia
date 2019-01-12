@@ -4,10 +4,12 @@ import { URL } from './index';
 // ACTION TYPES
 const SET_USER = 'SET_USER';
 const SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';
+const LOG_OUT_USER = 'LOG_OUT_USER';
 
 // ACTION CREATORS
 export const setUser = userInfo => ({ type: SET_USER, userInfo });
 export const setLoginStatus = status => ({ type: SET_LOGIN_STATUS, status });
+export const logOutUser = () => ({ type: LOG_OUT_USER });
 
 // THUNK CREATORS
 export const signUpUser = (email, password) => async dispatch => {
@@ -40,8 +42,9 @@ export const loginUser = (userEmail, password) => async dispatch => {
 
 export const logoutUser = () => async dispatch => {
   try {
+    dispatch(logOutUser());
     const user = await axios.post(`${URL}/auth/logout`);
-    dispatch(setUser({ email: '', id: '' }));
+    // console.log('LOG OUT USER RAN');
   } catch (err) {
     const errMessage = err.response.data;
     dispatch(setLoginStatus(errMessage));
@@ -60,6 +63,8 @@ export default function(state = initialState, action) {
       return { ...state, email: action.userInfo.email, id: action.userInfo.id };
     case SET_LOGIN_STATUS:
       return { ...state, status: action.status };
+    case LOG_OUT_USER:
+      return { ...state, email: '', id: '' };
     default:
       return state;
   }
